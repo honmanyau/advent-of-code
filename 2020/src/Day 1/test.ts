@@ -10,9 +10,9 @@ const examplePathname = path.resolve(__dirname, './example.txt');
 const exampleFile = fs.readFileSync(examplePathname, 'utf-8');
 const example = exampleFile.trim().split('\n').map(Number);
 
-describe('Day 1: Report Repair', () => {
+describe('Day 1: Report Repair — Part 1)', () => {
   it([
-    `should return ${yellow(514579)} for the example input:`,
+    `solvePart1() should return ${yellow(514579)} for the example input:`,
     ` [ ${example.join(' ')} ]`
   ].join(''), () => {
     const solution = solvePart1(example);

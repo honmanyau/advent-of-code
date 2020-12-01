@@ -6,15 +6,13 @@ import { green } from '../utilities';
 
 export function solvePart1(input: number[], total: number = 2020) {
   for (let i = 0; i < input.length; i++) {
-    const currentValue = input[i];
-    const difference = total - currentValue;
-    const indexOfDifference = input.indexOf(difference);
-
-    if (
-      indexOfDifference !== -1
-      && indexOfDifference !== i
-    ) {
-      return currentValue * difference;
+    for (let j = 0; j < input.length; j++) {
+      if (
+        i !== j
+        && (input[i] + input[j]) === total
+      ) {
+        return input[i] * input[j];
+      }
     }
   }
 
