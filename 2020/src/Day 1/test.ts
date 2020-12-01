@@ -9,9 +9,6 @@ import { solve } from './index';
 const examplePathname = path.resolve(__dirname, './example.txt');
 const exampleFile = fs.readFileSync(examplePathname, 'utf-8');
 const example = exampleFile.trim().split('\n').map(Number);
-const challengePathname = path.resolve(__dirname, './input.txt');
-const challengeFile = fs.readFileSync(challengePathname, 'utf-8');
-const challenge = challengeFile.trim().split('\n').map(Number);
 
 describe('Day 1: Report Repair', () => {
   it([
