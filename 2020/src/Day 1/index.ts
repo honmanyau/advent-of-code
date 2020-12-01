@@ -4,10 +4,10 @@ import * as path from 'path';
 import { green } from '../utilities';
 
 
-export function solve(input: number[]) {
+export function solvePart1(input: number[], total: number = 2020) {
   for (let i = 0; i < input.length; i++) {
     const currentValue = input[i];
-    const difference = 2020 - currentValue;
+    const difference = total - currentValue;
     const indexOfDifference = input.indexOf(difference);
 
     if (
@@ -25,7 +25,7 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
   const challengePathname = path.resolve(__dirname, './input.txt');
   const challengeFile = fs.readFileSync(challengePathname, 'utf-8');
   const challenge = challengeFile.trim().split('\n').map(Number);
-  const solution = solve(challenge);
+  const solution = solvePart1(challenge);
 
   console.log([
     `The solutions for 2020's "Day 1: Report Repair" are:`,

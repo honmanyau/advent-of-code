@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { yellow } from '../utilities';
-import { solve } from './index';
+import { solvePart1 } from './index';
 
 
 const examplePathname = path.resolve(__dirname, './example.txt');
@@ -15,7 +15,7 @@ describe('Day 1: Report Repair', () => {
     `should return ${yellow(514579)} for the example input:`,
     ` [ ${example.join(' ')} ]`
   ].join(''), () => {
-    const solution = solve(example);
+    const solution = solvePart1(example);
     
     assert.strictEqual(solution, 514579);
   });
@@ -25,7 +25,7 @@ describe('Day 1: Report Repair', () => {
     ` [ 0, 200, 900, 700, 2020 ]`
   ].join(''), () => {
     const testExample = [ 0, 200, 900, 700, 2020 ];
-    const solution = solve(testExample);
+    const solution = solvePart1(testExample);
 
     assert.strictEqual(solution, 0);
   });
@@ -36,7 +36,7 @@ describe('Day 1: Report Repair', () => {
   ].join(''), () => {
     const errorExample = example.filter((val) => val !== 1721);
 
-    assert.throws(() => { solve(errorExample) }, Error);
+    assert.throws(() => { solvePart1(errorExample) }, Error);
   });
 
   it([
@@ -45,7 +45,7 @@ describe('Day 1: Report Repair', () => {
   ].join(''), () => {
     const errorExample = example.filter((val) => val !== 299);
 
-    assert.throws(() => { solve(errorExample) }, Error);
+    assert.throws(() => { solvePart1(errorExample) }, Error);
   });
 
   it([
@@ -54,6 +54,6 @@ describe('Day 1: Report Repair', () => {
   ].join(''), () => {
     const testExample = [ 900, 1010, 1020 ];
 
-    assert.throws(() => { solve(testExample) }, Error);
+    assert.throws(() => { solvePart1(testExample) }, Error);
   });
 });
