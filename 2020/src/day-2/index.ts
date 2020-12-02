@@ -9,10 +9,12 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
   const challengeFile = fs.readFileSync(challengePathname, 'utf-8');
   const challenge = processFile(challengeFile);
   const solutionPart1 = solverPart1(challenge);
+  const solutionPart2 = solverPart2(challenge);
 
   console.log([
     `The solutions for 2020's "Day 1: Report Repair" are:`,
     `  * Part 1: ${green(solutionPart1)}`,
+    `  * Part 2: ${green(solutionPart2)}`
   ].join('\n'));
 
   
