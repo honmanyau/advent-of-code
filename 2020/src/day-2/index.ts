@@ -12,7 +12,7 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
 
   console.log([
     `The solutions for 2020's "Day 1: Report Repair" are:`,
-    `  * Part 1: ${green(solutionPart1)}`
+    `  * Part 1: ${green(solutionPart1)}`,
   ].join('\n'));
 
   
@@ -93,11 +93,23 @@ export function solverPart2(input: Entry[]) {
 
   for (const entry of input) {
     const { min, max, letter, password } = entry;
+    const lower = min - 1;
+    const upper = max - 1;
+    const firstLetter = password[lower];
+    const secondLetter = password[upper];
+    const firstMatched = firstLetter === letter
+      && secondLetter !== letter;
+    const secondMatched = firstLetter !== letter
+      && secondLetter === letter;
 
-    if (min > max) {
-      throw Error('An entry with `min` > `max` was provided!');
+    if (!password[lower] || !password[upper]) {
+      throw Error('An entry containing a out-of-range index was found!');
+    }
+
+    if (firstMatched || secondMatched) {
+      numValidPasswords += 1;
     }
   }
 
-  return -1;
+  return numValidPasswords;
 }
