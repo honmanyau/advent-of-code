@@ -4,6 +4,7 @@
   "description": "Solutions for Advent of Code",
   "main": "index.js",
   "scripts": {
+    "solve": "SOLVE=TRUE ts-node",
     "test": "mocha -r ts-node/register",
     "test:2020": "mocha -r ts-node/register ./2020/**/*.ts",
     "ts-node": "ts-node"
