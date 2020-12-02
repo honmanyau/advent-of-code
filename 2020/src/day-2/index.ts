@@ -30,6 +30,7 @@ interface Entry {
   password: string;
 }
 
+
 // ===============
 // == Functions ==
 // ===============
@@ -59,7 +60,8 @@ export function processFile(file: string) {
 /**
  * The solver function for Part 1 of the Advent of Code 2020's
  * "Day 2: Password Philosophy" challenge.
- * @param {Entry[]} input 
+ * @param {Entry[]} input Entries of the challenge.
+ * @returns {number} Number of valid entries.
  */
 export function solverPart1(input: Entry[]) {
   let numValidPasswords = 0;
@@ -88,7 +90,8 @@ export function solverPart1(input: Entry[]) {
 /**
  * The solver function for Part 2 of the Advent of Code 2020's
  * "Day 2: Password Philosophy" challenge.
- * @param {Entry[]} input 
+ * @param {Entry[]} input Entries of the challenge.
+ * @returns {number} Number of valid entries.
  */
 export function solverPart2(input: Entry[]) {
   let numValidPasswords = 0;
