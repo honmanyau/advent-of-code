@@ -3,12 +3,12 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { yellow } from '../utilities';
-import { solverPart1 as solverPart1, solverPart2 } from './index';
+import { processFile, solverPart1, solverPart2 } from './index';
 
 
 const examplePathname = path.resolve(__dirname, './example.txt');
 const exampleFile = fs.readFileSync(examplePathname, 'utf-8');
-const example = exampleFile.trim().split('\n').map(Number);
+const example = processFile(exampleFile);
 
 describe('Day 1: Report Repair — Part 1', () => {
   it([
@@ -21,7 +21,7 @@ describe('Day 1: Report Repair — Part 1', () => {
   });
 
   it([
-    `should return ${yellow(0)} for the input:`,
+    `solvePart1() should return ${yellow(0)} for the input:`,
     ` [ 0, 200, 900, 700, 2020 ]`
   ].join(''), () => {
     const testExample = [ 0, 200, 900, 700, 2020 ];
@@ -31,8 +31,9 @@ describe('Day 1: Report Repair — Part 1', () => {
   });
 
   it([
-    `should throw an error if for the example input if ${yellow(1721)}`,
-    ` is removed from the example arrary: [ ${example.join(' ')} ]`
+    'solvePart1() should throw an error if for the example input if',
+    ` ${yellow(1721)} is removed from the example arrary:`,
+    ` [ ${example.join(' ')} ]`
   ].join(''), () => {
     const errorExample = example.filter((val) => val !== 1721);
 
@@ -40,8 +41,9 @@ describe('Day 1: Report Repair — Part 1', () => {
   });
 
   it([
-    `should throw an error if for the example input if ${yellow(299)}`,
-    ` is removed from the example arrary: [ ${example.join(' ')} ]`
+    'solvePart1() should throw an error if for the example input if',
+    ` ${yellow(299)} is removed from the example arrary:`,
+    ` [ ${example.join(' ')} ]`
   ].join(''), () => {
     const errorExample = example.filter((val) => val !== 299);
 
@@ -49,8 +51,8 @@ describe('Day 1: Report Repair — Part 1', () => {
   });
 
   it([
-    `should throw an error if the array contains only one instance of`,
-    ` ${yellow(1010)}, for example: [ 900, 1010, 1020 ]`
+    'solvePart1() should throw an error if the array contains only one',
+    ` instance of ${yellow(1010)}, for example: [ 900, 1010, 1020 ]`
   ].join(''), () => {
     const testExample = [ 900, 1010, 1020 ];
 
@@ -89,8 +91,9 @@ describe('Day 1: Report Repair — Part 2', () => {
   });
 
   it([
-    `should throw an error if for the example input if ${yellow(979)}`,
-    ` is removed from the example arrary: [ ${example.join(' ')} ]`
+    'solverPart2() should throw an error if for the example input if',
+    ` ${yellow(979)} is removed from the example arrary:`,
+    ` [ ${example.join(' ')} ]`
   ].join(''), () => {
     const errorExample = example.filter((val) => val !== 979);
 
@@ -98,8 +101,9 @@ describe('Day 1: Report Repair — Part 2', () => {
   });
 
   it([
-    `should throw an error if for the example input if ${yellow(366)}`,
-    ` is removed from the example arrary: [ ${example.join(' ')} ]`
+    'solverPart2() should throw an error if for the example input if',
+    ` ${yellow(366)} is removed from the example arrary:`,
+    ` [ ${example.join(' ')} ]`
   ].join(''), () => {
     const errorExample = example.filter((val) => val !== 366);
 
@@ -107,8 +111,9 @@ describe('Day 1: Report Repair — Part 2', () => {
   });
 
   it([
-    `should throw an error if for the example input if ${yellow(675)}`,
-    ` is removed from the example arrary: [ ${example.join(' ')} ]`
+    'solverPart2() should throw an error if for the example input if',
+    ` ${yellow(675)} is removed from the example arrary:`,
+    ` [ ${example.join(' ')} ]`
   ].join(''), () => {
     const errorExample = example.filter((val) => val !== 675);
 
@@ -116,7 +121,8 @@ describe('Day 1: Report Repair — Part 2', () => {
   });
 
   it([
-    `should throw an error for the input: [ 0, 2020, 1000, 1010, 900 ]`,
+    'solverPart2() should throw an error for the input:',
+    ' [ 0, 2020, 1000, 1010, 900 ]'
   ].join(''), () => {
     const testExample = [ 0, 2020, 1000, 1010, 900 ];
 
@@ -124,7 +130,8 @@ describe('Day 1: Report Repair — Part 2', () => {
   });
 
   it([
-    `should throw an error for the input: [ 1010, 1010, 1000, 2000, 900 ]`,
+    'solverPart2() should throw an error for the input:',
+    ' [ 1010, 1010, 1000, 2000, 900 ]'
   ].join(''), () => {
     const testExample = [ 1010, 1010, 1000, 2000, 900 ];
 
