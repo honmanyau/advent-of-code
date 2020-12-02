@@ -27,10 +27,7 @@ export function solver(input: Entry[]) {
     const isValidPassword = numLettersFound >= min
       && numLettersFound <= max;
 
-    if (
-      numLettersFound >= min
-      && numLettersFound <= max
-    ) {
+    if (isValidPassword) {
       numValidPasswords += 1;
     }
   }
