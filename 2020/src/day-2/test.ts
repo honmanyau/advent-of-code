@@ -3,18 +3,18 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { yellow } from '../utilities';
-import { solver } from './index';
+import { processFile, solverPart1 } from './index';
 
 
 const examplePathname = path.resolve(__dirname, './example.txt');
 const exampleFile = fs.readFileSync(examplePathname, 'utf-8');
-const example = exampleFile.trim().split('\n').map(processLine);
+const example = processFile(exampleFile);
 
 describe('Day 2: Password Philosophy', () => {
   it([
     `should identify ${yellow(2)} valid passwords in the example input`
   ].join(''), () => {
-    const solution = solver(example);
+    const solution = solverPart1(example);
 
     assert.strictEqual(solution, 2);
   });
@@ -24,7 +24,7 @@ describe('Day 2: Password Philosophy', () => {
     ' second entry is removed.'
   ].join(''), () => {
     const modifiedExample = [ ...example ].filter((_v, i) => i !== 1);
-    const solution = solver(modifiedExample);
+    const solution = solverPart1(modifiedExample);
 
     assert.strictEqual(solution, 2);
   });
@@ -34,7 +34,7 @@ describe('Day 2: Password Philosophy', () => {
     ' first entry is removed.'
   ].join(''), () => {
     const modifiedExample = [ ...example ].filter((_v, i) => i !== 0);
-    const solution = solver(modifiedExample);
+    const solution = solverPart1(modifiedExample);
 
     assert.strictEqual(solution, 1);
   });
@@ -44,7 +44,7 @@ describe('Day 2: Password Philosophy', () => {
     ' last entry is removed.'
   ].join(''), () => {
     const modifiedExample = [ ...example ].filter((_v, i) => i !== 2);
-    const solution = solver(modifiedExample);
+    const solution = solverPart1(modifiedExample);
 
     assert.strictEqual(solution, 1);
   });
@@ -54,7 +54,7 @@ describe('Day 2: Password Philosophy', () => {
     ' first and last last entry are removed.'
   ].join(''), () => {
     const modifiedExample = [ ...example ].filter((_v, i) => i === 1);
-    const solution = solver(modifiedExample);
+    const solution = solverPart1(modifiedExample);
 
     assert.strictEqual(solution, 0);
   });
@@ -67,13 +67,6 @@ describe('Day 2: Password Philosophy', () => {
       { min: 2, max: 1, letter: 'a', password: 'abcde' }
     ];
 
-    assert.throws(() => solver(testInput), Error);
+    assert.throws(() => solverPart1(testInput), Error);
   });
 });
-
-function processLine(line: string) {
-  const [ range, letter, password ] = line.replace(':', '').split(' ');
-  const [ min, max ] = range.split('-').map(Number);
-
-  return { min, max, letter, password };
-}
