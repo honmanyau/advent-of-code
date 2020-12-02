@@ -82,3 +82,22 @@ export function solverPart1(input: Entry[]) {
 
   return numValidPasswords;
 }
+
+/**
+ * The solver function for Part 2 of the Advent of Code 2020's
+ * "Day 2: Password Philosophy" challenge.
+ * @param {Entry[]} input 
+ */
+export function solverPart2(input: Entry[]) {
+  let numValidPasswords = 0;
+
+  for (const entry of input) {
+    const { min, max, letter, password } = entry;
+
+    if (min > max) {
+      throw Error('An entry with `min` > `max` was provided!');
+    }
+  }
+
+  return -1;
+}
