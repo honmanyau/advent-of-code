@@ -97,6 +97,16 @@ describe('Day 3: Toboggan Trajectory', () => {
 
   it([
     `solverPart1() should throw an error if the number of rows in the input`,
+    ' is less than or equal to the number of rows that the toboggan can',
+    '  traverse vertically.'
+  ].join(''), () => {
+    const testInput = [ '...' ];
+
+    assert.throws(() => solverPart1(testInput), Error);
+  });
+
+  it([
+    `solverPart1() should throw an error if the number of rows in the input`,
     ' does not allow the toboggan to traverse vertically perfectly to the',
     ' bottom'
   ].join(''), () => {

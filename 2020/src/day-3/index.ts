@@ -41,7 +41,14 @@ export function solverPart1(input: string[]) {
   const sy = 1;
   const sx = 3;
 
-  if (Number.isInteger(input.length / sy)) {
+  if (input.length <= sy) {
+    throw Error([
+      'The number of lines in the map does not allow the toboggan to traverse',
+      ' vertically even once!'
+    ].join(''));
+  }
+
+  if (!Number.isInteger(input.length / sy)) {
     throw Error([
       'The number of lines in the map does not allow the toboggan to traverse',
       ' vertically perfectly!'
