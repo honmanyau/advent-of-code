@@ -25,7 +25,7 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
  * This function uses the `processLine` function process an input file of
  * the Advent of Code 2020's "Day 2: Password Philosophy" challenge.
  * @param {string} file A challenge file read in as a string.
- * @returns {Entry[]} An array where each line is an entry of the challenge.
+ * @returns {string[]} An array where each line is an entry of the challenge.
  */
 export function processFile(file: string) {
   return file.trim().split('\n');
@@ -34,7 +34,7 @@ export function processFile(file: string) {
 /**
  * The solver function for Part 1 of the Advent of Code 2020's
  * "Day 2: Password Philosophy" challenge.
- * @param {Entry[]} input Entries of the challenge.
+ * @param {string[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(input: string[]) {
