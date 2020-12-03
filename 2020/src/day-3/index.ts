@@ -33,7 +33,7 @@ export function processFile(file: string) {
 
 /**
  * The solver function for Part 1 of the Advent of Code 2020's
- * "Day 2: Password Philosophy" challenge.
+ * "Day 3: Toboggan Trajectory" challenge.
  * @param {string[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
@@ -41,10 +41,10 @@ export function solverPart1(input: string[]) {
   const sy = 1;
   const sx = 3;
 
-  if (input.length <= sy) {
+  if (Number.isInteger(input.length / sy)) {
     throw Error([
       'The number of lines in the map does not allow the toboggan to traverse',
-      ' vertically even once!'
+      ' vertically perfectly!'
     ].join(''));
   }
 
