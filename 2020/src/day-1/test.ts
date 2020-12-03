@@ -10,7 +10,7 @@ const examplePathname = path.resolve(__dirname, './example.txt');
 const exampleFile = fs.readFileSync(examplePathname, 'utf-8');
 const example = processFile(exampleFile);
 
-describe('Day 1: Report Repair — Part 1', () => {
+describe('Day 1: Report Repair (Part 1)', () => {
   it([
     `solvePart1() should return ${yellow(514579)} for the example input:`,
     ` [ ${example.join(' ')} ]`
@@ -60,7 +60,7 @@ describe('Day 1: Report Repair — Part 1', () => {
   });
 });
 
-describe('Day 1: Report Repair — Part 2', () => {
+describe('Day 1: Report Repair (Part 2)', () => {
   it([
     `solverPart2() should return ${yellow(241861950)} for the example input:`,
     ` [ ${example.join(' ')} ]`

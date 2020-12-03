@@ -10,7 +10,7 @@ const examplePathname = path.resolve(__dirname, './example.txt');
 const exampleFile = fs.readFileSync(examplePathname, 'utf-8');
 const example = processFile(exampleFile);
 
-describe('Day 2: Password Philosophy', () => {
+describe('Day 2: Password Philosophy (Part 1)', () => {
   it([
     `solverPart1() should identify ${yellow(2)} valid passwords in the example`,
     ' input'
@@ -72,7 +72,7 @@ describe('Day 2: Password Philosophy', () => {
   });
 });
 
-describe('Day 2: Password Philosophy', () => {
+describe('Day 2: Password Philosophy (Part 2)', () => {
   it([
     `solverPart2() should identify ${yellow(1)} valid passwords in the example`,
     ' input'
