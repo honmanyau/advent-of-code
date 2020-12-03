@@ -18,6 +18,7 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
   
 }
 
+
 // ===============
 // == Functions ==
 // ===============
@@ -48,7 +49,7 @@ export function solverPart1(input: string[]) {
     ].join(''));
   }
 
-  if (!Number.isInteger(input.length / sy)) {
+  if (!Number.isInteger((input.length - 1) / sy)) {
     throw Error([
       'The number of lines in the map does not allow the toboggan to traverse',
       ' vertically perfectly!'
@@ -66,4 +67,26 @@ export function solverPart1(input: string[]) {
   }
 
   return numTreesEncountered;
+}
+
+/**
+ * The solver function for Part 2 of the Advent of Code 2020's
+ * "Day 3: Toboggan Trajectory" challenge.
+ * @param {string[]} input Entries of the challenge.
+ * @returns {number} Number of valid entries.
+ */
+export function solverPart2(input: string[]) {
+  const toboggans = [
+    { sx: 1, sy: 1 },
+    { sx: 3, sy: 1 },
+    { sx: 5, sy: 1 },
+    { sx: 7, sy: 1 },
+    { sx: 1, sy: 2 }
+  ];
+  const allNumTreesEncountered = [];
+
+  return {
+    allNumTreesEncountered: [],
+    product: -1
+  }
 }
