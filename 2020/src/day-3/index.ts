@@ -9,13 +9,13 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
   const challengeFile = fs.readFileSync(challengePathname, 'utf-8');
   const challenge = processFile(challengeFile);
   const solutionPart1 = solverPart1(challenge);
+  const solutionPart2 = solverPart2(challenge);
 
   console.log([
     `The solutions for 2020's "Day 3: Toboggan Trajectory" are:`,
-    `  * Part 1: ${green(solutionPart1)}`
+    `  * Part 1: ${green(solutionPart1)}`,
+    `  * Part 2: ${green(JSON.stringify(solutionPart2))}`
   ].join('\n'));
-
-  
 }
 
 
@@ -85,8 +85,36 @@ export function solverPart2(input: string[]) {
   ];
   const allNumTreesEncountered = [];
 
-  return {
-    allNumTreesEncountered: [],
-    product: -1
+  for (const { sx, sy } of toboggans) {
+    if (input.length <= sy) {
+      throw Error([
+        'The number of lines in the map does not allow the toboggan to traverse',
+        ' vertically even once!'
+      ].join(''));
+    }
+  
+    if (!Number.isInteger((input.length - 1) / sy)) {
+      throw Error([
+        'The number of lines in the map does not allow the toboggan to traverse',
+        ' vertically perfectly!'
+      ].join(''));
+    }
+
+    let numTreesEncountered = 0;
+
+    for (let y = 0, x = 0; y < input.length; y += sy, x += sx) {
+      const wrappedX = x % input[y].length;
+      
+      if (input[y][wrappedX] === '#') {
+        numTreesEncountered += 1;
+      }
+    }
+  
+    allNumTreesEncountered.push(numTreesEncountered);
   }
+
+  return {
+    allNumTreesEncountered,
+    product: allNumTreesEncountered.reduce((acc, val) => acc * val, 1)
+  };
 }
