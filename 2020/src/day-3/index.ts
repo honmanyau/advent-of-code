@@ -38,7 +38,25 @@ export function processFile(file: string) {
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(input: string[]) {
-  let numTreesEncountered = -1;
+  const sy = 1;
+  const sx = 3;
 
-  return -1;
+  if (input.length <= sy) {
+    throw Error([
+      'The number of lines in the map does not allow the toboggan to traverse',
+      ' vertically even once!'
+    ].join(''));
+  }
+
+  let numTreesEncountered = 0;
+
+  for (let y = 0, x = 0; y < input.length; y += sy, x += sx) {
+    const wrappedX = x % input[y].length;
+    
+    if (input[y][wrappedX] === '#') {
+      numTreesEncountered += 1;
+    }
+  }
+
+  return numTreesEncountered;
 }

@@ -12,7 +12,7 @@ const example = processFile(exampleFile);
 
 describe('Day 3: Toboggan Trajectory', () => {
   it([
-    `solverPart1 should return ${yellow(7)} for the example input.`
+    `solverPart1() should return ${yellow(7)} for the example input.`
   ].join(''), () => {
     const solution = solverPart1(example);
 
@@ -20,7 +20,7 @@ describe('Day 3: Toboggan Trajectory', () => {
   });
 
   it([
-    `solverPart1 should return ${yellow(8)} for the example input if the`,
+    `solverPart1() should return ${yellow(8)} for the example input if the`,
     ' the fourth character in the second line is changed to a # character'
   ].join(''), () => {
     const modifiedExample = [ ...example ];
@@ -33,7 +33,7 @@ describe('Day 3: Toboggan Trajectory', () => {
   });
 
   it([
-    `solverPart1 should return ${yellow(6)} for the example input if the`,
+    `solverPart1() should return ${yellow(6)} for the example input if the`,
     ' the fourth character in the second line is changed to a . character'
   ].join(''), () => {
     const modifiedExample = [ ...example ];
@@ -46,8 +46,8 @@ describe('Day 3: Toboggan Trajectory', () => {
   });
 
   it([
-    `solverPart1 should return ${yellow(0)} for the test input:`,
-     `[ '....', '....', '....' ]`
+    `solverPart1() should return ${yellow(0)} for the test input:`,
+    ` [ '....', '....', '....' ]`
   ].join(''), () => {
     const testInput = [ '....', '....', '....' ];
     const solution = solverPart1(testInput);
@@ -56,8 +56,8 @@ describe('Day 3: Toboggan Trajectory', () => {
   });
 
   it([
-    `solverPart1 should return ${yellow(1)} for the test input:`,
-     `[ '....', '...#', '....' ]`
+    `solverPart1() should return ${yellow(1)} for the test input:`,
+    ` [ '....', '...#', '....' ]`
   ].join(''), () => {
     const testInput = [ '....', '...#', '....' ];
     const solution = solverPart1(testInput);
@@ -66,8 +66,8 @@ describe('Day 3: Toboggan Trajectory', () => {
   });
 
   it([
-    `solverPart1 should return ${yellow(0)} for the test input:`,
-     `[ '...', '...', '...' ]`
+    `solverPart1() should return ${yellow(0)} for the test input:`,
+    ` [ '...', '...', '...' ]`
   ].join(''), () => {
     const testInput = [ '...', '...', '...' ];
     const solution = solverPart1(testInput);
@@ -76,7 +76,7 @@ describe('Day 3: Toboggan Trajectory', () => {
   });
 
   it([
-    `solverPart1 should return ${yellow(1)} for the test input:`,
+    `solverPart1() should return ${yellow(1)} for the test input:`,
      `[ '...', '#..', '...' ]`
   ].join(''), () => {
     const testInput = [ '...', '#..', '...' ];
@@ -86,8 +86,8 @@ describe('Day 3: Toboggan Trajectory', () => {
   });
 
   it([
-    `solverPart1 should return ${yellow(2)} for the test input:`,
-     `[ '...', '#..', '#..' ]`
+    `solverPart1() should return ${yellow(2)} for the test input:`,
+    ` [ '...', '#..', '#..' ]`
   ].join(''), () => {
     const testInput = [ '...', '#..', '#..' ];
     const solution = solverPart1(testInput);
@@ -96,23 +96,13 @@ describe('Day 3: Toboggan Trajectory', () => {
   });
 
   it([
-    `solverPart1 should return ${yellow(0)} for the test input:`,
-     `[ '...' ]`
+    `solverPart1() should throw an error if the number of rows in the input`,
+    ' is less than or equal to the number of rows that the toboggan can',
+    '  traverse vertically.'
   ].join(''), () => {
     const testInput = [ '...' ];
-    const solution = solverPart1(testInput);
 
-    assert.strictEqual(solution, 0);
-  });
-
-  it([
-    `solverPart1 should return ${yellow(1)} for the test input:`,
-     `[ '#..' ]`
-  ].join(''), () => {
-    const testInput = [ '#..' ];
-    const solution = solverPart1(testInput);
-
-    assert.strictEqual(solution, 1);
+    assert.throws(() => solverPart1(testInput), Error);
   });
 });
 
