@@ -103,7 +103,7 @@ export function validateByr(input: string) {
  * @returns {boolean} Whether or not the input is valid.
  */
 export function validateEcl(input: string) {
-  return false;
+  return [ 'amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth' ].includes(input);
 }
 
 /**
