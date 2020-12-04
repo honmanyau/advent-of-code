@@ -90,8 +90,6 @@ export function solverPart1(input: Passport[]) {
  * This function validate the 'byr' field of a `Passport` according to the
  * following criteria: four digits; at least 1920 and at most 2002.
  * @param {string} input The value of the 'byr' field of a `Passport`. 
- * @param {number} min The lower end of the range to be validated against.
- * @param {number} maximum The upper end of the range to be validated against.
  * @returns {boolean} Whether or not the input is valid.
  */
 export function validateByr(input: string) {
@@ -102,8 +100,6 @@ export function validateByr(input: string) {
  * This function validate the 'eyr' field of a `Passport` according to the
  * following criteria: four digits; at least 2020 and at most 2030.
  * @param {string} input The value of the 'eyr' field of a `Passport`. 
- * @param {number} min The lower end of the range to be validated against.
- * @param {number} maximum The upper end of the range to be validated against.
  * @returns {boolean} Whether or not the input is valid.
  */
 export function validateEyr(input: string) {
@@ -111,11 +107,21 @@ export function validateEyr(input: string) {
 }
 
 /**
+ * This function validate the 'hgt' field of a `Passport` according to the
+ * criteria that a number followed by either cm or in:
+ *  * If cm, the number must be at least 150 and at most 193.
+ *  * If in, the number must be at least 59 and at most 76.
+ * @param {string} input The value of the 'hgt' field of a `Passport`. 
+ * @returns {boolean} Whether or not the input is valid.
+ */
+export function validateHgt(input: string) {
+  return false;
+}
+
+/**
  * This function validate the 'iyr' field of a `Passport` according to the
  * following criteria: four digits; at least 2010 and at most 2020.
  * @param {string} input The value of the 'iyr' field of a `Passport`. 
- * @param {number} min The lower end of the range to be validated against.
- * @param {number} maximum The upper end of the range to be validated against.
  * @returns {boolean} Whether or not the input is valid.
  */
 export function validateIyr(input: string) {

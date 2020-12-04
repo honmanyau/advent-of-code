@@ -9,7 +9,7 @@ import {
   validateByr,
   validateIyr,
   validateEyr,
-  // validateHgt,
+  validateHgt,
   // validateHcl,
   // validateEcl,
   // validatePid,
@@ -306,6 +306,48 @@ describe('Day 4: Passport Processing (Part 2)', () => {
     assert.strictEqual(validateEyr('2019'), false);
     assert.strictEqual(validateEyr('2031'), false);
     assert.strictEqual(validateEyr('10000'), false);
+  });
+
+  it([
+    `validateHgt() should return \`true\` for any height between, and`,
+    ` including, ${yellow(150)} cm and ${yellow(193)} cm`
+  ].join(''), () => {
+    assert.strictEqual(validateHgt('150cm'), true);
+    assert.strictEqual(validateHgt('151cm'), true);
+    assert.strictEqual(validateHgt('180cm'), true);
+    assert.strictEqual(validateHgt('192cm'), true);
+    assert.strictEqual(validateHgt('193cm'), true);
+  });
+
+  it([
+    `validateHgt() should return \`false\` for any number outside of, and`,
+    ` excluding, ${yellow(150)} cm and ${yellow(193)} cm`
+  ].join(''), () => {
+    assert.strictEqual(validateHgt('100cm'), false);
+    assert.strictEqual(validateHgt('149cm'), false);
+    assert.strictEqual(validateHgt('194cm'), false);
+    assert.strictEqual(validateHgt('250cm'), false);
+  });
+
+  it([
+    `validateHgt() should return \`true\` for any height between, and`,
+    ` including, ${yellow(59)} in and ${yellow(76)} in`
+  ].join(''), () => {
+    assert.strictEqual(validateHgt('59in'), true);
+    assert.strictEqual(validateHgt('60in'), true);
+    assert.strictEqual(validateHgt('70in'), true);
+    assert.strictEqual(validateHgt('75in'), true);
+    assert.strictEqual(validateHgt('76in'), true);
+  });
+
+  it([
+    `validateHgt() should return \`false\` for any number outside of, and`,
+    ` excluding, ${yellow(59)} in and ${yellow(76)} in`
+  ].join(''), () => {
+    assert.strictEqual(validateHgt('57in'), false);
+    assert.strictEqual(validateHgt('58in'), false);
+    assert.strictEqual(validateHgt('77in'), false);
+    assert.strictEqual(validateHgt('78in'), false);
   });
 });
 
