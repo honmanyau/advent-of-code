@@ -12,8 +12,7 @@ import {
   validateHgt,
   validateHcl,
   validateEcl,
-  // validatePid,
-  // validateCid,
+  validatePid,
   solverPart2
 } from './index';
 
@@ -424,21 +423,21 @@ describe('Day 4: Passport Processing (Part 2)', () => {
     'validatePid() should return \`true\` for any input that is a nine-digit',
     ` number, including leading zeroes`
   ].join(''), () => {
-    assert.strictEqual(validateEcl('000000001'), true); // Given example.
-    assert.strictEqual(validateEcl('100000000'), true);
-    assert.strictEqual(validateEcl('012345678'), true);
-    assert.strictEqual(validateEcl('123456789'), true);
+    assert.strictEqual(validatePid('000000001'), true); // Given example.
+    assert.strictEqual(validatePid('100000000'), true);
+    assert.strictEqual(validatePid('012345678'), true);
+    assert.strictEqual(validatePid('123456789'), true);
   });
-
+  
   it([
     'validatePid() should return \`false\` for any input that is a nine-digit',
     ` number, including leading zeroes`
   ].join(''), () => {
-    assert.strictEqual(validateEcl('00000001'), false); // Given example.
-    assert.strictEqual(validateEcl('12345678'), false);
-    assert.strictEqual(validateEcl('0000000001'), false);
-    assert.strictEqual(validateEcl('0123456789'), false);
-    assert.strictEqual(validateEcl('1234567890'), false);
+    assert.strictEqual(validatePid('00000001'), false); // Given example.
+    assert.strictEqual(validatePid('12345678'), false);
+    assert.strictEqual(validatePid('0000000001'), false);
+    assert.strictEqual(validatePid('0123456789'), false);
+    assert.strictEqual(validatePid('1234567890'), false);
   });
 });
 
