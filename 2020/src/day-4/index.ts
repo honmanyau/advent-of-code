@@ -97,6 +97,16 @@ export function validateByr(input: string) {
 }
 
 /**
+ * This function validate the 'ecl' field of a `Passport` according to the
+ * following criteria: exactly one of: amb blu brn gry grn hzl oth.
+ * @param {string} input The value of the 'ecl' field of a `Passport`. 
+ * @returns {boolean} Whether or not the input is valid.
+ */
+export function validateEcl(input: string) {
+  return false;
+}
+
+/**
  * This function validate the 'eyr' field of a `Passport` according to the
  * following criteria: four digits; at least 2020 and at most 2030.
  * @param {string} input The value of the 'eyr' field of a `Passport`. 
@@ -107,7 +117,7 @@ export function validateEyr(input: string) {
 }
 
 /**
- * This function validate the 'htcl' field of a `Passport` according to the
+ * This function validate the 'hcl' field of a `Passport` according to the
  * following criteria: a # followed by exactly six characters 0-9 or a-f.
  * @param {string} input The value of the 'hcl' field of a `Passport`. 
  * @returns {boolean} Whether or not the input is valid.

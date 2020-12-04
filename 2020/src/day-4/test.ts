@@ -11,7 +11,7 @@ import {
   validateEyr,
   validateHgt,
   validateHcl,
-  // validateEcl,
+  validateEcl,
   // validatePid,
   // validateCid,
   solverPart2
@@ -393,6 +393,31 @@ describe('Day 4: Passport Processing (Part 2)', () => {
     assert.strictEqual(validateHcl('ffffff'), false);
     assert.strictEqual(validateHcl('1ce1ce'), false);
     assert.strictEqual(validateHcl('c0ffee'), false);
+  });
+
+  it([
+    'validateEcl() should return \`true\` for any input that is one of the',
+    ` following: 'amb' 'blu' 'brn' 'gry' 'grn' 'hzl' 'oth'`
+  ].join(''), () => {
+    assert.strictEqual(validateEcl('amb'), true);
+    assert.strictEqual(validateEcl('blu'), true);
+    assert.strictEqual(validateEcl('brn'), true); // Given example.
+    assert.strictEqual(validateEcl('gry'), true);
+    assert.strictEqual(validateEcl('grn'), true);
+    assert.strictEqual(validateEcl('hzl'), true);
+    assert.strictEqual(validateEcl('oth'), true);
+  });
+
+
+  it([
+    'validateEcl() should return \`true\` for any input that is one of the',
+    ` following: 'amb' 'blu' 'brn' 'gry' 'grn' 'hzl' 'oth'`
+  ].join(''), () => {
+    assert.strictEqual(validateEcl('lol'), true);
+    assert.strictEqual(validateEcl('wat'), true); // Given example.
+    assert.strictEqual(validateEcl('omg'), true);
+    assert.strictEqual(validateEcl('no'), true);
+    assert.strictEqual(validateEcl('nein'), true);
   });
 });
 
