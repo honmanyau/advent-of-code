@@ -123,7 +123,8 @@ export function validateIyr(input: string) {
 }
 
 /**
- * This function validate a four-digit value in the given range (inclusive).
+ * This function validate a four-digit value in the given range (inclusive) that
+ * represents a year.
  * @param {string} input The value to be validated.
  * @param {number} min The lower end of the range to be validated against.
  * @param {number} maximum The upper end of the range to be validated against.
@@ -134,6 +135,17 @@ export function validateYear(input: string, min: number, max: number) {
     return false;
   }
   
+  return validateRange(input, min, max);
+}
+
+/**
+ * This function a number against the range provided (inclusive).
+ * @param {string} input The value to be validated.
+ * @param {number} min The lower end of the range to be validated against.
+ * @param {number} maximum The upper end of the range to be validated against.
+ * @returns {boolean} Whether or not the input is valid.
+ */
+export function validateRange(input: string, min: number, max: number) {
   const year = Number(input);
   
   if (year < min || year > max) {
