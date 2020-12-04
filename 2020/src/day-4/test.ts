@@ -164,7 +164,6 @@ describe('Day 4: Passport Processing (Part 1)', () => {
       ecl: 'gry',
       pid: '860033327',
       eyr: '2020',
-      hcl: '#fffffd',
       byr: '1937',
       iyr: '2017',
       cid: '147',

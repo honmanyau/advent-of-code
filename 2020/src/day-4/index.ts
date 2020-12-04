@@ -20,7 +20,7 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
 // ================
 // == Interfaces ==
 // ================
-interface Passport {
+interface Passport extends Object {
   ecl?: string;
   pid?: string | number;
   eyr?: string | number;
@@ -71,5 +71,16 @@ export function processLine(line: string) {
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(input: Passport[]) {
-  return -1;
+  let numValidPassports = 0;
+
+  for (const passport of input) {
+    const numFieldsPresent = Object.keys(passport).length;
+    const isValidPassport = numFieldsPresent === 8;
+    const isValidNPC = numFieldsPresent === 7
+      && !passport.hasOwnProperty('cid');
+
+      numValidPassports += Number(isValidPassport || isValidNPC);
+  }
+
+  return numValidPassports;
 }
