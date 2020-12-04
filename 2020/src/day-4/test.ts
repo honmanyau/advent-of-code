@@ -8,7 +8,7 @@ import {
   solverPart1,
   validateByr,
   validateIyr,
-  // validateEyr,
+  validateEyr,
   // validateHgt,
   // validateHcl,
   // validateEcl,
@@ -246,8 +246,8 @@ describe('Day 4: Passport Processing (Part 1)', () => {
 
 describe('Day 4: Passport Processing (Part 2)', () => {
   it([
-    `validateByr() should return \`true\` for any number between, and including,`,
-    ` ${yellow(1920)} and ${yellow(2002)}`
+    `validateByr() should return \`true\` for any number between, and`,
+    ` including, ${yellow(1920)} and ${yellow(2002)}`
   ].join(''), () => {
     assert.strictEqual(validateByr('1920'), true);
     assert.strictEqual(validateByr('1921'), true);
@@ -264,6 +264,48 @@ describe('Day 4: Passport Processing (Part 2)', () => {
     assert.strictEqual(validateByr('1919'), false);
     assert.strictEqual(validateByr('2003'), false);
     assert.strictEqual(validateByr('10000'), false);
+  });
+
+  it([
+    `validateIyr() should return \`true\` for any number between, and`,
+    ` including, ${yellow(2010)} and ${yellow(2020)}`
+  ].join(''), () => {
+    assert.strictEqual(validateIyr('2010'), true);
+    assert.strictEqual(validateIyr('2011'), true);
+    assert.strictEqual(validateIyr('2012'), true);
+    assert.strictEqual(validateIyr('2019'), true);
+    assert.strictEqual(validateIyr('2020'), true);
+  });
+
+  it([
+    `validateIyr() should return \`false\` for any number outside of, and`,
+    ` excluding, ${yellow(2010)} and ${yellow(2020)}`
+  ].join(''), () => {
+    assert.strictEqual(validateIyr('999'), false);
+    assert.strictEqual(validateIyr('2009'), false);
+    assert.strictEqual(validateIyr('2021'), false);
+    assert.strictEqual(validateIyr('10000'), false);
+  });
+
+  it([
+    `validateEyr() should return \`true\` for any number between, and`,
+    ` including, ${yellow(2020)} and ${yellow(2030)}`
+  ].join(''), () => {
+    assert.strictEqual(validateEyr('2020'), true);
+    assert.strictEqual(validateEyr('2021'), true);
+    assert.strictEqual(validateEyr('2025'), true);
+    assert.strictEqual(validateEyr('2029'), true);
+    assert.strictEqual(validateEyr('2030'), true);
+  });
+
+  it([
+    `validateEyr() should return \`false\` for any number outside of, and`,
+    ` excluding, ${yellow(2020)} and ${yellow(2030)}`
+  ].join(''), () => {
+    assert.strictEqual(validateEyr('999'), false);
+    assert.strictEqual(validateEyr('2019'), false);
+    assert.strictEqual(validateEyr('2031'), false);
+    assert.strictEqual(validateEyr('10000'), false);
   });
 });
 

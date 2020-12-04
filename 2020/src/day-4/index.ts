@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { stringify } from 'querystring';
 
 import { green } from '../utilities';
 
@@ -60,7 +61,7 @@ export function processLine(line: string) {
 
     passport[property] = value;
   }
-  console.log(passport);
+
   return passport;
 }
 
@@ -82,5 +83,64 @@ export function solverPart1(input: Passport[]) {
       numValidPassports += Number(isValidPassport || isValidNPC);
   }
 
+  return numValidPassports;
+}
+
+/**
+ * This function validate the 'byr' field of a `Passport` according to the
+ * following criteria: four digits; at least 1920 and at most 2002.
+ * @param {string} input The value of the 'byr' field of a `Passport`. 
+ * @param {number} min The lower end of the range to be validated against.
+ * @param {number} maximum The upper end of the range to be validated against.
+ * @returns {boolean} Whether or not the input is valid.
+ */
+export function validateByr(input: string) {
+  return validateYear(input, 1920, 2002);
+}
+
+/**
+ * This function validate the 'eyr' field of a `Passport` according to the
+ * following criteria: four digits; at least 2020 and at most 2030.
+ * @param {string} input The value of the 'eyr' field of a `Passport`. 
+ * @param {number} min The lower end of the range to be validated against.
+ * @param {number} maximum The upper end of the range to be validated against.
+ * @returns {boolean} Whether or not the input is valid.
+ */
+export function validateEyr(input: string) {
+  return validateYear(input, 2020, 2030);
+}
+
+/**
+ * This function validate the 'iyr' field of a `Passport` according to the
+ * following criteria: four digits; at least 2010 and at most 2020.
+ * @param {string} input The value of the 'iyr' field of a `Passport`. 
+ * @param {number} min The lower end of the range to be validated against.
+ * @param {number} maximum The upper end of the range to be validated against.
+ * @returns {boolean} Whether or not the input is valid.
+ */
+export function validateIyr(input: string) {
+  return validateYear(input, 2010, 2020);
+}
+
+/**
+ * This function validate a four-digit value in the given range (inclusive).
+ * @param {string} input The value to be validated.
+ * @param {number} min The lower end of the range to be validated against.
+ * @param {number} maximum The upper end of the range to be validated against.
+ * @returns {boolean} Whether or not the input is valid.
+ */
+export function validateYear(input: string, min: number, max: number) {
+  return false;
+}
+
+/**
+ * The solver function for Part 1 of the Advent of Code 2020's
+ * "Day 4: Passport Processing" challenge.
+ * @param {Passport[]} input Entries of the challenge.
+ * @returns {number} Number of valid entries.
+ */
+export function solverPart2(input: Passport[]) {
+  let numValidPassports = -1;
+  
   return numValidPassports;
 }
