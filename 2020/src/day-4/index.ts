@@ -130,7 +130,18 @@ export function validateIyr(input: string) {
  * @returns {boolean} Whether or not the input is valid.
  */
 export function validateYear(input: string, min: number, max: number) {
-  return false;
+  if (input.length !== 4) {
+    return false;
+  }
+  
+  const year = Number(input);
+  
+  if (year < min || year > max) {
+    return false;
+  }
+  else {
+    return true;
+  }
 }
 
 /**
