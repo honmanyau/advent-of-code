@@ -3,7 +3,19 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { yellow } from '../utilities';
-import { processFile, solverPart1 } from './index';
+import {
+  processFile,
+  solverPart1,
+  validateByr,
+  validateIyr,
+  // validateEyr,
+  // validateHgt,
+  // validateHcl,
+  // validateEcl,
+  // validatePid,
+  // validateCid,
+  solverPart2
+} from './index';
 
 
 const examplePathname = path.resolve(__dirname, './example.txt');
@@ -229,6 +241,29 @@ describe('Day 4: Passport Processing (Part 1)', () => {
     const solution = solverPart1([ testInput ]);
 
     assert.strictEqual(solution, 0);
+  });
+});
+
+describe('Day 4: Passport Processing (Part 2)', () => {
+  it([
+    `validateByr() should return \`true\` for any number between, and including,`,
+    ` ${yellow(1920)} and ${yellow(2002)}`
+  ].join(''), () => {
+    assert.strictEqual(validateByr('1920'), true);
+    assert.strictEqual(validateByr('1921'), true);
+    assert.strictEqual(validateByr('1987'), true);
+    assert.strictEqual(validateByr('2001'), true);
+    assert.strictEqual(validateByr('2002'), true);
+  });
+
+  it([
+    `validateByr() should return \`false\` for any number outside of, and`,
+    ` excluding, ${yellow(1920)} and ${yellow(2002)}`
+  ].join(''), () => {
+    assert.strictEqual(validateByr('999'), false);
+    assert.strictEqual(validateByr('1919'), false);
+    assert.strictEqual(validateByr('2003'), false);
+    assert.strictEqual(validateByr('10000'), false);
   });
 });
 
