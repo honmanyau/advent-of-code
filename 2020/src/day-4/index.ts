@@ -8,11 +8,11 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
   const challengePathname = path.resolve(__dirname, './input.txt');
   const challengeFile = fs.readFileSync(challengePathname, 'utf-8');
   const challenge = processFile(challengeFile);
-  // const solutionPart1 = solverPart1(challenge);
+  const solutionPart1 = solverPart1(challenge);
 
   console.log([
     `The solutions for 2020's "Day 4: Passport Processing" are:`,
-    // `  * Part 1: ${green(solutionPart1)}`
+    `  * Part 1: ${green(solutionPart1)}`
   ].join('\n'));
 }
 
