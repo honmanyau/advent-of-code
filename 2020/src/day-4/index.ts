@@ -8,13 +8,29 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
   const challengePathname = path.resolve(__dirname, './input.txt');
   const challengeFile = fs.readFileSync(challengePathname, 'utf-8');
   const challenge = processFile(challengeFile);
-  const solutionPart1 = solverPart1(challenge);
+  // const solutionPart1 = solverPart1(challenge);
 
   console.log([
     `The solutions for 2020's "Day 4: Passport Processing" are:`,
-    `  * Part 1: ${green(solutionPart1)}`
+    // `  * Part 1: ${green(solutionPart1)}`
   ].join('\n'));
 }
+
+
+// ================
+// == Interfaces ==
+// ================
+interface Passport {
+  ecl?: string;
+  pid?: string | number;
+  eyr?: string | number;
+  hcl?: string; // Hex string.
+  byr?: string | number;
+  iyr?: string | number;
+  cid?: string | number;
+  hgt?: string | number; // Height in cm.
+}
+
 
 // ===============
 // == Functions ==
@@ -26,7 +42,26 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
  * @returns {string[]} An array where each line is an entry of the challenge.
  */
 export function processFile(file: string) {
-  return file.trim().split('\n\n').map((line) => line.split(/\s/));
+  return file.trim().split('\n\n').map(processLine);
+}
+
+/**
+ * This function processes the line of an input file according to the rules
+ * listed in the challenge.
+ * @param {string} file A challenge file read in as a string.
+ * @returns {object} An array where each line is an entry of the challenge.
+ */
+export function processLine(line: string) {
+  const fields = line.split(/[\s\n]/);
+  const passport = {};
+
+  for (const field of fields) {
+    const [ property, value ] = field.split(':');
+
+    passport[property] = value;
+  }
+  console.log(passport);
+  return passport;
 }
 
 /**
