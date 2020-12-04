@@ -7,26 +7,30 @@ import {
   processFile,
   solverPart1,
   validateByr,
-  validateIyr,
-  validateEyr,
-  validateHgt,
-  validateHcl,
   validateEcl,
+  validateEyr,
+  validateHcl,
+  validateHgt,
+  validateIyr,
+  validatePassport,
   validatePid,
   solverPart2
 } from './index';
 
 
-const examplePathname = path.resolve(__dirname, './example.txt');
-const exampleFile = fs.readFileSync(examplePathname, 'utf-8');
-const example = processFile(exampleFile);
+const examplePathnamePart1 = path.resolve(__dirname, './example-part-1.txt');
+const examplePathnamePart2 = path.resolve(__dirname, './example-part-2.txt');
+const exampleFilePart1 = fs.readFileSync(examplePathnamePart1, 'utf-8');
+const exampleFilePart2 = fs.readFileSync(examplePathnamePart2, 'utf-8');
+const examplePart1 = processFile(exampleFilePart1);
+const examplePart2 = processFile(exampleFilePart2);
 
 describe('Day 4: Passport Processing (Part 1)', () => {
   it([
     `solverPart1() should identify ${yellow(2)} valid passport entries in the`,
     ' example input.'
   ].join(''), () => {
-    const solution = solverPart1(example);
+    const solution = solverPart1(examplePart1);
     
     assert.strictEqual(solution, 2);
   });
@@ -35,7 +39,7 @@ describe('Day 4: Passport Processing (Part 1)', () => {
     `solverPart1() should identify ${yellow(1)} valid passport entries in the`,
     ' example input if the first entry is removed.'
   ].join(''), () => {
-    const modifiedExample = [ ...example ].filter((_v, i) => i !== 0);
+    const modifiedExample = [ ...examplePart1 ].filter((_v, i) => i !== 0);
     const solution = solverPart1(modifiedExample);
 
     assert.strictEqual(solution, 1);
@@ -45,7 +49,7 @@ describe('Day 4: Passport Processing (Part 1)', () => {
     `solverPart1() should identify ${yellow(1)} valid passport entries in the`,
     ' example input if the third entry is removed.'
   ].join(''), () => {
-    const modifiedExample = [ ...example ].filter((_v, i) => i !== 2);
+    const modifiedExample = [ ...examplePart1 ].filter((_v, i) => i !== 2);
     const solution = solverPart1(modifiedExample);
 
     assert.strictEqual(solution, 1);
@@ -55,7 +59,7 @@ describe('Day 4: Passport Processing (Part 1)', () => {
     `solverPart1() should identify ${yellow(2)} valid passport entries in the`,
     ' example input if the second entry is removed.'
   ].join(''), () => {
-    const modifiedExample = [ ...example ].filter((_v, i) => i !== 1);
+    const modifiedExample = [ ...examplePart1 ].filter((_v, i) => i !== 1);
     const solution = solverPart1(modifiedExample);
 
     assert.strictEqual(solution, 2);
@@ -65,7 +69,7 @@ describe('Day 4: Passport Processing (Part 1)', () => {
     `solverPart1() should identify ${yellow(0)} valid passport entries in the`,
     ' example input if the first and third entry are removed.'
   ].join(''), () => {
-    const modifiedExample = [ ...example ].filter((_v, i) => (
+    const modifiedExample = [ ...examplePart1 ].filter((_v, i) => (
       i !== 0
       && i !== 2
     ));
@@ -78,7 +82,7 @@ describe('Day 4: Passport Processing (Part 1)', () => {
     `solverPart1() should identify ${yellow(2)} valid passport entries in the`,
     ' example input if the second and fourth entry are removed.'
   ].join(''), () => {
-    const modifiedExample = [ ...example ].filter((_v, i) => (
+    const modifiedExample = [ ...examplePart1 ].filter((_v, i) => (
       i !== 1
       && i !== 3
     ));
@@ -438,6 +442,42 @@ describe('Day 4: Passport Processing (Part 2)', () => {
     assert.strictEqual(validatePid('0000000001'), false);
     assert.strictEqual(validatePid('0123456789'), false);
     assert.strictEqual(validatePid('1234567890'), false);
+  });
+
+  it([
+    `validatePassport() should identify ${yellow(2)} valid passports in the`,
+    ' example for Part 1.'
+  ].join(''), () => {
+    const solution = examplePart1.reduce((acc, val) => {
+      return acc + Number(validatePassport(val))
+    }, 0);
+    
+    assert.strictEqual(solution, 2);
+  });
+
+  it([
+    `solverPart2() should identify ${yellow(4)} valid passports in the`,
+    ' example, inputs for Part 2.'
+  ].join(''), () => {
+    assert.strictEqual(solverPart2(examplePart2), 4);
+  });
+
+  it([
+    `solverPart2() should identify ${yellow(4)} valid passports in the`,
+    ' example if the last four entries are removed.'
+  ].join(''), () => {
+    const modifiedExample = [ ...examplePart2 ].filter((_v, i) => i < 4);
+
+    assert.strictEqual(solverPart2(modifiedExample), 4);
+  });
+
+  it([
+    `solverPart2() should identify ${yellow(0)} valid passports in the`,
+    ' example if the first four entries are removed.'
+  ].join(''), () => {
+    const modifiedExample = [ ...examplePart2 ].filter((_v, i) => i > 3);
+
+    assert.strictEqual(solverPart2(modifiedExample), 4);
   });
 });
 
