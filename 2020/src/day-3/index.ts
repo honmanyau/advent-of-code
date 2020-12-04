@@ -24,7 +24,7 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
 // ===============
 /**
  * This function uses the `processLine` function process an input file of
- * the Advent of Code 2020's "Day 2: Password Philosophy" challenge.
+ * the Advent of Code 2020's "Day 3: Toboggan Trajectory" challenge.
  * @param {string} file A challenge file read in as a string.
  * @returns {string[]} An array where each line is an entry of the challenge.
  */
