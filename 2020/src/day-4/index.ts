@@ -107,6 +107,16 @@ export function validateEyr(input: string) {
 }
 
 /**
+ * This function validate the 'htcl' field of a `Passport` according to the
+ * following criteria: a # followed by exactly six characters 0-9 or a-f.
+ * @param {string} input The value of the 'hcl' field of a `Passport`. 
+ * @returns {boolean} Whether or not the input is valid.
+ */
+export function validateHcl(input: string) {
+  return false
+}
+
+/**
  * This function validate the 'hgt' field of a `Passport` according to the
  * criteria that a number followed by either cm or in:
  *  * If cm, the number must be at least 150 and at most 193.
@@ -159,7 +169,7 @@ export function validateYear(input: string, min: number, max: number) {
   }
   
   return validateRange(input, min, max);
-}
+}a # followed by exactly six characters 0-9 or a-f
 
 /**
  * This function a number against the range provided (inclusive).

@@ -10,7 +10,7 @@ import {
   validateIyr,
   validateEyr,
   validateHgt,
-  // validateHcl,
+  validateHcl,
   // validateEcl,
   // validatePid,
   // validateCid,
@@ -260,7 +260,7 @@ describe('Day 4: Passport Processing (Part 2)', () => {
   ].join(''), () => {
     assert.strictEqual(validateByr('999'), false);
     assert.strictEqual(validateByr('1919'), false);
-    assert.strictEqual(validateByr('2003'), false); // Given example
+    assert.strictEqual(validateByr('2003'), false); // Given example.
     assert.strictEqual(validateByr('10000'), false);
   });
 
@@ -346,7 +346,7 @@ describe('Day 4: Passport Processing (Part 2)', () => {
     assert.strictEqual(validateHgt('58in'), false);
     assert.strictEqual(validateHgt('77in'), false);
     assert.strictEqual(validateHgt('78in'), false);
-    assert.strictEqual(validateHgt('190in'), false); // Given example
+    assert.strictEqual(validateHgt('190in'), false); // Given example.
   });
   
   it([
@@ -365,7 +365,34 @@ describe('Day 4: Passport Processing (Part 2)', () => {
     assert.strictEqual(validateHgt('76i'), false);
     assert.strictEqual(validateHgt('59n'), false);
     assert.strictEqual(validateHgt('76n'), false);
-    assert.strictEqual(validateHgt('190'), false); // Given example
+    assert.strictEqual(validateHgt('190'), false); // Given example.
+  });
+
+  it([
+    'validateHcl() should return \`true\` for any valid hexadecimal colour',
+    ' code.'
+  ].join(''), () => {
+    assert.strictEqual(validateHcl('#123abc'), true); // Given example.
+    assert.strictEqual(validateHcl('#000000'), true);
+    assert.strictEqual(validateHcl('#ffffff'), true);
+    assert.strictEqual(validateHcl('#1ce1ce'), true);
+    assert.strictEqual(validateHcl('#c0ffee'), true);
+  });
+
+  it([
+    'validateHcl() should return \`false\` for any input that is not a',
+    ' hexadecimal colour code.'
+  ].join(''), () => {
+    assert.strictEqual(validateHcl('#123abz'), false); // Given example.
+    assert.strictEqual(validateHcl('#0000000'), false);
+    assert.strictEqual(validateHcl('#fffffff'), false);
+    assert.strictEqual(validateHcl('#1ce1cee'), false);
+    assert.strictEqual(validateHcl('#c0ffeee'), false);
+    assert.strictEqual(validateHcl('123abc'), false); // Given example.
+    assert.strictEqual(validateHcl('000000'), false);
+    assert.strictEqual(validateHcl('ffffff'), false);
+    assert.strictEqual(validateHcl('1ce1ce'), false);
+    assert.strictEqual(validateHcl('c0ffee'), false);
   });
 });
 
