@@ -174,7 +174,9 @@ export function validateIyr(input: string) {
  * @returns {boolean} Whether or not the input is valid.
  */
 export function validatePid(input: string) {
-  return false;
+  const matched = input.match(/^[0-9]{9}$/);
+
+  return !!matched;
 }
 
 /**

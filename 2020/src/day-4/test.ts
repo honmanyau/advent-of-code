@@ -430,8 +430,8 @@ describe('Day 4: Passport Processing (Part 2)', () => {
   });
   
   it([
-    'validatePid() should return \`false\` for any input that is a nine-digit',
-    ` number, including leading zeroes`
+    'validatePid() should return \`false\` for any input that is not a',
+    ` a nine-digit number, including leading zeroes`
   ].join(''), () => {
     assert.strictEqual(validatePid('00000001'), false); // Given example.
     assert.strictEqual(validatePid('12345678'), false);
