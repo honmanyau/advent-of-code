@@ -113,7 +113,9 @@ export function validateEyr(input: string) {
  * @returns {boolean} Whether or not the input is valid.
  */
 export function validateHcl(input: string) {
-  return false
+  const matched = input.match(/^#[0-9a-f]{6}$/);
+
+  return !!matched;
 }
 
 /**
@@ -169,7 +171,7 @@ export function validateYear(input: string, min: number, max: number) {
   }
   
   return validateRange(input, min, max);
-}a # followed by exactly six characters 0-9 or a-f
+}
 
 /**
  * This function a number against the range provided (inclusive).
