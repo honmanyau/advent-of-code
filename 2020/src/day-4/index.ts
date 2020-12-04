@@ -26,7 +26,7 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
  * @returns {string[]} An array where each line is an entry of the challenge.
  */
 export function processFile(file: string) {
-  return file.trim().split('\n');
+  return file.trim().split('\n\n').map((line) => line.split(/\s/));
 }
 
 /**
@@ -35,6 +35,6 @@ export function processFile(file: string) {
  * @param {string[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(input: string[]) {
+export function solverPart1(input: string[][]) {
   return -1;
 }
