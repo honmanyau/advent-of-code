@@ -260,7 +260,7 @@ describe('Day 4: Passport Processing (Part 2)', () => {
   ].join(''), () => {
     assert.strictEqual(validateByr('999'), false);
     assert.strictEqual(validateByr('1919'), false);
-    assert.strictEqual(validateByr('2003'), false);
+    assert.strictEqual(validateByr('2003'), false); // Given example
     assert.strictEqual(validateByr('10000'), false);
   });
 
@@ -318,7 +318,7 @@ describe('Day 4: Passport Processing (Part 2)', () => {
   });
 
   it([
-    `validateHgt() should return \`false\` for any number outside of, and`,
+    `validateHgt() should return \`false\` for any height outside of, and`,
     ` excluding, ${yellow(150)} cm and ${yellow(193)} cm`
   ].join(''), () => {
     assert.strictEqual(validateHgt('100cm'), false);
@@ -339,13 +339,33 @@ describe('Day 4: Passport Processing (Part 2)', () => {
   });
 
   it([
-    `validateHgt() should return \`false\` for any number outside of, and`,
+    `validateHgt() should return \`false\` for any height outside of, and`,
     ` excluding, ${yellow(59)} in and ${yellow(76)} in`
   ].join(''), () => {
     assert.strictEqual(validateHgt('57in'), false);
     assert.strictEqual(validateHgt('58in'), false);
     assert.strictEqual(validateHgt('77in'), false);
     assert.strictEqual(validateHgt('78in'), false);
+    assert.strictEqual(validateHgt('190in'), false); // Given example
+  });
+  
+  it([
+    `validateHgt() should return \`false\` for any input that does not contain`,
+    ' a valid unit.'
+  ].join(''), () => {
+    assert.strictEqual(validateHgt('150'), false);
+    assert.strictEqual(validateHgt('193'), false);
+    assert.strictEqual(validateHgt('59'), false);
+    assert.strictEqual(validateHgt('76'), false);
+    assert.strictEqual(validateHgt('150c'), false);
+    assert.strictEqual(validateHgt('193c'), false);
+    assert.strictEqual(validateHgt('150m'), false);
+    assert.strictEqual(validateHgt('193m'), false);
+    assert.strictEqual(validateHgt('59i'), false);
+    assert.strictEqual(validateHgt('76i'), false);
+    assert.strictEqual(validateHgt('59n'), false);
+    assert.strictEqual(validateHgt('76n'), false);
+    assert.strictEqual(validateHgt('190'), false); // Given example
   });
 });
 
