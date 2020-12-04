@@ -168,6 +168,16 @@ export function validateIyr(input: string) {
 }
 
 /**
+ * This function validate the 'pid' field of a `Passport` according to the
+ * following criteria: a nine-digit number, including leading zeroes.
+ * @param {string} input The value of the 'pid' field of a `Passport`. 
+ * @returns {boolean} Whether or not the input is valid.
+ */
+export function validatePid(input: string) {
+  return false;
+}
+
+/**
  * This function validate a four-digit value in the given range (inclusive) that
  * represents a year.
  * @param {string} input The value to be validated.
