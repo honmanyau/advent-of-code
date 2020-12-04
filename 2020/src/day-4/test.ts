@@ -449,7 +449,7 @@ describe('Day 4: Passport Processing (Part 2)', () => {
     ' example for Part 1.'
   ].join(''), () => {
     const solution = examplePart1.reduce((acc, val) => {
-      return acc + Number(validatePassport(val))
+      return acc + Number(validatePassport(val));
     }, 0);
     
     assert.strictEqual(solution, 2);
@@ -463,16 +463,16 @@ describe('Day 4: Passport Processing (Part 2)', () => {
   });
 
   it([
-    `solverPart2() should identify ${yellow(4)} valid passports in the`,
+    `solverPart2() should identify ${yellow(0)} valid passports in the`,
     ' example if the last four entries are removed.'
   ].join(''), () => {
     const modifiedExample = [ ...examplePart2 ].filter((_v, i) => i < 4);
 
-    assert.strictEqual(solverPart2(modifiedExample), 4);
+    assert.strictEqual(solverPart2(modifiedExample), 0);
   });
 
   it([
-    `solverPart2() should identify ${yellow(0)} valid passports in the`,
+    `solverPart2() should identify ${yellow(4)} valid passports in the`,
     ' example if the first four entries are removed.'
   ].join(''), () => {
     const modifiedExample = [ ...examplePart2 ].filter((_v, i) => i > 3);

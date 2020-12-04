@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { stringify } from 'querystring';
 
 import { green } from '../utilities';
 
@@ -168,6 +167,16 @@ export function validateIyr(input: string) {
 }
 
 /**
+ * This function validates a single passort according to the conditions
+ * specified in Part 1 of the challenge.
+ * @param {Passport} input An object implementing the `Passport` interface.
+ * @returns {boolean} Whether or not the passport object is valid.
+ */
+export function validatePassport(input: Passport) {
+  return solverPart1([ input ]) === 1;
+}
+
+/**
  * This function validate the 'pid' field of a `Passport` according to the
  * following criteria: a nine-digit number, including leading zeroes.
  * @param {string} input The value of the 'pid' field of a `Passport`. 
@@ -220,7 +229,27 @@ export function validateRange(input: string, min: number, max: number) {
  * @returns {number} Number of valid entries.
  */
 export function solverPart2(input: Passport[]) {
-  let numValidPassports = -1;
+  const passportsWithValidFields = input.filter(validatePassport);
+  const validate = {
+    byr: validateByr,
+    ecl: validateEcl,
+    eyr: validateEyr,
+    hcl: validateHcl,
+    hgt: validateHgt,
+    iyr: validateIyr,
+    pid: validatePid
+  };
+  const validPassports = passportsWithValidFields.filter((passport) => {
+    let isValid = true;
+
+    for (const key in passport) {
+      if (key !== 'cid') {
+        isValid = isValid && validate[key](passport[key]);
+      }
+    }
+
+    return isValid;
+  });
   
-  return numValidPassports;
+  return validPassports.length;
 }
