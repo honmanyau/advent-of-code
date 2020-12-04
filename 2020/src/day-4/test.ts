@@ -413,11 +413,11 @@ describe('Day 4: Passport Processing (Part 2)', () => {
     'validateEcl() should return \`true\` for any input that is one of the',
     ` following: 'amb' 'blu' 'brn' 'gry' 'grn' 'hzl' 'oth'`
   ].join(''), () => {
-    assert.strictEqual(validateEcl('lol'), true);
-    assert.strictEqual(validateEcl('wat'), true); // Given example.
-    assert.strictEqual(validateEcl('omg'), true);
-    assert.strictEqual(validateEcl('no'), true);
-    assert.strictEqual(validateEcl('nein'), true);
+    assert.strictEqual(validateEcl('lol'), false);
+    assert.strictEqual(validateEcl('wat'), false); // Given example.
+    assert.strictEqual(validateEcl('omg'), false);
+    assert.strictEqual(validateEcl('no'), false);
+    assert.strictEqual(validateEcl('nein'), false);
   });
 });
 
