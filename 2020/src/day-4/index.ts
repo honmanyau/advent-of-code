@@ -49,11 +49,11 @@ export function processFile(file: string) {
  * This function processes the line of an input file according to the rules
  * listed in the challenge.
  * @param {string} file A challenge file read in as a string.
- * @returns {object} An array where each line is an entry of the challenge.
+ * @returns {Passport} An array where each line is an entry of the challenge.
  */
 export function processLine(line: string) {
   const fields = line.split(/[\s\n]/);
-  const passport = {};
+  const passport: Passport = {};
 
   for (const field of fields) {
     const [ property, value ] = field.split(':');
@@ -67,9 +67,9 @@ export function processLine(line: string) {
 /**
  * The solver function for Part 1 of the Advent of Code 2020's
  * "Day 4: Passport Processing" challenge.
- * @param {string[]} input Entries of the challenge.
+ * @param {Passport[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(input: string[][]) {
+export function solverPart1(input: Passport[]) {
   return -1;
 }
