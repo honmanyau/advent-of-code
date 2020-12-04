@@ -22,8 +22,6 @@ const examplePathname = path.resolve(__dirname, './example.txt');
 const exampleFile = fs.readFileSync(examplePathname, 'utf-8');
 const example = processFile(exampleFile);
 
-console.log(example);
-
 describe('Day 4: Passport Processing (Part 1)', () => {
   it([
     `solverPart1() should identify ${yellow(2)} valid passport entries in the`,

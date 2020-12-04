@@ -115,7 +115,24 @@ export function validateEyr(input: string) {
  * @returns {boolean} Whether or not the input is valid.
  */
 export function validateHgt(input: string) {
-  return false;
+  const matched = input.match(/^(\d+)+?(cm)$/)
+    || input.match(/^(\d+)+?(in)$/);
+
+  if (!matched) {
+    return false;
+  }
+
+  const [ _input, height, unit ] = matched;
+
+  if (unit === 'cm') {
+    return validateRange(height, 150, 193);
+  }
+  else if (unit === 'in') {
+    return validateRange(height, 59, 76);
+  }
+  else {
+    return false; // Should never get to this fallback.
+  }
 }
 
 /**
