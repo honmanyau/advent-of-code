@@ -40,7 +40,12 @@ export function getColNumber(input: string) {
     throw Error('Invalid seat string supplied.');
   }
 
-  return -1;
+  const [ _seatString, _rowString, colString ] = matched;
+  const binarsedCol = colString
+    .replace(/L/g, '0')
+    .replace(/R/g, '1');
+
+  return parseInt(binarsedCol, 2);
 }
 
 /**
@@ -56,7 +61,12 @@ export function getRowNumber(input: string) {
     throw Error('Invalid seat string supplied.');
   }
 
-  return -1;
+  const [ _seatString, rowString ] = matched;
+  const binarsedRow = rowString
+    .replace(/F/g, '0')
+    .replace(/B/g, '1');
+
+  return parseInt(binarsedRow, 2);
 }
 
 /**
@@ -67,6 +77,23 @@ export function getRowNumber(input: string) {
  */
 export function processFile(file: string) {
   return file.trim().split('\n');
+}
+
+/**
+ * This function reverses a string to avoid splitting, reversing and joining
+ * using `Array.prototype` methods. Haven't actually tested which is more
+ * performant, but it's likely that this is faster.
+ * @param {string} input The string to be reversed.
+ * @returns {string} The reversed string.
+ */
+export function reverseString(input: string) {
+  let reversed = '';
+
+  for (let i = input.length; i > 0; i--) {
+    reversed += input[i - 1];
+  }
+
+  return reversed;
 }
 
 /**
