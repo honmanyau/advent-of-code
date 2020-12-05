@@ -157,6 +157,41 @@ describe('Day 5: Binary Boarding (Part 1)', () => {
       assert.throws(() => getSeatId('FFFFFFFXLL'), Error);
     });
   });
+
+  describe([
+    'solverPart1()'
+  ].join(''), () => {
+    it([
+      `should return ${yellow(820)} for the example input`
+    ].join(''), () => {
+      const solution = solverPart1(example);
+
+      assert.strictEqual(solution, 820);
+    });
+
+    it([
+      `should return ${yellow(567)} for the example input if the last entry`,
+      ' is removed.'
+    ].join(''), () => {
+      const modifiedExample = [ ...example ];
+
+      example.splice(-1);
+
+      const solution = solverPart1(modifiedExample);
+
+      assert.strictEqual(solution, 567);
+    });
+
+    it([
+      `should return ${yellow(1023)} for the example input if 'BBBBBBBRRR'`,
+      ' is added.'
+    ].join(''), () => {
+      const modifiedExample = [ ...example, 'BBBBBBBRRR' ];
+      const solution = solverPart1(modifiedExample);
+
+      assert.strictEqual(solution, 1023);
+    });
+  });
 });
 
 // ===============
