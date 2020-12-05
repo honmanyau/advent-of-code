@@ -7,6 +7,7 @@ import {
   processFile,
   getRowNumber,
   getColNumber,
+  getSeatId,
   solverPart1
 } from './index';
 
@@ -58,13 +59,6 @@ describe('Day 5: Binary Boarding (Part 1)', () => {
     ].join(''), () => {
       assert.strictEqual(getRowNumber('BBBBBBBRRR'), 127);
     });
-
-    it([
-      `should throw an error if the string does not have the correct format.`
-    ].join(''), () => {
-      assert.throws(() => getRowNumber('XFFFFFFLLL'), Error);
-      assert.throws(() => getRowNumber('FFFFFFFXLL'), Error);
-    });
   });
 
   describe('getColNumber()', () => {
@@ -109,12 +103,58 @@ describe('Day 5: Binary Boarding (Part 1)', () => {
     ].join(''), () => {
       assert.strictEqual(getColNumber('BBBBBBBRRR'), 7);
     });
+  });
+
+  describe([
+    'getSeatId()'
+  ].join(''), () => {
+    it([
+      `should return ${yellow(0)} for the testInput:`,
+      ' FFFFFFFLLL.'
+    ].join(''), () => {
+      assert.strictEqual(getSeatId('FFFFFFFLLL'), 0);
+    });
+
+    it([
+      `should return ${yellow(357)} for the first example input:`,
+      ' FBFBBFFRLR.'
+    ].join(''), () => {
+      assert.strictEqual(getSeatId(example[0]), 357);
+    });
+
+    it([
+      `should return ${yellow(567)} for the second example input:`,
+      ' BFFFBBFRRR.'
+    ].join(''), () => {
+      assert.strictEqual(getSeatId(example[1]), 567);
+    });
+
+    it([
+      `should return ${yellow(119)} for the second example input:`,
+      ' FFFBBBFRRR.'
+    ].join(''), () => {
+      assert.strictEqual(getSeatId(example[2]), 119);
+    });
+
+    it([
+      `should return ${yellow(820)} for the second example input:`,
+      ' BBFFBBFRLL.'
+    ].join(''), () => {
+      assert.strictEqual(getSeatId(example[3]), 820);
+    });
+
+    it([
+      `should return ${yellow(1023)} for the testInput:`,
+      ' BBBBBBBRRR.'
+    ].join(''), () => {
+      assert.strictEqual(getSeatId('BBBBBBBRRR'), 1023);
+    });
 
     it([
       `should throw an error if the string does not have the correct format.`
     ].join(''), () => {
-      assert.throws(() => getColNumber('XFFFFFFLLL'), Error);
-      assert.throws(() => getColNumber('FFFFFFFXLL'), Error);
+      assert.throws(() => getSeatId('XFFFFFFLLL'), Error);
+      assert.throws(() => getSeatId('FFFFFFFXLL'), Error);
     });
   });
 });

@@ -35,11 +35,6 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
  */
 export function getColNumber(input: string) {
   const matched = input.match(/^([FB]{7})([LR]{3})$/);
-
-  if (!matched) {
-    throw Error('Invalid seat string supplied.');
-  }
-
   const [ _seatString, _rowString, colString ] = matched;
   const binarsedCol = colString
     .replace(/L/g, '0')
@@ -56,17 +51,31 @@ export function getColNumber(input: string) {
  */
 export function getRowNumber(input: string) {
   const matched = input.match(/^([FB]{7})([LR]{3})$/);
-
-  if (!matched) {
-    throw Error('Invalid seat string supplied.');
-  }
-
   const [ _seatString, rowString ] = matched;
   const binarsedRow = rowString
     .replace(/F/g, '0')
     .replace(/B/g, '1');
 
   return parseInt(binarsedRow, 2);
+}
+
+/**
+ * This function returns the seat ID for a string that specifies a seat.
+ * @param {string} input A string that specifies a seat on the plane as
+ *     described in the challenge.
+ * @returns {number} The deciphered row number.
+ */
+export function getSeatId(input: string) {
+  const matched = input.match(/^([FB]{7})([LR]{3})$/);
+
+  if (!matched) {
+    throw Error('Invalid seat string supplied.');
+  }
+
+  const rowNumber = getRowNumber(input);
+  const colNumber = getColNumber(input);
+
+  return rowNumber * 8 + colNumber;
 }
 
 /**
