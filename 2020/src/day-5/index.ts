@@ -9,10 +9,12 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
   const challengeFile = fs.readFileSync(challengePathname, 'utf-8');
   const challenge = processFile(challengeFile);
   const solutionPart1 = solverPart1(challenge);
+  const solutionPart2 = solverPart2(challenge);
 
   console.log([
     `The solutions for 2020's "Day 5: Binary Boarding" are:`,
-    `  * Part 1: ${green(solutionPart1)}`
+    `  * Part 1: ${green(solutionPart1)}`,
+    `  * Part 2: ${green(solutionPart2)}`
   ].join('\n'));
 }
 
@@ -129,5 +131,54 @@ export function solverPart1(input: string[]) {
  * @returns {number} Number of valid entries.
  */
 export function solverPart2(input: string[]) {
-  return -1;
+  const seatMap = {};
+  let highestRowNumber = -1;
+  let lowestRowNumber = 1E16;
+
+  for (const seatString of input) {
+    const colNumber = getColNumber(seatString);
+    const rowNumber = getRowNumber(seatString);
+    const seatId = getSeatId(seatString);
+
+    if (rowNumber > highestRowNumber) {
+      highestRowNumber = rowNumber;
+    }
+
+    if (rowNumber < lowestRowNumber) {
+      lowestRowNumber = rowNumber;
+    }
+
+    if (!seatMap[rowNumber]) {
+      seatMap[rowNumber] = [ seatId ];
+    }
+    else {
+      seatMap[rowNumber].push(seatId);
+    }
+  }
+
+  for (const key in seatMap) {
+    const row = Number(key);
+
+    if (row == lowestRowNumber || row == highestRowNumber) {
+      continue;
+    }
+    else {
+      if (seatMap[row].length < 8) {
+        const sortedRow = seatMap[row].sort();
+
+        console.log(row, sortedRow);
+
+        for (let i = 0; i < sortedRow.length; i++) {
+          const currentSeatId = sortedRow[i];
+          const nextSeatId = sortedRow[i + 1];
+
+          if (nextSeatId !== currentSeatId + 1) {
+            return currentSeatId + 1;
+          }
+        }
+      }
+    }
+  }
+
+  throw Error('The algorithm should never reach this point.');
 }
