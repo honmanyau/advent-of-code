@@ -5,31 +5,117 @@ import * as path from 'path';
 import { yellow } from '../utilities';
 import {
   processFile,
-  solverPart1,
-  validateByr,
-  validateEcl,
-  validateEyr,
-  validateHcl,
-  validateHgt,
-  validateIyr,
-  validatePassport,
-  validatePid,
-  solverPart2
+  getRowNumber,
+  getColNumber,
+  solverPart1
 } from './index';
 
 
-const examplePathnamePart1 = path.resolve(__dirname, './example-part-1.txt');
-const examplePathnamePart2 = path.resolve(__dirname, './example-part-2.txt');
-const exampleFilePart1 = fs.readFileSync(examplePathnamePart1, 'utf-8');
-const exampleFilePart2 = fs.readFileSync(examplePathnamePart2, 'utf-8');
-const examplePart1 = processFile(exampleFilePart1);
-const examplePart2 = processFile(exampleFilePart2);
+const examplePathname = path.resolve(__dirname, './example.txt');
+const exampleFile = fs.readFileSync(examplePathname, 'utf-8');
+const example = processFile(exampleFile);
 
 describe('Day 5: Binary Boarding (Part 1)', () => {
-  it([
-    `solverPart1() does something.`
-  ].join(''), () => {
-    //
+  describe('getRowNumber()', () => {
+    it([
+      `should return ${yellow(0)} for the testInput:`,
+      ' FFFFFFFLLL.'
+    ].join(''), () => {
+      //
+    });
+
+    it([
+      `should return ${yellow(44)} for the first example input:`,
+      ' FBFBBFFRLR.'
+    ].join(''), () => {
+      //
+    });
+
+    it([
+      `should return ${yellow(70)} for the second example input:`,
+      ' BFFFBBFRRR.'
+    ].join(''), () => {
+      //
+    });
+
+    it([
+      `should return ${yellow(14)} for the second example input:`,
+      ' FFFBBBFRRR.'
+    ].join(''), () => {
+      //
+    });
+
+    it([
+      `should return ${yellow(102)} for the second example input:`,
+      ' BBFFBBFRLL.'
+    ].join(''), () => {
+      //
+    });
+
+    it([
+      `should return ${yellow(127)} for the testInput:`,
+      ' BBBBBBBRRR.'
+    ].join(''), () => {
+      //
+    });
+
+    it([
+      `should throw an error if the string does not have the correct format.`
+    ].join(''), () => {
+      assert.throws(() => getRowNumber('XFFFFFFLLL'), Error);
+      assert.throws(() => getRowNumber('FFFFFFFXLL'), Error);
+    });
+  });
+
+  describe('getColNumber()', () => {
+    it([
+      `should return ${yellow(0)} for the testInput:`,
+      ' FFFFFFFLLL.'
+    ].join(''), () => {
+      //
+    });
+
+    it([
+      `should return ${yellow(5)} for the first example input:`,
+      ' FBFBBFFRLR.'
+    ].join(''), () => {
+      //
+    });
+
+    it([
+      `should return ${yellow(7)} for the second example input:`,
+      ' BFFFBBFRRR.'
+    ].join(''), () => {
+      //
+    });
+
+    it([
+      `should return ${yellow(7)} for the second example input:`,
+      ' FFFBBBFRRR.'
+    ].join(''), () => {
+      //
+    });
+
+    it([
+      `should return ${yellow(4)} for the second example input:`,
+      ' BBFFBBFRLL.'
+    ].join(''), () => {
+      //
+    });
+
+    it([
+      `should return ${yellow(7)} for the testInput:`,
+      ' BBBBBBBRRR.'
+    ].join(''), () => {
+      //
+    });
+
+    it([
+      `should throw an error if the string does not have the correct format.`
+    ].join(''), () => {
+      assert.throws(() => getColNumber('XFFFFFFLLL'), Error);
+      assert.throws(() => getColNumber('FFFFFFFXLL'), Error);
+    });
   });
 });
 

@@ -28,6 +28,38 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
 // == Functions ==
 // ===============
 /**
+ * This function returns the column number for a string that specifies a seat.
+ * @param {string} input A string that specifies a seat on the plane as
+ *     described in the challenge.
+ * @returns {number} The deciphered column number.
+ */
+export function getColNumber(input: string) {
+  const matched = input.match(/^([FB]{7})([LR]{3})$/);
+
+  if (!matched) {
+    throw Error('Invalid seat string supplied.');
+  }
+
+  return -1;
+}
+
+/**
+ * This function returns the row number for a string that specifies a seat.
+ * @param {string} input A string that specifies a seat on the plane as
+ *     described in the challenge.
+ * @returns {number} The deciphered row number.
+ */
+export function getRowNumber(input: string) {
+  const matched = input.match(/^([FB]{7})([LR]{3})$/);
+
+  if (!matched) {
+    throw Error('Invalid seat string supplied.');
+  }
+
+  return -1;
+}
+
+/**
  * This function uses the `processLine` function process an input file of
  * the Advent of Code 2020's "Day 5: Binary Boarding" challenge.
  * @param {string} file A challenge file read in as a string.
@@ -43,7 +75,7 @@ export function processFile(file: string) {
  * @param {any} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(input: any) {
+export function solverPart1(input: string[]) {
   return -1;
 }
 
@@ -53,6 +85,6 @@ export function solverPart1(input: any) {
  * @param {any} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2(input: any) {
+export function solverPart2(input: string[]) {
   return -1;
 }
