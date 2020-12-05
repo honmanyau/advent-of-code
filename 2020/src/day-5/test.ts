@@ -21,42 +21,42 @@ describe('Day 5: Binary Boarding (Part 1)', () => {
       `should return ${yellow(0)} for the testInput:`,
       ' FFFFFFFLLL.'
     ].join(''), () => {
-      //
+      assert.strictEqual(getRowNumber('FFFFFFFLLL'), 0);
     });
 
     it([
       `should return ${yellow(44)} for the first example input:`,
       ' FBFBBFFRLR.'
     ].join(''), () => {
-      //
+      assert.strictEqual(getRowNumber(example[0]), 44);
     });
 
     it([
       `should return ${yellow(70)} for the second example input:`,
       ' BFFFBBFRRR.'
     ].join(''), () => {
-      //
+      assert.strictEqual(getRowNumber(example[1]), 70);
     });
 
     it([
       `should return ${yellow(14)} for the second example input:`,
       ' FFFBBBFRRR.'
     ].join(''), () => {
-      //
+      assert.strictEqual(getRowNumber(example[2]), 14);
     });
 
     it([
       `should return ${yellow(102)} for the second example input:`,
       ' BBFFBBFRLL.'
     ].join(''), () => {
-      //
+      assert.strictEqual(getRowNumber(example[3]), 102);
     });
 
     it([
       `should return ${yellow(127)} for the testInput:`,
       ' BBBBBBBRRR.'
     ].join(''), () => {
-      //
+      assert.strictEqual(getRowNumber('BBBBBBBRRR'), 127);
     });
 
     it([
@@ -72,42 +72,42 @@ describe('Day 5: Binary Boarding (Part 1)', () => {
       `should return ${yellow(0)} for the testInput:`,
       ' FFFFFFFLLL.'
     ].join(''), () => {
-      //
+      assert.strictEqual(getColNumber('FFFFFFFLLL'), 0);
     });
 
     it([
       `should return ${yellow(5)} for the first example input:`,
       ' FBFBBFFRLR.'
     ].join(''), () => {
-      //
+      assert.strictEqual(getColNumber(example[0]), 5);
     });
 
     it([
       `should return ${yellow(7)} for the second example input:`,
       ' BFFFBBFRRR.'
     ].join(''), () => {
-      //
+      assert.strictEqual(getColNumber(example[1]), 7);
     });
 
     it([
       `should return ${yellow(7)} for the second example input:`,
       ' FFFBBBFRRR.'
     ].join(''), () => {
-      //
+      assert.strictEqual(getColNumber(example[2]), 7);
     });
 
     it([
       `should return ${yellow(4)} for the second example input:`,
       ' BBFFBBFRLL.'
     ].join(''), () => {
-      //
+      assert.strictEqual(getColNumber(example[3]), 4);
     });
 
     it([
       `should return ${yellow(7)} for the testInput:`,
       ' BBBBBBBRRR.'
     ].join(''), () => {
-      //
+      assert.strictEqual(getColNumber('BBBBBBBRRR'), 7);
     });
 
     it([
