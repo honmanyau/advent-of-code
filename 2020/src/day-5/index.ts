@@ -112,7 +112,16 @@ export function reverseString(input: string) {
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(input: string[]) {
-  return -1;
+  const seatIds = input.map(getSeatId);
+  let highestId = -1;
+
+  for (const seatId of seatIds) {
+    if (seatId > highestId) {
+      highestId = seatId;
+    }
+  }
+
+  return highestId;
 }
 
 /**
