@@ -175,7 +175,7 @@ describe('Day 5: Binary Boarding (Part 1)', () => {
     ].join(''), () => {
       const modifiedExample = [ ...example ];
 
-      example.splice(-1);
+      modifiedExample.splice(-1);
 
       const solution = solverPart1(modifiedExample);
 
