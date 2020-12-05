@@ -34,17 +34,7 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
  * @returns {string[]} An array where each line is an entry of the challenge.
  */
 export function processFile(file: string) {
-  return file.trim().split('\n\n').map(processLine);
-}
-
-/**
- * This function processes the line of an input file according to the rules
- * listed in the challenge.
- * @param {string} file A challenge file read in as a string.
- * @returns {Passport} An array where each line is an entry of the challenge.
- */
-export function processLine(line: string) {
-  return line;
+  return file.trim().split('\n');
 }
 
 /**
