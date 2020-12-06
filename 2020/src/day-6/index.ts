@@ -123,5 +123,11 @@ export function solverPart1(input: string[][]) {
  * @returns {number} Number of valid entries.
  */
 export function solverPart2(input: string[][]) {
-  return -1;
+  let sum = 0;
+
+  for (const group of input) {
+    sum += countCommonYeses(group);
+  }
+
+  return sum;
 }
