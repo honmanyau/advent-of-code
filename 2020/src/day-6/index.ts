@@ -71,8 +71,14 @@ export function processEntry(entry: string) {
  * @param {any} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(input: string[]) {
-  return -1;
+export function solverPart1(input: string[][]) {
+  let sum = 0;
+
+  for (const group of input) {
+    sum += countUniqueYeses(group);
+  }
+
+  return sum;
 }
 
 /**
