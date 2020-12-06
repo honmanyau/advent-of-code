@@ -32,7 +32,17 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
  * @returns The number of unique answers that people have answered yes to. 
  */
 export function countUniqueYeses(input: string[]) {
-  return -1;
+  const dict = {};
+
+  for (const item of input) {
+    const answers = item.split('');
+    
+    for (const answer of answers) {
+      dict[answer] = true;
+    }
+  }
+
+  return Object.keys(dict).length;
 }
 
 /**
