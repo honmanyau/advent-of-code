@@ -75,48 +75,40 @@ describe('Day 6: Custom Customs (Part 1)', () => {
       assert.strictEqual(count, 3);
     });
 
-    describe('countUniqueYeses()', () => {
-      // Given example.
-      it([
-        `should count ${yellow(3)} for the input [ 'a', 'b', 'c' ]`
-      ].join(''), () => {
-        const count = countUniqueYeses([ 'a', 'b', 'c' ]);
-  
-        assert.strictEqual(count, 3);
-      });
+    // Given example.
+    it([
+      `should count ${yellow(3)} for the input [ 'a', 'b', 'c' ]`
+    ].join(''), () => {
+      const count = countUniqueYeses([ 'a', 'b', 'c' ]);
+
+      assert.strictEqual(count, 3);
     });
 
-    describe('countUniqueYeses()', () => {
-      // Given example.
-      it([
-        `should count ${yellow(3)} for the input [ 'ab', 'ac' ]`
-      ].join(''), () => {
-        const count = countUniqueYeses([ 'ab', 'ac' ]);
-  
-        assert.strictEqual(count, 3);
-      });
+    // Given example.
+    it([
+      `should count ${yellow(3)} for the input [ 'ab', 'ac' ]`
+    ].join(''), () => {
+      const count = countUniqueYeses([ 'ab', 'ac' ]);
+
+      assert.strictEqual(count, 3);
     });
 
-    describe('countUniqueYeses()', () => {
-      // Given example.
-      it([
-        `should count ${yellow(1)} for the input [ 'a', 'a', 'a', 'a' ]`
-      ].join(''), () => {
-        const count = countUniqueYeses([ 'a', 'a', 'a', 'a' ]);
-  
-        assert.strictEqual(count, 1);
-      });
+    // Given example.
+    it([
+      `should count ${yellow(1)} for the input [ 'a', 'a', 'a', 'a' ]`
+    ].join(''), () => {
+      const count = countUniqueYeses([ 'a', 'a', 'a', 'a' ]);
+
+      assert.strictEqual(count, 1);
     });
 
-    describe('countUniqueYeses()', () => {
-      // Given example.
-      it([
-        `should count ${yellow(1)} for the input [ 'b' ]`
-      ].join(''), () => {
-        const count = countUniqueYeses([ 'b' ]);
-  
-        assert.strictEqual(count, 1);
-      });
+    // Given example.
+    it([
+      `should count ${yellow(1)} for the input [ 'b' ]`
+    ].join(''), () => {
+      const count = countUniqueYeses([ 'b' ]);
+
+      assert.strictEqual(count, 1);
     });
   });
 });
