@@ -123,13 +123,13 @@ describe('Day 6: Custom Customs (Part 1)', () => {
     });
 
     it([
-      `should return ${yellow(7)} for the example input if the first group is`,
+      `should return ${yellow(8)} for the example input if the first group is`,
       ' removed.'
     ].join(''), () => {
       const modifiedExample = example.slice(1);
       const solution = solverPart1(modifiedExample);
 
-      assert.strictEqual(solution, 7);
+      assert.strictEqual(solution, 8);
     });
 
     it([
@@ -141,6 +141,7 @@ describe('Day 6: Custom Customs (Part 1)', () => {
 
       assert.strictEqual(solution, 10);
     });
+  });
 });
 
 // ===============
