@@ -111,6 +111,36 @@ describe('Day 6: Custom Customs (Part 1)', () => {
       assert.strictEqual(count, 1);
     });
   });
+
+  describe('soverPart1()', () => {
+    // Given example.
+    it([
+      `should return ${yellow(11)} for the example input.`
+    ].join(''), () => {
+      const solution = solverPart1(example);
+
+      assert.strictEqual(solution, 11);
+    });
+
+    it([
+      `should return ${yellow(7)} for the example input if the first group is`,
+      ' removed.'
+    ].join(''), () => {
+      const modifiedExample = example.slice(1);
+      const solution = solverPart1(modifiedExample);
+
+      assert.strictEqual(solution, 7);
+    });
+
+    it([
+      `should return ${yellow(10)} for the example input if the first group is`,
+      ' removed.'
+    ].join(''), () => {
+      const modifiedExample = example.slice(0, example.length - 1);
+      const solution = solverPart1(modifiedExample);
+
+      assert.strictEqual(solution, 10);
+    });
 });
 
 // ===============
