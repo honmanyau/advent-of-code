@@ -112,7 +112,7 @@ describe('Day 6: Custom Customs (Part 1)', () => {
     });
   });
 
-  describe('soverPart1()', () => {
+  describe('solverPart1()', () => {
     // Given example.
     it([
       `should return ${yellow(11)} for the example input.`
