@@ -52,7 +52,31 @@ export function countUniqueYeses(input: string[]) {
  * @returns The number of common answers. 
  */
 export function countCommonYeses(input: string[]) {
-  return -1;
+  const [ firstItem, ...restItems ] = input;
+  const dict = {};
+
+  for (const answer of firstItem) {
+    dict[answer] = 1;
+  }
+
+  for (const item of restItems) {
+    for (const answer of item) {
+      if (!dict[answer]) {
+        delete dict[answer];
+      }
+      else {
+        dict[answer] += 1;
+      }
+    }
+  }
+
+  for (const answer in dict) {
+    if (dict[answer] !== input.length) {
+      delete dict[answer];
+    }
+  }
+
+  return Object.keys(dict).length;
 }
 
 /**
