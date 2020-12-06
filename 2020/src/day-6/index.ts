@@ -27,9 +27,9 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
 // ===============
 /**
  * This function creates a dictionary for the questions that people in a group
- * have answered yes.
- * @param {string} input The answers for a given group.
- * @returns The number of unique answers that people have answered yes to. 
+ * have answered yes to.
+ * @param {string[]} input The answers of a group.
+ * @returns The number of unique answers. 
  */
 export function countUniqueYeses(input: string[]) {
   const dict = {};
@@ -43,6 +43,16 @@ export function countUniqueYeses(input: string[]) {
   }
 
   return Object.keys(dict).length;
+}
+
+/**
+ * This function creates a dictionary for the questions that **everyone** in
+ * a group have answered yes to.
+ * @param {string[]} input The answers of a group.
+ * @returns The number of common answers. 
+ */
+export function countCommonYeses(input: string[]) {
+  return -1;
 }
 
 /**
