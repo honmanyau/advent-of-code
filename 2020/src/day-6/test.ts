@@ -5,6 +5,7 @@ import * as path from 'path';
 import { yellow } from '../utilities';
 import {
   processFile,
+  countCommonYeses,
   countUniqueYeses,
   solverPart1
 } from './index';
@@ -13,8 +14,6 @@ import {
 const examplePathname = path.resolve(__dirname, './example.txt');
 const exampleFile = fs.readFileSync(examplePathname, 'utf-8');
 const example = processFile(exampleFile);
-
-console.log(example);
 
 describe('Day 6: Custom Customs (Part 1)', () => {
   describe('countUniqueYeses()', () => {
@@ -142,6 +141,102 @@ describe('Day 6: Custom Customs (Part 1)', () => {
       assert.strictEqual(solution, 10);
     });
   });
+
+  describe('Day 6: Custom Customs (Part 2)', () => {
+    describe('countCommonYeses()', () => {
+      // Given example.
+      it([
+        `should count ${yellow(3)} for the input [ 'abc' ]`
+      ].join(''), () => {
+        const count = countCommonYeses([ 'abc' ]);
+  
+        assert.strictEqual(count, 3);
+      });
+    
+      it([
+        `should count ${yellow(2)} for the input [ 'ab' ]`
+      ].join(''), () => {
+        const count = countCommonYeses([ 'ab' ]);
+      
+        assert.strictEqual(count, 2);
+      });
+      
+      it([
+        `should count ${yellow(3)} for the input [ 'abc' ]`
+      ].join(''), () => {
+        const count = countCommonYeses([ 'abc' ]);
+      
+        assert.strictEqual(count, 3);
+      });
+      
+      it([
+        `should count ${yellow(1)} for the input [ 'a', 'ab' ]`
+      ].join(''), () => {
+        const count = countCommonYeses([ 'a', 'ab' ]);
+      
+        assert.strictEqual(count, 1);
+      });
+      
+      it([
+        `should count ${yellow(1)} for the input [ 'a', 'abc' ]`
+      ].join(''), () => {
+        const count = countCommonYeses([ 'a', 'abc' ]);
+      
+        assert.strictEqual(count, 1);
+      });
+      
+      it([
+        `should count ${yellow(2)} for the input [ 'ab', 'abc' ]`
+      ].join(''), () => {
+        const count = countCommonYeses([ 'ab', 'abc' ]);
+      
+        assert.strictEqual(count, 2);
+      });
+      
+      it([
+        `should count ${yellow(3)} for the input [ 'abc', 'abc' ]`
+      ].join(''), () => {
+        const count = countCommonYeses([ 'abc', 'abc' ]);
+      
+        assert.strictEqual(count, 3);
+      });
+      
+      // Given example.
+      it([
+        `should count ${yellow(0)} for the input [ 'a', 'b', 'c' ]`
+      ].join(''), () => {
+        const count = countCommonYeses([ 'a', 'b', 'c' ]);
+      
+        assert.strictEqual(count, 0);
+      });
+      
+      // Given example.
+      it([
+        `should count ${yellow(1)} for the input [ 'ab', 'ac' ]`
+      ].join(''), () => {
+        const count = countCommonYeses([ 'ab', 'ac' ]);
+      
+        assert.strictEqual(count, 1);
+      });
+      
+      // Given example.
+      it([
+        `should count ${yellow(1)} for the input [ 'a', 'a', 'a', 'a' ]`
+      ].join(''), () => {
+        const count = countCommonYeses([ 'a', 'a', 'a', 'a' ]);
+      
+        assert.strictEqual(count, 1);
+      });
+      
+      // Given example.
+      it([
+        `should count ${yellow(1)} for the input [ 'b' ]`
+      ].join(''), () => {
+        const count = countCommonYeses([ 'b' ]);
+      
+        assert.strictEqual(count, 1);
+      });
+    });
 });
 
 // ===============
