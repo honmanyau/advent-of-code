@@ -7,7 +7,8 @@ import {
   processFile,
   countCommonYeses,
   countUniqueYeses,
-  solverPart1
+  solverPart1,
+  solverPart2
 } from './index';
 
 
@@ -132,7 +133,7 @@ describe('Day 6: Custom Customs (Part 1)', () => {
     });
 
     it([
-      `should return ${yellow(10)} for the example input if the first group is`,
+      `should return ${yellow(10)} for the example input if the last group is`,
       ' removed.'
     ].join(''), () => {
       const modifiedExample = example.slice(0, example.length - 1);
@@ -236,6 +237,47 @@ describe('Day 6: Custom Customs (Part 2)', () => {
       const count = countCommonYeses([ 'b' ]);
     
       assert.strictEqual(count, 1);
+    });
+  });
+
+  describe('solverPart2()', () => {
+    // Given example.
+    it([
+      `should return ${yellow(6)} for the example input.`
+    ].join(''), () => {
+      const solution = solverPart2(example);
+
+      assert.strictEqual(solution, 6);
+    });
+
+    it([
+      `should return ${yellow(3)} for the example input if the first group is`,
+      ' removed.'
+    ].join(''), () => {
+      const modifiedExample = example.slice(1);
+      const solution = solverPart2(modifiedExample);
+
+      assert.strictEqual(solution, 3);
+    });
+
+    it([
+      `should return ${yellow(5)} for the example input if the last group is`,
+      ' removed.'
+    ].join(''), () => {
+      const modifiedExample = example.slice(0, example.length - 1);
+      const solution = solverPart2(modifiedExample);
+
+      assert.strictEqual(solution, 5);
+    });
+
+    it([
+      `should return ${yellow(6)} for the example input if the second group is`,
+      ' removed.'
+    ].join(''), () => {
+      const modifiedExample = example.slice(0, 1).concat(example.slice(2));
+      const solution = solverPart2(modifiedExample);
+
+      assert.strictEqual(solution, 6);
     });
   });
 });

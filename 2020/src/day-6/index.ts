@@ -70,6 +70,7 @@ export function countCommonYeses(input: string[]) {
     }
   }
 
+  // "Cleanup" for first entry, as answers may only appear in the first entry.
   for (const answer in dict) {
     if (dict[answer] !== input.length) {
       delete dict[answer];
@@ -121,6 +122,6 @@ export function solverPart1(input: string[][]) {
  * @param {any} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2(input: string[]) {
+export function solverPart2(input: string[][]) {
   return -1;
 }
