@@ -9,12 +9,20 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
   const challengeFile = fs.readFileSync(challengePathname, 'utf-8');
   const challenge = processFile(challengeFile);
   const solutionPart1 = solverPart1(challenge);
-  const solutionPart2 = solverPart2(challenge);
+  const solutionPart2 = logExecutionTime(
+    'solverPart2',
+    () => solverPart2(challenge)
+  );
+  const solutionPart2Attempt2 = logExecutionTime(
+    'solverPart2Attempt2',
+    () => solverPart2Attempt2(challenge)
+  );
 
   console.log([
     `The solutions for 2020's "Day 7: Handy Haversacks" are:`,
     `  * Part 1: ${green(solutionPart1)}`,
-    `  * Part 2: ${green(solutionPart2)}`
+    `  * Part 2: ${green(solutionPart2)}`,
+    `  * Part 2 (Attempt 2): ${green(solutionPart2Attempt2)}`
   ].join('\n'));
 }
 
@@ -163,4 +171,50 @@ export function solverPart2(bags: Bags, myBagName: string = 'shiny gold') {
   }
 
   return numBagsContained;
+}
+
+/**
+ * The solver function for Part 2 of the Advent of Code 2020's
+ * "Day 7: Handy Haversacks" challenge.
+ * @param {Bags} bags Entries of the challenge.
+ * @param {string} myBagName The name of the bag to be carried in
+ *     **at least one** other bag.
+ * @returns {number} Number of valid entries.
+ */
+export function solverPart2Attempt2(
+  bags: Bags,
+  rootBagName: string = 'shiny gold',
+  isRoot: boolean = true
+) {
+  const { content: childBags } = bags[rootBagName];
+  let total = isRoot ? 0 : 1;
+  
+  if (!childBags.length) {
+    return total;
+  }
+
+  for (const childBag of childBags) {
+    const { name: childBagName, amount: childBagAmount } = childBag;
+    
+    total += childBagAmount * solverPart2Attempt2(bags, childBagName, false);
+  }
+
+  return total;
+}
+
+/**
+ * This fucntion times the amount it takes for the provided callback function
+ * to execute, and prints the duration in milliseconds to the console. All
+ * operations in the callback function are assumed to be synchronous.
+ * @param {function} callback The callback function to be timed.
+ */
+export function logExecutionTime(name, callback) {
+  const start = process.hrtime.bigint();
+  const result = callback();
+  const end = process.hrtime.bigint();
+  const elapsedMs = Number(end - start) / 1E6;
+
+  console.log(`${name} finished in ${green(elapsedMs)} ms.\n`);
+
+  return result;
 }
