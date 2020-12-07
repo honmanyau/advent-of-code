@@ -113,6 +113,67 @@ describe('Day 7: Handy Haversacks (Part 1)', () => {
       assert.deepStrictEqual(entry, expectedEntry);
     });
   });
+
+  describe([
+    `sovlerPart1() should return ${yellow(4)} for the example.`
+  ].join(''), () => {
+    const solution = solverPart1(example);
+
+    assert.strictEqual(solution, 4);
+  });
+
+  describe([
+    `sovlerPart1() should return ${yellow(3)} for the example if the property,`,
+    ' "bright white" is removed from the example.'
+  ].join(''), () => {
+    const modifiedExample = { ...example };
+
+    delete modifiedExample['bright-white'];
+
+    const solution = solverPart1(example);
+
+    assert.strictEqual(solution, 3);
+  });
+
+  describe([
+    `sovlerPart1() should return ${yellow(3)} for the example if the property,`,
+    ' "dark orange" is removed from the example.'
+  ].join(''), () => {
+    const modifiedExample = { ...example };
+
+    delete modifiedExample['dark orange'];
+    
+    const solution = solverPart1(example);
+
+    assert.strictEqual(solution, 3);
+  });
+
+  describe([
+    `sovlerPart1() should return ${yellow(3)} for the example if the property,`,
+    ' "light red" is removed from the example.'
+  ].join(''), () => {
+    const modifiedExample = { ...example };
+
+    delete modifiedExample['light red'];
+    
+    const solution = solverPart1(example);
+
+    assert.strictEqual(solution, 3);
+  });
+
+  describe([
+    `sovlerPart1() should return ${yellow(0)} for the example if the,`,
+    ' properties "bright white" and "muted yellow" are removed from the',
+    ' example.'
+  ].join(''), () => {
+    const modifiedExample = { ...example };
+
+    delete modifiedExample['light red'];
+    
+    const solution = solverPart1(example);
+
+    assert.strictEqual(solution, 0);
+  });
 });
 
 describe('Day 7: Handy Haversacks (Part 2)', () => {
