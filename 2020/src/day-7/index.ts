@@ -61,7 +61,7 @@ export function processFile(file: string): Bags {
  * This function processes each entry of pre-processed input.
  * the Advent of Code 2020's "Day 7: Handy Haversacks" challenge.
  * @param {string} file A challenge file read in as a string.
- * @returns {string[]} An array where each line is an entry of the challenge.
+ * @returns {Bag} An array where each line is an entry of the challenge.
  */
 export function processEntry(entry: string): Bag {
   const split = entry
@@ -91,11 +91,44 @@ export function processEntry(entry: string): Bag {
 /**
  * The solver function for Part 1 of the Advent of Code 2020's
  * "Day 7: Handy Haversacks" challenge.
- * @param {any} input Entries of the challenge.
+ * @param {Bags} bags Entries of the challenge.
+ * @param {string} myBagName The name of the bag to be carried in **at least one**
+ *     other bag.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(input: Bags) {
-  return -1;
+export function solverPart1(bags: Bags, myBagName: string = 'shiny gold') {
+  const allFound = {};
+
+  for (const bagName in bags) {
+    if (bagName === myBagName) {
+      continue;
+    }
+
+    const rootBag = bags[bagName];
+    const queue = [ rootBag ];
+    const walked = [];
+    let found = false;
+
+    while (!found && queue.length > 0) {
+      const bag = queue.shift();
+      const { name: currentBagName } = bag;
+
+      if (currentBagName === 'shiny gold' || allFound[currentBagName]) {
+        found = true;
+      }
+      else {
+        for (const { name: contentBagName } of bag.content) {
+          queue.push(bags[contentBagName]);
+        }
+      }
+    }
+
+    if (found) {
+      allFound[bagName] = true;
+    }
+  }
+
+  return Object.keys(allFound).length;
 }
 
 /**
@@ -107,3 +140,41 @@ export function solverPart1(input: Bags) {
 export function solverPart2(input: string[][]) {
   return -1;
 }
+
+// /**
+//  * This function walks through the `Bags` "network" recursively and finds
+//  * all paths that lead to a "shiny gold" bag.
+//  * @param {Bags} bags The bags object.
+//  * @param {string} myBagName The bag name that indicates the end of a path.
+//  * @param {string[]} walked Names of the bags that have been seen along a
+//  *     path.
+//  * @param {object} allFound An object of all bags that have been found
+//  *     leading to a bag whose name is `myBagName`.
+//  * @return {string[]} Names of the bags that have been seen along a
+//  *     path, if myBagName was found, or an empty array otherwise.
+//  */
+// export function solverPart1(
+//   bags: Bags,
+//   myBagName: string,
+//   walked: string[] = [],
+//   allFound: object = {}
+// ) {
+//   for (const bagName in bags) {
+//     const bag = bags[bagName];
+
+//     if (bagName === myBagName || allFound[bagName]) {
+//       for (const name of walked) {
+//         allFound[name] = true;
+//       }
+//     }
+//     else {
+//       walked.push(bagName);
+
+//       for (const contentBag of bag.content) {
+//         solverPart1(bags, myBagName, [ ...walked ], allFound);
+//       }
+//     }
+//   }
+
+//   return Object.keys(allFound).length;
+// }
