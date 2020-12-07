@@ -114,65 +114,81 @@ describe('Day 7: Handy Haversacks (Part 1)', () => {
     });
   });
 
-  describe([
-    `sovlerPart1() should return ${yellow(4)} for the example.`
-  ].join(''), () => {
-    const solution = solverPart1(example);
 
-    assert.strictEqual(solution, 4);
-  });
+  describe(`sovlerPart1()`, () => {
+    it([
+      `should return ${yellow(4)} for the example.`
+    ].join(''), () => {
+      const solution = solverPart1(example, 'shiny gold');
 
-  describe([
-    `sovlerPart1() should return ${yellow(3)} for the example if the property,`,
-    ' "bright white" is removed from the example.'
-  ].join(''), () => {
-    const modifiedExample = { ...example };
+      assert.strictEqual(solution, 4);
+    });
 
-    delete modifiedExample['bright-white'];
+    it([
+      `should return ${yellow(3)} for the example if the content of the`,
+      ' "bright white" bag is removed from the example.'
+    ].join(''), () => {
+      const modifiedExample = { ...example };
 
-    const solution = solverPart1(example);
+      modifiedExample['bright white'] = { name: 'bright white', content: [] };
 
-    assert.strictEqual(solution, 3);
-  });
+      const solution = solverPart1(modifiedExample, 'shiny gold');
 
-  describe([
-    `sovlerPart1() should return ${yellow(3)} for the example if the property,`,
-    ' "dark orange" is removed from the example.'
-  ].join(''), () => {
-    const modifiedExample = { ...example };
+      assert.strictEqual(solution, 3);
+    });
 
-    delete modifiedExample['dark orange'];
-    
-    const solution = solverPart1(example);
+    it([
+      `should return ${yellow(3)} for the example if the content of the`,
+      ' "muted yellow" bag is removed from the example.'
+    ].join(''), () => {
+      const modifiedExample = { ...example };
 
-    assert.strictEqual(solution, 3);
-  });
+      modifiedExample['muted yellow'] = { name: 'muted yellow', content: [] };
 
-  describe([
-    `sovlerPart1() should return ${yellow(3)} for the example if the property,`,
-    ' "light red" is removed from the example.'
-  ].join(''), () => {
-    const modifiedExample = { ...example };
+      const solution = solverPart1(modifiedExample, 'shiny gold');
 
-    delete modifiedExample['light red'];
-    
-    const solution = solverPart1(example);
+      assert.strictEqual(solution, 3);
+    });
 
-    assert.strictEqual(solution, 3);
-  });
+    it([
+      `should return ${yellow(3)} for the example if the content of the`,
+      ' "dark orange" bag is removed from the example.'
+    ].join(''), () => {
+      const modifiedExample = { ...example };
 
-  describe([
-    `sovlerPart1() should return ${yellow(0)} for the example if the,`,
-    ' properties "bright white" and "muted yellow" are removed from the',
-    ' example.'
-  ].join(''), () => {
-    const modifiedExample = { ...example };
+      modifiedExample['dark orange'] = { name: 'dark orange', content: [] };
 
-    delete modifiedExample['light red'];
-    
-    const solution = solverPart1(example);
+      const solution = solverPart1(modifiedExample, 'shiny gold');
 
-    assert.strictEqual(solution, 0);
+      assert.strictEqual(solution, 3);
+    });
+
+    it([
+      `should return ${yellow(3)} for the example if the content of the`,
+      ' "light red" bag is removed from the example.'
+    ].join(''), () => {
+      const modifiedExample = { ...example };
+
+      modifiedExample['light red'] = { name: 'light red', content: [] };
+
+      const solution = solverPart1(modifiedExample, 'shiny gold');
+
+      assert.strictEqual(solution, 3);
+    });
+
+    it([
+      `should return ${yellow(0)} for the example if the content of both the`,
+      ' "bright white" and "muted yellow" bags are removed from the example.'
+    ].join(''), () => {
+      const modifiedExample = { ...example };
+
+      modifiedExample['bright white'] = { name: 'bright white', content: [] };
+      modifiedExample['muted yellow'] = { name: 'muted yellow', content: [] };
+
+      const solution = solverPart1(modifiedExample, 'shiny gold');
+
+      assert.strictEqual(solution, 0);
+    });
   });
 });
 
