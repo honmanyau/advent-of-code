@@ -22,6 +22,19 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
 // ================
 // == Interfaces ==
 // ================
+interface Bags {
+  [name: string]: Bag
+}
+
+interface Bag {
+  name: string;
+  content: ContentBag[];
+}
+
+interface ContentBag {
+  name: string;
+  amount: number;
+}
 
 
 // ===============
@@ -31,20 +44,48 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
  * This function uses the `processEntry` function process an input file of
  * the Advent of Code 2020's "Day 7: Handy Haversacks" challenge.
  * @param {string} file A challenge file read in as a string.
- * @returns {string[][]} An array where each line is an entry of the challenge.
+ * @returns {Bags} An array where each line is an entry of the challenge.
  */
-export function processFile(file: string) {
-  return file.trim().split('\n\n').map(processEntry);
+export function processFile(file: string): Bags {
+  const bags = file.trim().split('\n').map(processEntry);
+  const dict = {};
+  
+  for (const bag of bags) {
+    dict[bag.name] = bag;
+  }
+
+  return dict;
 }
 
 /**
  * This function processes each entry of pre-processed input.
  * the Advent of Code 2020's "Day 7: Handy Haversacks" challenge.
- * @param {string[]} file A challenge file read in as a string.
+ * @param {string} file A challenge file read in as a string.
  * @returns {string[]} An array where each line is an entry of the challenge.
  */
-export function processEntry(entry: string) {
-  return entry.split('\n');
+export function processEntry(entry: string): Bag {
+  const split = entry
+    .replace(/\scontain/, '')
+    .replace(',', '')
+    .replace(/ bags*\.$/, '')
+    .replace(' no other', '')
+    .split(/ bags*/);
+
+  const [ bagName, ...bagContent ] = split;
+  const bag: Bag = {
+    name: bagName,
+    content: []
+  };
+
+  for (const item of bagContent) {
+    if (item) {
+      const [ _item, amount, name ] = item.match(/(\d+?)\s(.+)$/);
+
+      bag.content.push({ name, amount: Number(amount) });
+    }
+  }
+
+  return bag;
 }
 
 /**
@@ -53,7 +94,7 @@ export function processEntry(entry: string) {
  * @param {any} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(input: string[][]) {
+export function solverPart1(input: Bags) {
   return -1;
 }
 
