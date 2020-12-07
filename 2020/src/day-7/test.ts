@@ -7,7 +7,8 @@ import {
   processEntry,
   processFile,
   solverPart1,
-  solverPart2
+  solverPart2,
+  solverPart2Attempt2
 } from './index';
 
 
@@ -271,6 +272,84 @@ describe('Day 7: Handy Haversacks (Part 2)', () => {
     ].join(''), () => {
       const solution = solverPart2(examplePart2);
 
+      assert.strictEqual(solution, 126);
+    });
+  });
+
+  describe('solverPart2Attempt2()', () => {
+    // Given example.
+    it([
+      `should return ${yellow(32)} for the example used in Part 1.`
+    ].join(''), () => {
+      const solution = solverPart2Attempt2(examplePart1);
+  
+      assert.strictEqual(solution, 32);
+    });
+  
+    it([
+      `should return ${yellow(8)} for the example used in Part 1.`,
+      ' if a "shiny gold" bag only contains 1 "dark olive" bag.'
+    ].join(''), () => {
+      const modifiedExample = { ...examplePart1 };
+  
+      modifiedExample['shiny gold'] = {
+        name: 'shiny gold',
+        content: [
+          {
+            name: 'dark olive',
+            amount: 1
+          }
+        ]
+      };
+  
+      const solution = solverPart2Attempt2(modifiedExample);
+  
+      assert.strictEqual(solution, 8);
+    });
+  
+    it([
+      `should return ${yellow(24)} for the example used in Part 1.`,
+      ' if a "shiny gold" bag only contains 2 "vibrant plum" bag.'
+    ].join(''), () => {
+      const modifiedExample = { ...examplePart1 };
+  
+      modifiedExample['shiny gold'] = {
+        name: 'shiny gold',
+        content: [
+          {
+            name: 'vibrant plum',
+            amount: 2
+          }
+        ]
+      };
+  
+      const solution = solverPart2Attempt2(modifiedExample);
+  
+      assert.strictEqual(solution, 24);
+    });
+  
+    it([
+      `should return ${yellow(0)} for the example used in Part 1.`,
+      ' if a "shiny gold" contains no bags.'
+    ].join(''), () => {
+      const modifiedExample = { ...examplePart1 };
+  
+      modifiedExample['shiny gold'] = {
+        name: 'shiny gold',
+        content: []
+      };
+  
+      const solution = solverPart2Attempt2(modifiedExample);
+  
+      assert.strictEqual(solution, 0);
+    });
+  
+    // Given example.
+    it([
+      `should return ${yellow(126)} for the new example in Part 2.`
+    ].join(''), () => {
+      const solution = solverPart2Attempt2(examplePart2);
+  
       assert.strictEqual(solution, 126);
     });
   });
