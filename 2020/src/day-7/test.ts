@@ -211,7 +211,7 @@ describe('Day 7: Handy Haversacks (Part 2)', () => {
       `should return ${yellow(8)} for the example used in Part 1.`,
       ' if a "shiny gold" bag only contains 1 "dark olive" bag.'
     ].join(''), () => {
-      const modifiedExample = { ...examplePart2 };
+      const modifiedExample = { ...examplePart1 };
 
       modifiedExample['shiny gold'] = {
         name: 'shiny gold',
@@ -232,7 +232,7 @@ describe('Day 7: Handy Haversacks (Part 2)', () => {
       `should return ${yellow(24)} for the example used in Part 1.`,
       ' if a "shiny gold" bag only contains 2 "vibrant plum" bag.'
     ].join(''), () => {
-      const modifiedExample = { ...examplePart2 };
+      const modifiedExample = { ...examplePart1 };
 
       modifiedExample['shiny gold'] = {
         name: 'shiny gold',
@@ -253,7 +253,7 @@ describe('Day 7: Handy Haversacks (Part 2)', () => {
       `should return ${yellow(0)} for the example used in Part 1.`,
       ' if a "shiny gold" contains no bags.'
     ].join(''), () => {
-      const modifiedExample = { ...examplePart2 };
+      const modifiedExample = { ...examplePart1 };
 
       modifiedExample['shiny gold'] = {
         name: 'shiny gold',
@@ -267,7 +267,7 @@ describe('Day 7: Handy Haversacks (Part 2)', () => {
 
     // Given example.
     it([
-      `should return ${yellow(1236)} for the new example in Part 1.`
+      `should return ${yellow(126)} for the new example in Part 2.`
     ].join(''), () => {
       const solution = solverPart2(examplePart2);
 

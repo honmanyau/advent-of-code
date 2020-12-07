@@ -92,8 +92,8 @@ export function processEntry(entry: string): Bag {
  * The solver function for Part 1 of the Advent of Code 2020's
  * "Day 7: Handy Haversacks" challenge.
  * @param {Bags} bags Entries of the challenge.
- * @param {string} myBagName The name of the bag to be carried in **at least one**
- *     other bag.
+ * @param {string} myBagName The name of the bag to be carried in
+ *     **at least one** other bag.
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(bags: Bags, myBagName: string = 'shiny gold') {
@@ -135,10 +135,32 @@ export function solverPart1(bags: Bags, myBagName: string = 'shiny gold') {
  * The solver function for Part 2 of the Advent of Code 2020's
  * "Day 7: Handy Haversacks" challenge.
  * @param {Bags} bags Entries of the challenge.
- * @param {string} myBagName The name of the bag to be carried in **at least one**
- *     other bag.
+ * @param {string} myBagName The name of the bag to be carried in
+ *     **at least one** other bag.
  * @returns {number} Number of valid entries.
  */
 export function solverPart2(bags: Bags, myBagName: string = 'shiny gold') {
-  return -1;
+  const rootBag = bags[myBagName];
+  const queue = [ rootBag ];
+  let numBagsContained = 0;
+
+  while (queue.length > 0) {
+    const currentBag = queue.shift();
+
+    if (!currentBag.content) {
+      console.log(currentBag);
+    }
+
+    for (const contentBag of currentBag.content) {
+      const { name, amount } = contentBag;
+
+      numBagsContained += amount;
+
+      for (let i = 0; i < amount; i++) {
+        queue.push(bags[name]);
+      }
+    }
+  }
+
+  return numBagsContained;
 }
