@@ -134,47 +134,11 @@ export function solverPart1(bags: Bags, myBagName: string = 'shiny gold') {
 /**
  * The solver function for Part 2 of the Advent of Code 2020's
  * "Day 7: Handy Haversacks" challenge.
- * @param {any} input Entries of the challenge.
+ * @param {Bags} bags Entries of the challenge.
+ * @param {string} myBagName The name of the bag to be carried in **at least one**
+ *     other bag.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2(input: string[][]) {
+export function solverPart2(bags: Bags, myBagName: string = 'shiny gold') {
   return -1;
 }
-
-// /**
-//  * This function walks through the `Bags` "network" recursively and finds
-//  * all paths that lead to a "shiny gold" bag.
-//  * @param {Bags} bags The bags object.
-//  * @param {string} myBagName The bag name that indicates the end of a path.
-//  * @param {string[]} walked Names of the bags that have been seen along a
-//  *     path.
-//  * @param {object} allFound An object of all bags that have been found
-//  *     leading to a bag whose name is `myBagName`.
-//  * @return {string[]} Names of the bags that have been seen along a
-//  *     path, if myBagName was found, or an empty array otherwise.
-//  */
-// export function solverPart1(
-//   bags: Bags,
-//   myBagName: string,
-//   walked: string[] = [],
-//   allFound: object = {}
-// ) {
-//   for (const bagName in bags) {
-//     const bag = bags[bagName];
-
-//     if (bagName === myBagName || allFound[bagName]) {
-//       for (const name of walked) {
-//         allFound[name] = true;
-//       }
-//     }
-//     else {
-//       walked.push(bagName);
-
-//       for (const contentBag of bag.content) {
-//         solverPart1(bags, myBagName, [ ...walked ], allFound);
-//       }
-//     }
-//   }
-
-//   return Object.keys(allFound).length;
-// }
