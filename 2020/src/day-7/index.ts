@@ -52,7 +52,7 @@ interface ContentBag {
  * This function uses the `processEntry` function process an input file of
  * the Advent of Code 2020's "Day 7: Handy Haversacks" challenge.
  * @param {string} file A challenge file read in as a string.
- * @returns {Bags} An array where each line is an entry of the challenge.
+ * @returns {Bags} An object containing deatils for each type of bag.
  */
 export function processFile(file: string): Bags {
   const bags = file.trim().split('\n').map(processEntry);
@@ -69,7 +69,7 @@ export function processFile(file: string): Bags {
  * This function processes each entry of pre-processed input.
  * the Advent of Code 2020's "Day 7: Handy Haversacks" challenge.
  * @param {string} file A challenge file read in as a string.
- * @returns {Bag} An array where each line is an entry of the challenge.
+ * @returns {Bag} An object representing the properties of a bag.
  */
 export function processEntry(entry: string): Bag {
   const split = entry
