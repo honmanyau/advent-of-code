@@ -54,10 +54,13 @@ export function processFile(file: string) {
  * This function processes each entry of pre-processed input.
  * the Advent of Code 2020's "Day 8: Handheld Halting" challenge.
  * @param {string} file A challenge file read in as a string.
- * @returns {string} An array where each line is an entry of the challenge.
+ * @returns {[ string, number ]} An array where each line is an entry of the
+ *     challenge.
  */
-export function processEntry(entry: string) {
-  return entry;
+export function processEntry(entry: string): [ string, number ] {
+  const [ instruction, argString ] = entry.split(' ');
+
+  return [ instruction, Number(argString) ];
 }
 
 /**
