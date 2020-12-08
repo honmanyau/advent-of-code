@@ -121,8 +121,6 @@ describe('Day 8: Handheld Halting (Part 2)', () => {
         accumulator
       } = walk(testInput);
 
-      console.log(walk(testInput));
-
       assert.deepStrictEqual(visitedPath, [ 0 ]);
       assert.deepStrictEqual(visitedNop, [ 0 ]);
       assert.deepStrictEqual(visitedJmp, []);
@@ -155,8 +153,6 @@ describe('Day 8: Handheld Halting (Part 2)', () => {
         terminated,
         accumulator
       } = walk(testInput);
-
-      console.log(walk(testInput));
 
       assert.deepStrictEqual(visitedPath, [ 0, 1 ]);
       assert.deepStrictEqual(visitedNop, [ 1 ]);
@@ -191,8 +187,6 @@ describe('Day 8: Handheld Halting (Part 2)', () => {
         accumulator
       } = walk(testInput);
 
-      console.log(walk(testInput));
-
       assert.deepStrictEqual(visitedPath, [ 0, 1, 2 ]);
       assert.deepStrictEqual(visitedNop, [ 2 ]);
       assert.deepStrictEqual(visitedJmp, [ 1 ]);
@@ -226,14 +220,45 @@ describe('Day 8: Handheld Halting (Part 2)', () => {
         accumulator
       } = walk(testInput);
 
-      console.log(walk(testInput));
-
       assert.deepStrictEqual(visitedPath, [ 0, 0 ]);
       assert.deepStrictEqual(visitedNop, []);
       assert.deepStrictEqual(visitedJmp, [ 0 ]);
       assert.strictEqual(accumulator, 0);
       assert.strictEqual(looped, true);
       assert.strictEqual(outOfRange, false);
+      assert.strictEqual(terminated, false);
+    });
+
+    it([
+      `should return the following object for the input`,
+      ` [ 'jmp +1', ]:\n`, 
+      `        {\n`,
+      `          visitedPath: [ 0 ],\n`,
+      `          visitedNop: [ ],\n`,
+      `          visitedJmp: [ 0 ],\n`,
+      `          looped: false,\n`,
+      `          outOfRange: true,\n`,
+      `          terminated: false,\n`,
+      `          accumulator: 0\n`,
+      `        }`,
+    ].join(''), () => {
+      const testInput = [ 'jmp +1' ].map(processEntry);
+      const {
+        visitedPath,
+        visitedNop,
+        visitedJmp,
+        looped,
+        outOfRange,
+        terminated,
+        accumulator
+      } = walk(testInput);
+
+      assert.deepStrictEqual(visitedPath, [ 0 ]);
+      assert.deepStrictEqual(visitedNop, []);
+      assert.deepStrictEqual(visitedJmp, [ 0 ]);
+      assert.strictEqual(accumulator, 0);
+      assert.strictEqual(looped, false);
+      assert.strictEqual(outOfRange, true);
       assert.strictEqual(terminated, false);
     });
   });
