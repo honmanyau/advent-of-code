@@ -79,17 +79,17 @@ export function processEntry(entry: string): Entry {
 /**
  * The solver function for Part 1 of the Advent of Code 2020's
  * "Day 8: Handheld Halting" challenge.
- * @param {Entry[]} instructions Entries of the challenge.
+ * @param {Entry[]} entries Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(instructions: Entry[]) {
+export function solverPart1(entries: Entry[]) {
   const visited = {};
   let accumulator = 0;
   let currentPosition = 0;
   let looped = false;
 
   while (!looped) {
-    const entry = instructions[currentPosition];
+    const entry = entries[currentPosition];
 
     if (!entry) {
       throw Error('Out of range!');
@@ -133,81 +133,30 @@ export function solverPart1(instructions: Entry[]) {
  * @param {Entry[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2(instructions: Entry[]) {
-  const visited = {};
-  const loopedPath = [];
-  const visitedNop = [];
-  const visitedJmp = [];
-  let accumulator = 0;
-  let currentPosition = 0;
-
-  // Find infinite path.
-  let looped = false;
-
-  while (!looped) {
-    const entry = instructions[currentPosition];
-
-    if (!entry) {
-      throw Error('Out of range!');
-    }
-
-    const [ instruction, arg ] = entry;
-
-    if (visited[currentPosition]) {
-      looped = true;
-      break;
-    }
-    else {
-      visited[currentPosition] = true;
-      loopedPath.push(currentPosition);
-
-      switch(instruction) {
-        case 'nop':
-          currentPosition += 1;
-          visitedNop.push(currentPosition);
-
-          break;
-        case 'acc':
-          currentPosition += 1;
-          accumulator += arg;
-
-          break;
-        case 'jmp':
-          currentPosition += arg;
-          visitedJmp.push(currentPosition);
-
-          break;
-        default:
-          throw Error('The program should never get to this point!');
-      }
-    }
-  }
-
-  return accumulator;
+export function solverPart2(entries: Entry[]) {
+  return -1;
 }
 
 /**
- * This functions walks through the instructions given and returns details
+ * This functions walks through the entries given and returns details
  * about the path walked.
  * @param {Entry[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function walk(instructions: Entry[]): WalkResults {
+export function walk(entries: Entry[], startPosition: number = 0): WalkResults {
   const visited = {};
   const visitedPath = [];
   const visitedNop = [];
   const visitedJmp = [];
   let accumulator = 0;
-  let currentPosition = 0;
+  let currentPosition = startPosition;
   let nextPosition = currentPosition;
   let looped = false;
   let outOfRange = false;
   let terminated = false;
 
-  // Find infinite path.
-
   while (!looped && !outOfRange && !terminated) {
-    const entry = instructions[currentPosition];
+    const entry = entries[currentPosition];
 
     if (!entry) {
       outOfRange = true;
@@ -218,8 +167,12 @@ export function walk(instructions: Entry[]): WalkResults {
 
     visitedPath.push(currentPosition);
 
-    if (currentPosition === instructions.length - 1) {
-      if (instruction === 'nop' || instruction === 'acc') {
+    if (currentPosition === entries.length - 1) {
+      if (
+        instruction === 'nop'
+        || instruction === 'acc'
+        || (instruction === 'jmp' && arg === 1)
+      ) {
         terminated = true;
       }
     }
@@ -262,4 +215,25 @@ export function walk(instructions: Entry[]): WalkResults {
     terminated,
     accumulator
   };
+}
+
+/**
+ * This function returns the index of the next entry given the current entry
+ * and its index.
+ * @param {Entry} entry A given entry.
+ * @param {number} index The index corrresponding to the given entry.
+ * @returns {number} The index of the next entry.
+ */
+export function getNextIndex(entry: Entry, index: number) {
+  const [ instruction, arg ] = entry;
+
+  if (instruction === 'nop' || instruction === 'acc') {
+    return index + 1;
+  }
+  else if (instruction === 'jmp') {
+    return index + arg;
+  }
+  else {
+    throw Error('Something went horribly wrong in getNextIndex().');
+  }
 }
