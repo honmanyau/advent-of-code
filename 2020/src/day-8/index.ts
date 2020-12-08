@@ -79,7 +79,7 @@ export function solverPart1(instructions: Entry[]) {
 
   while (!looped) {
     const entry = instructions[currentPosition];
-    console.log(entry);
+
     if (!entry) {
       throw Error('Out of range: there is no infinite loop.');
     }
