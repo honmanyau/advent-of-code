@@ -58,6 +58,7 @@ describe('Day 8: Handheld Halting (Part 1)', () => {
       const testInput3 = [
         'nop +0', 'jmp +2', 'jmp +3', 'acc +1', 'jmp -2', 'acc +1'
       ].map(processEntry);
+      
       assert.throws(() => solverPart1(testInput1), Error);
       assert.throws(() => solverPart1(testInput2), Error);
       assert.throws(() => solverPart1(testInput3), Error);
