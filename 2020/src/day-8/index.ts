@@ -134,7 +134,80 @@ export function solverPart1(entries: Entry[]) {
  * @returns {number} Number of valid entries.
  */
 export function solverPart2(entries: Entry[]) {
-  return -1;
+  const loop = walk(entries);
+  const {
+    visitedPath,
+    visitedNop,
+    visitedJmp
+  } = loop;
+
+  // Handling 'jmp' candidates.
+  const jmpCanditates = visitedJmp.filter((i) => {
+    const entry = entries[i];
+    const replacedEntry = [ 'nop', entry[1] ] as Entry;
+    const replacedNextIndex = getNextIndex(replacedEntry, i);
+    let isSolution = false;
+
+    if (!visitedPath.includes(replacedNextIndex)) {
+      const tempEntries = [
+        ...entries.slice(0, i),
+        replacedEntry,
+        ...entries.slice(i + 1)
+      ];
+      const tempWalkResults = walk(tempEntries, i);
+
+      if (tempWalkResults.terminated) {
+        isSolution = true;
+      }
+    }
+
+    return isSolution;
+  });
+
+  // Handling 'nop' candidates.
+  const nopCanditates = visitedNop.filter((i) => {
+    const entry = entries[i];
+    const replacedEntry = [ 'jmp', entry[1] ] as Entry;
+    const replacedNextIndex = getNextIndex(replacedEntry, i);
+    let isSolution = false;
+
+    if (!visitedPath.includes(replacedNextIndex)) {
+      const tempEntries = [
+        ...entries.slice(0, i),
+        replacedEntry,
+        ...entries.slice(i + 1)
+      ];
+      const tempWalkResults = walk(tempEntries, i);
+
+      if (tempWalkResults.terminated) {
+        isSolution = true;
+      }
+    }
+
+    return isSolution;
+  });
+
+  // Check that there is only one change that can be made, as specified in
+  // the challenge.
+  if (jmpCanditates.length + nopCanditates.length !== 1) {
+    throw Error('Incorrect algorithm: more than one solution found.');
+  }
+
+  // Create a corrected boot record and calculate the value of the accumulator
+  // for the correctly-running boot record.
+  const corruptedIndex = Number([ ...jmpCanditates, ...nopCanditates ][0]);
+  const replacementEntry: Entry = [
+    jmpCanditates.length ? 'nop' : 'jmp',
+    entries[corruptedIndex][1]
+  ];
+  const correctedEntries = [
+    ...entries.slice(0, corruptedIndex),
+    replacementEntry,
+    ...entries.slice(corruptedIndex + 1)
+  ];
+  const correctedWalkResults = walk(correctedEntries);
+
+  return correctedWalkResults.accumulator;
 }
 
 /**
