@@ -73,6 +73,7 @@ export function processEntry(entry: string): Entry {
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(instructions: Entry[]) {
+  const visited = {};
   let accumulator = 0;
   let currentPosition = 0;
   let looped = false;
@@ -86,12 +87,12 @@ export function solverPart1(instructions: Entry[]) {
 
     const [ instruction, arg ] = entry;
 
-    if (instruction === '---') {
+    if (visited[currentPosition]) {
       looped = true;
       break;
     }
     else {
-      instructions[currentPosition][0] = '---';
+      visited[currentPosition] = true;
 
       switch(instruction) {
         case 'nop':

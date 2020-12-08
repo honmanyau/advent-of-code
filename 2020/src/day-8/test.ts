@@ -14,15 +14,13 @@ import {
 const examplePathname = path.resolve(__dirname, './example.txt');
 const exampleFile = fs.readFileSync(examplePathname, 'utf-8');
 const example = processFile(exampleFile);
-const stringifiedExample = JSON.stringify(example);
 
 describe('Day 8: Handheld Halting (Part 1)', () => {
   describe(`sovlerPart1()`, () => {
     it([
       `should return ${yellow(5)} for the given example.`
     ].join(''), () => {
-      const parsedExample = JSON.parse(stringifiedExample);
-      const solution = solverPart1(parsedExample);
+      const solution = solverPart1(example);
 
       assert.strictEqual(solution, 5);
     });
@@ -31,8 +29,7 @@ describe('Day 8: Handheld Halting (Part 1)', () => {
       `should return ${yellow(5)} for the given example if the first`,
       ' instruction is removed.'
     ].join(''), () => {
-      const parsedExample = JSON.parse(stringifiedExample);
-      const modifiedExample = parsedExample.slice(1);
+      const modifiedExample = example.slice(1);
       const solution = solverPart1(modifiedExample);
 
       assert.strictEqual(solution, 5);
@@ -73,8 +70,7 @@ describe('Day 8: Handheld Halting (Part 2)', () => {
     it([
       `should do something.`
     ].join(''), () => {
-      const parsedExample = JSON.parse(stringifiedExample);
-      const solution = solverPart2(parsedExample);
+      const solution = solverPart2(example);
     });
   });
 });
