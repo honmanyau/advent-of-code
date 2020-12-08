@@ -9,20 +9,12 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
   const challengeFile = fs.readFileSync(challengePathname, 'utf-8');
   const challenge = processFile(challengeFile);
   const solutionPart1 = solverPart1(challenge);
-  const solutionPart2 = logExecutionTime(
-    'solverPart2',
-    () => solverPart2(challenge)
-  );
-  const solutionPart2Attempt2 = logExecutionTime(
-    'solverPart2Attempt2',
-    () => solverPart2Attempt2(challenge)
-  );
+  const solutionPart2 = solverPart2(challenge);
 
   console.log([
-    `The solutions for 2020's "Day 7: Handy Haversacks" are:`,
+    `The solutions for 2020's "Day X: XXXXXXX" are:`,
     `  * Part 1: ${green(solutionPart1)}`,
-    `  * Part 2: ${green(solutionPart2)}`,
-    `  * Part 2 (Attempt 2): ${green(solutionPart2Attempt2)}`
+    `  * Part 2: ${green(solutionPart2)}`
   ].join('\n'));
 }
 
@@ -50,7 +42,7 @@ interface ContentBag {
 // ===============
 /**
  * This function uses the `processEntry` function process an input file of
- * the Advent of Code 2020's "Day 7: Handy Haversacks" challenge.
+ * the Advent of Code 2020's "Day X: XXXXXXX" challenge.
  * @param {string} file A challenge file read in as a string.
  * @returns {string[]} An array where each line is an entry of the challenge.
  */
@@ -60,7 +52,7 @@ export function processFile(file: string) {
 
 /**
  * This function processes each entry of pre-processed input.
- * the Advent of Code 2020's "Day 7: Handy Haversacks" challenge.
+ * the Advent of Code 2020's "Day X: XXXXXXX" challenge.
  * @param {string} file A challenge file read in as a string.
  * @returns {string} An array where each line is an entry of the challenge.
  */
@@ -70,7 +62,7 @@ export function processEntry(entry: string) {
 
 /**
  * The solver function for Part 1 of the Advent of Code 2020's
- * "Day 7: Handy Haversacks" challenge.
+ * "Day X: XXXXXXX" challenge.
  * @param {string[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
@@ -80,7 +72,7 @@ export function solverPart1(input: string[]) {
 
 /**
  * The solver function for Part 2 of the Advent of Code 2020's
- * "Day 7: Handy Haversacks" challenge.
+ * "Day X: XXXXXXX" challenge.
  * @param {string[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
