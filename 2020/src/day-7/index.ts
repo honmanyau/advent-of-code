@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { green } from '../utilities';
+import { green, logDuration } from '../utilities';
 
 
 if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
@@ -9,11 +9,11 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
   const challengeFile = fs.readFileSync(challengePathname, 'utf-8');
   const challenge = processFile(challengeFile);
   const solutionPart1 = solverPart1(challenge);
-  const solutionPart2 = logExecutionTime(
+  const solutionPart2 = logDuration(
     'solverPart2',
     () => solverPart2(challenge)
   );
-  const solutionPart2Attempt2 = logExecutionTime(
+  const solutionPart2Attempt2 = logDuration(
     'solverPart2Attempt2',
     () => solverPart2Attempt2(challenge)
   );
@@ -200,21 +200,4 @@ export function solverPart2Attempt2(
   }
 
   return total;
-}
-
-/**
- * This fucntion times the amount it takes for the provided callback function
- * to execute, and prints the duration in milliseconds to the console. All
- * operations in the callback function are assumed to be synchronous.
- * @param {function} callback The callback function to be timed.
- */
-export function logExecutionTime(name, callback) {
-  const start = process.hrtime.bigint();
-  const result = callback();
-  const end = process.hrtime.bigint();
-  const elapsedMs = Number(end - start) / 1E6;
-
-  console.log(`${name} finished in ${green(elapsedMs)} ms.\n`);
-
-  return result;
 }

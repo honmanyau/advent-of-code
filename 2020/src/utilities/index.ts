@@ -11,6 +11,23 @@ export function green(input: any) {
 }
 
 /**
+ * This fucntion times the amount it takes for the provided callback function
+ * to execute, and prints the duration in milliseconds to the console. All
+ * operations in the callback function are assumed to be synchronous.
+ * @param {function} callback The callback function to be timed.
+ */
+export function logDuration(name, callback) {
+  const start = process.hrtime.bigint();
+  const result = callback();
+  const end = process.hrtime.bigint();
+  const elapsedMs = Number(end - start) / 1E6;
+
+  console.log(`${name} finished in ${green(elapsedMs)} ms.\n`);
+
+  return result;
+}
+
+/**
  * This function formats a string with the ANSI escape code for printing a
  * red (colour 31) string.
  * @param {string} input - The input to be formatted with a red colour.
