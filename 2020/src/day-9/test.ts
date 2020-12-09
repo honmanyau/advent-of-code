@@ -126,6 +126,16 @@ describe('Day 9: Encoding Error (Part 1)', () => {
 
       assert.strictEqual(weakness, 2048);
     });
+
+    it([
+      `should throw an error for the test input [ 1, 2, ..., 24,`,
+      ` 25, 26, 27, 28, 29, 30 ]`
+    ].join(''), () => {
+      const testInput = Array.from({ length: 30 })
+        .map((_v, i) => i + 1);
+
+      assert.throws(() => solverPart1(testInput), Error);
+    });
   });
 });
 
