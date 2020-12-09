@@ -34,12 +34,46 @@ interface LookupItem {
 // == Functions ==
 // ===============
 /**
+ * This function finds the first contiguous set that sums up to the weakness in
+ * a given set of XMAS data.
+ * @param {number[]} data The XMAS data.
+ * @param {number} preambleSize The size of the preamble.
+ */
+export function findContiguousSet(data: number[], preambleSize: number) {
+  const weakness = findWeakness(data, preambleSize);
+
+  for (let i = 0; i < data.length; i++) {
+    const currentSet = [];
+    let sum = 0;
+
+    if (data[i] === weakness) {
+      continue;
+    }
+    else {
+      for (let j = i; j < data.length && sum < weakness; j++) {
+        const currentNumber = data[j];
+        const nextSum = sum + currentNumber;
+
+        sum = nextSum;
+        currentSet.push(currentNumber);
+      }
+
+      if (sum === weakness) {
+        return currentSet;
+      }
+    }
+  }
+}
+
+
+
+/**
  * This fucntion returns the first weakness found in the XMAS data according to
  * the rules specified in the challenge.
  * @param {number[]} data The XMAS data.
  * @param {number} preambleSize The size of the preamble.
  */
-export function findWeakness(data: number[], preambleSize: number = 25) {
+export function findWeakness(data: number[], preambleSize: number) {
   const preamble = data.slice(0, preambleSize);
   const lookup = createLookup(preamble);
   let weakness = null;
