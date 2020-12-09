@@ -1,4 +1,6 @@
+import { lookup } from 'dns';
 import * as fs from 'fs';
+import { platform } from 'os';
 import * as path from 'path';
 
 import { green } from '../utilities';
@@ -22,18 +24,9 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
 // ================
 // == Interfaces ==
 // ================
-interface Bags {
-  [name: string]: Bag
-}
-
-interface Bag {
-  name: string;
-  content: ContentBag[];
-}
-
-interface ContentBag {
-  name: string;
-  amount: number;
+interface LookupItem {
+  number: number;
+  sums: number[];
 }
 
 
@@ -47,7 +40,63 @@ interface ContentBag {
  * @param {number} preambleSize The size of the preamble.
  */
 export function findWeakness(data: number[], preambleSize: number = 25) {
+  const preamble = data.slice(0, preambleSize);
+  const lookup = createLookup(preamble);
+  let pos = preambleSize;
+
+  updateTable(lookup, 1);
+  console.log(lookup);
+  
   return -1;
+}
+
+/**
+ * This function creates a lookup table for the sums of the numbers in a given
+ * preamble.
+ * @param {number[]} preamble A preamble.
+ * @returns {LookupItem[]} The lookup table.
+ */
+export function createLookup(preamble: number[]) {
+  const lookup = [];
+
+  for (let i = 0; i < preamble.length; i++) {
+    const number = preamble[i];
+
+    lookup.push({
+      number: number,
+      sums: preamble.map((val, j) => i === j ? null : number + val)
+    });
+  }
+
+  return lookup;
+}
+
+/**
+ * This function updates a lookup table with a new value to minimise
+ * recalculation associated with creating a new table.
+ * @param {number[]} lookup A lookup table created with `createTable()`.
+ * @param {number} newNum The number to be added to the table.
+ * @returns {LookupItem[]} The lookup table.
+ */
+export function updateTable(lookup: LookupItem[], newNum: number) {
+  const firstItem = lookup.shift();
+  const newItem: LookupItem = {
+    number: newNum,
+    sums: []
+  };
+  
+  for (const item of lookup) {
+    const { number, sums } = item;
+    
+    sums.shift();
+    sums.push(number + newNum);
+    newItem.sums.push(number + newNum);
+  }
+
+  newItem.sums.push(null);
+  lookup.push(newItem);
+
+  return lookup;
 }
 
 /**
