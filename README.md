@@ -86,5 +86,11 @@ yarn test:2020
     <ul>
       <li><a href="./2020/src/day-1">Day 1: Report Repair</a></li>
       <li><a href="./2020/src/day-2">Day 2: Password Philosophy</a></li>
+      <li><a href="./2020/src/day-3">Day 3: Toboggan Trajectory</a></li>
+      <li><a href="./2020/src/day-4">Day 4: Passport Processing</a></li>
+      <li><a href="./2020/src/day-5">Day 5: Binary Boarding</a></li>
+      <li><a href="./2020/src/day-6">Day 6: Custom Customs</a></li>
+      <li><a href="./2020/src/day-7">Day 7: Handy Haversacks</a></li>
+      <li><a href="./2020/src/day-8">Day 8: Handheld Halting</a></li>
     </ul>
 </details>
