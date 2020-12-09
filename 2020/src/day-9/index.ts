@@ -147,7 +147,7 @@ export function processEntry(entry: string): number {
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(input: number[]) {
-  return -1;
+  return findWeakness(input, 25);
 }
 
 /**
