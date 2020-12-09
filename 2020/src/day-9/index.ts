@@ -178,18 +178,20 @@ export function processEntry(entry: string): number {
  * The solver function for Part 1 of the Advent of Code 2020's
  * "Day 9: Encoding Error" challenge.
  * @param {number[]} input Entries of the challenge.
+ * @param {number} preambleSize The size of the preamble.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(input: number[]) {
-  return findWeakness(input, 25);
+export function solverPart1(input: number[], preambleSize: number = 25) {
+  return findWeakness(input, preambleSize);
 }
 
 /**
  * The solver function for Part 2 of the Advent of Code 2020's
  * "Day 9: Encoding Error" challenge.
  * @param {number[]} input Entries of the challenge.
+ * @param {number} preambleSize The size of the preamble.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2(input: number[]) {
+export function solverPart2(input: number[], preambleSize: number = 25) {
   return -1;
 }

@@ -152,7 +152,7 @@ describe('Day 9: Encoding Error (Part 2)', () => {
     });
 
     it([
-      `should return ${yellow([ 15, 25, 47, 40, 47 ])} for the example input`,
+      `should return ${yellow([ 35, 20, 15, 25, 47 ])} for the example input`,
       ' if the 15th entry is changed from 127 (invalid) to 332 (valid), and',
       ' the 14th entry is changed from 182 (valid) to 142 (invalid)'
     ].join(''), () => {
@@ -185,9 +185,65 @@ describe('Day 9: Encoding Error (Part 2)', () => {
   describe('solverPart2()', () => {
     // Given example.
     it([
-      `should do something.`
+      `return ${yellow(62)} for the example input with a preamble size of 5.`
     ].join(''), () => {
-      const solution = solverPart2(example);
+      const solution = solverPart2(example, 5);
+
+      assert.strictEqual(solution, 62);
+    });
+
+    it([
+      `should return ${yellow(62)} for the example input`,
+      ' if the 15th entry is changed from 127 (invalid) to 332 (valid), and',
+      ' the 14th entry is changed from 182 (valid) to 142 (invalid)'
+    ].join(''), () => {
+      const modifiedData = [ ...example ];
+
+      modifiedData[14] = 332;
+      modifiedData[15] = 142;
+
+      const solution = solverPart2(modifiedData, 5);
+
+      assert.strictEqual(solution, 62);
+    });
+
+    it([
+      `should return ${yellow(77)} for the example input`,
+      ' if the 15th entry is changed from 127 (invalid) to 332 (valid), and',
+      ' the 14th entry is changed from 182 (valid) to 209 (invalid)'
+    ].join(''), () => {
+      const modifiedData = [ ...example ];
+
+      modifiedData[14] = 332;
+      modifiedData[15] = 209;
+
+      const solution = solverPart2(modifiedData, 5);
+
+      assert.strictEqual(solution, 77);
+    });
+
+    it([
+      `should return ${yellow(49)} for the test input [ 1, 2, ..., 24,`,
+      ` 25, 98 ] with a preamble size of 25.`
+    ].join(''), () => {
+      const testInput = Array.from({ length: 25 })
+        .map((_v, i) => i + 1)
+        .concat([ 98 ]);
+      const solution = solverPart2(testInput);
+
+      assert.strictEqual(solution, 49);
+    });
+
+    it([
+      `should return ${yellow(44)} for the test input [ 1, 2, ..., 24,`,
+      ` 25, 154 ] with a preamble size of 25.`
+    ].join(''), () => {
+      const testInput = Array.from({ length: 25 })
+        .map((_v, i) => i + 1)
+        .concat([ 154 ]);
+      const solution = solverPart2(testInput);
+
+      assert.strictEqual(solution, 44);
     });
   });
 });
