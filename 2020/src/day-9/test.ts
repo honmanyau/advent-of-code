@@ -5,6 +5,7 @@ import * as path from 'path';
 import { yellow } from '../utilities';
 import {
   processFile,
+  findContiguousSet,
   findWeakness,
   solverPart1,
   solverPart2
@@ -140,6 +141,47 @@ describe('Day 9: Encoding Error (Part 1)', () => {
 });
 
 describe('Day 9: Encoding Error (Part 2)', () => {
+  describe('findContiguousSet()', () => {
+    // Given example.
+    it([
+      `should return ${yellow([ 15, 25, 47, 40 ])} for the example input.`
+    ].join(''), () => {
+      const solution = findContiguousSet(example, 5);
+
+      assert.deepStrictEqual(solution, [ 15, 25, 47, 40 ]);
+    });
+
+    it([
+      `should return ${yellow([ 15, 25, 47, 40, 47 ])} for the example input`,
+      ' if the 15th entry is changed from 127 (invalid) to 332 (valid), and',
+      ' the 14th entry is changed from 182 (valid) to 142 (invalid)'
+    ].join(''), () => {
+      const modifiedData = [ ...example ];
+
+      modifiedData[14] = 332;
+      modifiedData[15] = 142;
+
+      const solution = findContiguousSet(modifiedData, 5);
+
+      assert.deepStrictEqual(solution, [ 35, 20, 15, 25, 47 ]);
+    });
+
+    it([
+      `should return ${yellow([ 20, 15, 25, 47, 40, 62 ])} for the example input`,
+      ' if the 15th entry is changed from 127 (invalid) to 332 (valid), and',
+      ' the 14th entry is changed from 182 (valid) to 209 (invalid)'
+    ].join(''), () => {
+      const modifiedData = [ ...example ];
+
+      modifiedData[14] = 332;
+      modifiedData[15] = 209;
+
+      const solution = findContiguousSet(modifiedData, 5);
+
+      assert.deepStrictEqual(solution, [ 20, 15, 25, 47, 40, 62 ]);
+    });
+  });
+
   describe('solverPart2()', () => {
     // Given example.
     it([
