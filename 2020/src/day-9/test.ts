@@ -224,26 +224,26 @@ describe('Day 9: Encoding Error (Part 2)', () => {
 
     it([
       `should return ${yellow(49)} for the test input [ 1, 2, ..., 24,`,
-      ` 25, 98 ] with a preamble size of 25.`
+      ` 25, 172 ] with a preamble size of 25.`
     ].join(''), () => {
       const testInput = Array.from({ length: 25 })
         .map((_v, i) => i + 1)
-        .concat([ 98 ]);
+        .concat([ 172 ]);
       const solution = solverPart2(testInput);
 
-      assert.strictEqual(solution, 49);
+      assert.strictEqual(solution, 43);
     });
 
     it([
-      `should return ${yellow(44)} for the test input [ 1, 2, ..., 24,`,
-      ` 25, 154 ] with a preamble size of 25.`
+      `should return ${yellow(36)} for the test input [ 1, 2, ..., 24,`,
+      ` 25, 280 ] with a preamble size of 25.`
     ].join(''), () => {
       const testInput = Array.from({ length: 25 })
         .map((_v, i) => i + 1)
-        .concat([ 154 ]);
+        .concat([ 280 ]);
       const solution = solverPart2(testInput);
 
-      assert.strictEqual(solution, 44);
+      assert.strictEqual(solution, 35);
     });
   });
 });
