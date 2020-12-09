@@ -42,12 +42,33 @@ interface LookupItem {
 export function findWeakness(data: number[], preambleSize: number = 25) {
   const preamble = data.slice(0, preambleSize);
   const lookup = createLookup(preamble);
-  let pos = preambleSize;
+  let weakness = null;
 
-  updateTable(lookup, 1);
-  console.log(lookup);
+  for (let i = preambleSize; i < data.length; i++) {
+    const currentNumber = data[i];
+    let found = false;
+
+    for (let j = 0; j < lookup.length && !found; j++) {
+      const partialSums = lookup[j].sums.slice(j + 1);
+      
+      found = found || partialSums.includes(currentNumber);
+    }
+    
+    if (found) {
+      updateTable(lookup, currentNumber);
+      continue;
+    }
+    else {
+      weakness = currentNumber;
+      break;
+    }
+  }
+
+  if (weakness === null) {
+    throw Error('No weakness found in the XMAS data!');
+  }
   
-  return -1;
+  return weakness;
 }
 
 /**
@@ -75,13 +96,13 @@ export function createLookup(preamble: number[]) {
  * This function updates a lookup table with a new value to minimise
  * recalculation associated with creating a new table.
  * @param {number[]} lookup A lookup table created with `createTable()`.
- * @param {number} newNum The number to be added to the table.
+ * @param {number} newNumber The number to be added to the table.
  * @returns {LookupItem[]} The lookup table.
  */
-export function updateTable(lookup: LookupItem[], newNum: number) {
+export function updateTable(lookup: LookupItem[], newNumber: number) {
   const firstItem = lookup.shift();
   const newItem: LookupItem = {
-    number: newNum,
+    number: newNumber,
     sums: []
   };
   
@@ -89,8 +110,8 @@ export function updateTable(lookup: LookupItem[], newNum: number) {
     const { number, sums } = item;
     
     sums.shift();
-    sums.push(number + newNum);
-    newItem.sums.push(number + newNum);
+    sums.push(number + newNumber);
+    newItem.sums.push(number + newNumber);
   }
 
   newItem.sums.push(null);
