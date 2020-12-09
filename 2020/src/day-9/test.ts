@@ -68,9 +68,63 @@ describe('Day 9: Encoding Error (Part 1)', () => {
 
   describe(`sovlerPart1()`, () => {
     it([
-      `should do something.`
+      `should return ${yellow(1024)} for the test input [ 1, 2, ..., 24,`,
+      ` 25, 1024 ]`
     ].join(''), () => {
-      const solution = solverPart1(example);
+      const testInput = Array.from({ length: 25 })
+        .map((_v, i) => i + 1)
+        .concat([ 1024 ]);
+      const weakness = solverPart1(testInput);
+
+      assert.strictEqual(weakness, 1024);
+    });
+
+    it([
+      `should return ${yellow(1024)} for the test input [ 1, 2, ..., 24,`,
+      ` 25, 26, 1024 ]`
+    ].join(''), () => {
+      const testInput = Array.from({ length: 26 })
+        .map((_v, i) => i + 1)
+        .concat([ 1024 ]);
+      const weakness = solverPart1(testInput);
+
+      assert.strictEqual(weakness, 1024);
+    });
+
+    it([
+      `should return ${yellow(1024)} for the test input [ 1, 2, ..., 24,`,
+      ` 25, 26, 1024, 2048 ]`
+    ].join(''), () => {
+      const testInput = Array.from({ length: 26 })
+        .map((_v, i) => i + 1)
+        .concat([ 1024, 2048 ]);
+      const weakness = solverPart1(testInput);
+
+      assert.strictEqual(weakness, 1024);
+    });
+
+    it([
+      `should return ${yellow(1024)} for the test input [ 1, 2, ..., 24,`,
+      ` 25, 26, 1024, 2048, 27, 28, 29, 30 ]`
+    ].join(''), () => {
+      const testInput = Array.from({ length: 26 })
+        .map((_v, i) => i + 1)
+        .concat([ 1024, 2048, 27, 28, 29, 30 ]);
+      const weakness = solverPart1(testInput);
+
+      assert.strictEqual(weakness, 1024);
+    });
+
+    it([
+      `should return ${yellow(1024)} for the test input [ 1, 2, ..., 24,`,
+      ` 25, 26, 2048, 1024, 27, 28, 29, 30 ]`
+    ].join(''), () => {
+      const testInput = Array.from({ length: 26 })
+        .map((_v, i) => i + 1)
+        .concat([ 2048, 1024, 27, 28, 29, 30 ]);
+      const weakness = solverPart1(testInput);
+
+      assert.strictEqual(weakness, 2048);
     });
   });
 });
