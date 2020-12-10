@@ -82,7 +82,21 @@ export function calcDifferences(adapters: number[]) {
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(adapters: number[]) {
-  return -1;
+  const differences = calcDifferences(adapters);
+  let numOnes = 0;
+  let numThrees = 0;
+
+  for (const difference of differences) {
+    if (difference === 1) {
+      numOnes += 1;
+    }
+
+    if (difference === 3) {
+      numThrees += 1;
+    }
+  }
+
+  return numOnes * numThrees;
 }
 
 /**
