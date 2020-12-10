@@ -106,5 +106,95 @@ export function solverPart1(adapters: number[]) {
  * @returns {number} Number of valid entries.
  */
 export function solverPart2(adapters: number[]) {
+  // The problem definitely can't be solved in a reasonable amount
+  // of time by brute force. Given that the actual numbers do not matter,
+  // and that the first part is a strong hint to that, the problem probably
+  // requires division into more digestable parts. Brain dump follows.
+  //
+  // 1. Consider the simple case of [ (0), 3, 6, 9, (12) ], whose difference is
+  //    represented as [ 3, 3, 3, 3 ]. It is clear that there is only one
+  //    solution in this case because removing any one number (hence added the
+  //    original differences before and after the given number), will result in
+  //    a new difference of 6.
+  //
+  // 2. Consider then the case of [ (0), 1, 4, 7, (10) ], whose differences are
+  //    [ 1, 3, 3, 3 ]. Again, none of the numbers can be removed for the same
+  //    same reason as **POINT 1**.
+  //
+  // 3. What about [ (0), 1, 3, 6, (9) ] and [ 1, 2, 3, 3 ]? In this case the
+  //    first number can be removed, which will result in a new difference of
+  //    [ 3, 3, 3 ]. It seems that [ 1, 2, 3 ] is a subsetaunce that can be
+  //    reduced and one could define boundaries base on where 3's occur?
+  //
+  // 4. Double check with [ (0), 3, 4, 6, 9, (12) ] and [ 3, 1, 2, 3, 3 ]. Using
+  //    the reasoning in **POINT 3**, one could split the differences into
+  //    [ 3 ], [ 1, 2 ], [ 3 ] [ 3 ]. There is exactly one way to reduce
+  //    [ 1, 2 ] to [ 3 ], so the number of possible solutions is
+  //    1 * 2 * 1 * 1 = 2. This seems okay so far.
+  //
+  // 5. Let's try [ (0), 2, 3, 4, 6, 9, (12) ] and [ 2, 1, 1, 2, 3, 3 ],
+  //    which has 5 solutions. The subsequences are [ 2, 1, 1, 2 ], [ 3 ]
+  //    and [ 3 ]. The reducible subsequence [ 2, 1, 1, 2 ] already hurts
+  //    my head, uh, I mean it has slightly more work involved (thank goodness
+  //    it's not difficult to see 5 solutions in the original array). The
+  //    "first-order" reductions are:
+  //      * [ 3, 1, 2 ], which corresponds to [ (0), 3, 4, 6 ]
+  //      * [ 2, 1, 3 ], which corresponds to [ (0), 2, 3, 6 ]
+  //      * [ 2, 2, 2 ], which corresponds to [ (0), 2, 4, 6 ]
+  //
+  //    The first two solutions can be further reduced:
+  //      * [ 3, 1, 2 ] => [ 3 ], [ 1, 2 ] => [ 3 ], [ 3 ] (Irreducible)
+  //      * [ 2, 1, 3 ] => [ 2, 1 ], [ 3 ] => [ 3 ], [ 3 ] (Equivalent)
+  //
+  //    Therefore exactly five solutions because there are five unique
+  //    (in terms of adapter joltages) to represent joltages.
+  //
+  // 6. We need more examples. Let's try [ (0), 2, 3, 4, 5, 6, 9, (12) ], whose
+  //    differences are [ 2, 1, 1, 1, 1, 3, 3 ], and hope that we can find 11
+  //    solutions using the logic above.
+  //
+  //    Chopping it off at 3's (1 solution):
+  //      * [ 2, 1, 1, 1, 1 ], [ 3 ] and [ 3 ] <--> [ (0), 2, 3, 4, 5, 6 ],
+  //        [ 6, 9 ] and [ 9, 12 ].
+  //
+  //    "First-order" reduction (4 unique solutions):
+  //      * [ 2, 1, 1, 1, 1 ] => [ 3, 1, 1, 1 ] <--> [ (0), 3, 4, 5, 6 ]
+  //      * [ 2, 1, 1, 1, 1 ] => [ 2, 2, 1, 1 ] <--> [ (0), 2, 4, 5, 6 ]
+  //      * [ 2, 1, 1, 1, 1 ] => [ 2, 1, 2, 1 ] <--> [ (0), 2, 3, 5, 6 ]
+  //      * [ 2, 1, 1, 1, 1 ] => [ 2, 1, 1, 2 ] <--> [ (0), 2, 3, 4, 6 ]
+  //
+  //    "Second-order" reduction (5 unique solutions):
+  //      * [ 3, 1, 1, 1 ] => ... => [ 3 ], [ 2, 1 ] <--> [ (0), 3 ] and
+  //        [ 3, 5, 6 ]
+  //      * [ 3, 1, 1, 1 ] => ... => [ 3 ], [ 1, 2 ] <--> [ (0), 3 ] and
+  //        [ 3, 4, 6 ]
+  //      * [ 2, 2, 1, 1 ] => ... => [ 2, 2, 2 ] <--> [ (0), 2, 4, 6 ]
+  //        (Irreducible)
+  //      * [ 2, 2, 1, 1 ] => ... => [ 2 ], [ 3 ], [ 1 ] <--> [ (0), 2 ],
+  //        [ 2, 5 ] and [ 5, 6 ].
+  //      * [ 2, 1, 2, 1 ] => ... => [ 3 ], [ 2, 1 ] <--> [ (0), 3 ] and
+  //        [ 3, 5, 6 ]
+  //      * [ 2, 1, 2, 1 ] => ... => [ 2, 1 ], [ 3 ] <--> [ (0), 2, 3 ] and
+  //        [ 3, 6 ]
+  //      * [ 2, 1, 2, 1 ] => ... => [ 2 ], [ 3 ], [ 1 ] <--> [ (0), 2 ] and
+  //        [ 2, 5 ] and [ 5, 6 ] (Irreducible)
+  //      * [ 2, 1, 1, 2 ] => ... => [ 2, 2, 2 ] <--> [ (0), 2, 4, 6 ]
+  //        (Irreducible)
+  //      * [ 2, 1, 1, 2 ] => ... => [ 3 ], [ 1, 2 ] <--> [ (0), 3 ] and
+  //        [ 3, 4, 6 ]
+  //      * [ 2, 1, 1, 2 ] => ... => [ 2, 1 ], [ 3 ] <--> [ (0), 2, 3 ] and
+  //        [ 3, 6 ]
+  //
+  //    "Third-order" reduction (1 unique solution):
+  //      * [ 3 ], [ 2, 1 ] => ... => [ 3 ], [ 3 ] <--> [ (0), 3 ] and [ 3, 6 ]
+  //      * [ 3 ], [ 1, 2 ] => ... => [ 3 ], [ 3 ] <--> [ (0), 3 ] and [ 3, 6 ]
+  //      * [ 2, 1 ], [ 3 ] => ... => [ 3 ], [ 3 ] <--> [ (0), 3 ] and [ 3, 6 ]
+  //
+  //    It seems okay, too! So far it's most likely that the number of
+  //    solutions is the totoal number of unique solutions at each level of
+  //    reduction. This looks like some sort of recursion, and can probably
+  //    be optimised by storing solved subsequences in memory. Am happy with
+  //    that but sleepy, will continue tomorrow. ._.
+
   return -1;
 }
