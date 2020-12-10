@@ -23,7 +23,7 @@ describe('Day 10: Adapter Array (Part 1)', () => {
   describe(`calcDifferences()`, () => {
     it([
       `should return an array containing 7 differences of 1, and 5`,
-      ` differences of 3, for the first example.`
+      ` differences of 3, for the first example in Part 1.`
     ].join(''), () => {
       const differences = calcDifferences(examplePart1a);
       const ones = differences.filter((v) => v === 1);
@@ -35,7 +35,7 @@ describe('Day 10: Adapter Array (Part 1)', () => {
 
     it([
       `should return an array containing 22 differences of 1, and 10`,
-      ` differences of 3, for the second example.`
+      ` differences of 3, for the second example in Part 1.`
     ].join(''), () => {
       const differences = calcDifferences(examplePart1b);
       const ones = differences.filter((v) => v === 1);
@@ -105,9 +105,60 @@ describe('Day 10: Adapter Array (Part 1)', () => {
 
   describe(`sovlerPart1()`, () => {
     it([
-      `should do something.`
+      `should return 7 * 5 = 35 for the first example in Part 1.`
     ].join(''), () => {
-      // const solution = solverPart1(example);
+      const solution = solverPart1(examplePart1a);
+      
+      assert.strictEqual(solution, 7 * 5);
+    });
+
+    it([
+      `should return 22 * 10 = 220 for the first example in Part 1.`
+    ].join(''), () => {
+      const solution = solverPart1(examplePart1a);
+      
+      assert.strictEqual(solution, 10 * 22);
+    });
+
+    it([
+      `should return return 0 * 1 = 0 for the test input [ 1 ].`
+    ].join(''), () => {
+      const solution = solverPart1([ 1 ]);
+
+      assert.strictEqual(solution, 0 * 1);
+    });
+
+    it([
+      `should return return 0 * 1 = 0 for the test input [ 2 ].`
+    ].join(''), () => {
+      const solution = solverPart1([ 2 ]);
+
+      assert.strictEqual(solution, 0 * 1);
+    });
+
+    it([
+      `should return return 0 * 2 = 0 for the test input [ 3 ].`
+    ].join(''), () => {
+      const solution = solverPart1([ 3 ]);
+
+      assert.strictEqual(solution, 0 * 2);
+    });
+
+    it([
+      `should return return 2 * 2 = 4 for the test input [ 1, 2, 5 ].`
+    ].join(''), () => {
+      const solution = solverPart1([ 1, 2, 5 ]);
+
+      assert.strictEqual(solution, 2 * 2);
+    });
+
+    it([
+      `should throw an error if the input contains a solution > 3.`
+    ].join(''), () => {
+      assert.throws(() => solverPart1([ 4 ]), Error);
+      assert.throws(() => solverPart1([ 1, 3, 7 ]), Error);
+      assert.throws(() => solverPart1([ 4, 5, 6 ]), Error);
+      assert.throws(() => solverPart1([ 2, 6, 7 ]), Error);
     });
   });
 });
