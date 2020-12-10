@@ -115,17 +115,17 @@ describe('Day 10: Adapter Array (Part 1)', () => {
     it([
       `should return 22 * 10 = 220 for the first example in Part 1.`
     ].join(''), () => {
-      const solution = solverPart1(examplePart1a);
+      const solution = solverPart1(examplePart1b);
       
       assert.strictEqual(solution, 10 * 22);
     });
 
     it([
-      `should return return 0 * 1 = 0 for the test input [ 1 ].`
+      `should return return 1 * 1 = 1 for the test input [ 1 ].`
     ].join(''), () => {
       const solution = solverPart1([ 1 ]);
 
-      assert.strictEqual(solution, 0 * 1);
+      assert.strictEqual(solution, 1 * 1);
     });
 
     it([
