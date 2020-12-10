@@ -4,17 +4,105 @@ import * as path from 'path';
 
 import { yellow } from '../utilities';
 import {
+  calDifferences,
   processFile,
   solverPart1,
   solverPart2
 } from './index';
 
 
-const examplePathname = path.resolve(__dirname, './example.txt');
-const exampleFile = fs.readFileSync(examplePathname, 'utf-8');
-const example = processFile(exampleFile);
+const examplePathnamePart1a = path.resolve(__dirname, './example.txt');
+const examplePathnamePart1b = path.resolve(__dirname, './example.txt');
+const exampleFilePart1a = fs.readFileSync(examplePathnamePart1a, 'utf-8');
+const exampleFilePart1b = fs.readFileSync(examplePathnamePart1b, 'utf-8');
+const examplePart1a = processFile(exampleFilePart1a);
+const examplePart1b = processFile(exampleFilePart1b);
+
 
 describe('Day 10: Adapter Array (Part 1)', () => {
+  describe(`calcDifferences()`, () => {
+    it([
+      `should return an array containing 7 differences of 1, and 5`,
+      ` differences of 3, for the first example.`
+    ].join(''), () => {
+      const differences = calDifferences(examplePart1a);
+      const ones = differences.filter((v) => v === 1);
+      const threes = differences.filter((v) => v === 3);
+
+      assert.strictEqual(ones.length, 7);
+      assert.strictEqual(threes.length, 5);
+    });
+
+    it([
+      `should return an array containing 22 differences of 1, and 10`,
+      ` differences of 3, for the second example.`
+    ].join(''), () => {
+      const differences = calDifferences(examplePart1b);
+      const ones = differences.filter((v) => v === 1);
+      const threes = differences.filter((v) => v === 3);
+
+      assert.strictEqual(ones.length, 22);
+      assert.strictEqual(threes.length, 10);
+    });
+
+    it([
+      `should return an array containing 1 difference of 1, and 1`,
+      ` difference of 3, for the example [ 1 ].`
+    ].join(''), () => {
+      const differences = calDifferences([ 1 ]);
+      const ones = differences.filter((v) => v === 1);
+      const threes = differences.filter((v) => v === 3);
+
+      assert.strictEqual(ones.length, 1);
+      assert.strictEqual(threes.length, 1);
+    });
+
+    it([
+      `should return an array containing 0 difference of 1, and 1`,
+      ` difference of 3, for the example [ 2 ].`
+    ].join(''), () => {
+      const differences = calDifferences([ 2 ]);
+      const ones = differences.filter((v) => v === 1);
+      const threes = differences.filter((v) => v === 3);
+
+      assert.strictEqual(ones.length, 0);
+      assert.strictEqual(threes.length, 1);
+    });
+
+    it([
+      `should return an array containing 0 difference of 1, and 2`,
+      ` difference of 3, for the example [ 3 ].`
+    ].join(''), () => {
+      const differences = calDifferences([ 3 ]);
+      const ones = differences.filter((v) => v === 1);
+      const threes = differences.filter((v) => v === 3);
+
+      assert.strictEqual(ones.length, 0);
+      assert.strictEqual(threes.length, 2);
+    });
+
+    it([
+      `should return an array containing 0 difference of 1, and 2`,
+      ` difference of 3, for the example [ 1, 2, 5 ].`
+    ].join(''), () => {
+      const differences = calDifferences([ 1, 2, 5 ]);
+      const ones = differences.filter((v) => v === 2);
+      const threes = differences.filter((v) => v === 3);
+
+      assert.strictEqual(ones.length, 2);
+      assert.strictEqual(threes.length, 2);
+    });
+
+    it([
+      `should throw an error if the input contains a solution > 3.`
+    ].join(''), () => {
+      assert.throws(calDifferences([ 4 ]), Error);
+      assert.throws(calDifferences([ 1, 3, 7 ]), Error);
+      assert.throws(calDifferences([ 4, 5, 6 ]), Error);
+      assert.throws(calDifferences([ 2, 6, 7 ]), Error);
+    });
+  });
+
   describe(`sovlerPart1()`, () => {
     it([
       `should do something.`
