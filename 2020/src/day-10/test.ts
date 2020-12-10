@@ -167,9 +167,54 @@ describe('Day 10: Adapter Array (Part 2)', () => {
   describe('solverPart2()', () => {
     // Given example.
     it([
-      `should do something.`
+      `should return 8 for the first example in Part 1.`
     ].join(''), () => {
-      // const solution = solverPart2(example);
+      const solution = solverPart2(examplePart1a);
+      
+      assert.strictEqual(solution, 8);
+    });
+
+    // Given example.
+    it([
+      `should return 19208 for the second example in Part 1.`
+    ].join(''), () => {
+      const solution = solverPart2(examplePart1b);
+      
+      assert.strictEqual(solution, 19208);
+    });
+
+    it([
+      `should return 1 for the test input [ 3, 6, 9 ].`
+    ].join(''), () => {
+      const solution = solverPart2([ 3, 6, 9 ]);
+      
+      assert.strictEqual(solution, 1);
+    });
+
+    it([
+      `should return 2 for the test input [ 2, 3, 6, 9 ].`
+    ].join(''), () => {
+      const solution = solverPart2([ 2, 3, 6, 9 ]);
+      
+      assert.strictEqual(solution, 2);
+    });
+
+    it([
+      `should return 4 + 1 = 5 for the test input [ 2, 3, 4, 6, 9 ],`,
+      ' as 3 can be replaced by 1 and 4'
+    ].join(''), () => {
+      const solution = solverPart2([ 2, 3, 4, 6, 9 ]);
+      
+      assert.strictEqual(solution, 4 + 1);
+    });
+
+    it([
+      `should return (4 + 1)^2 = 25 for the test input [ 2, 3, 5, 6, 9 ],`,
+      ' for similar reason to the previous case.'
+    ].join(''), () => {
+      const solution = solverPart2([ 2, 3, 4, 6, 8, 9, 10, 12 ]);
+      
+      assert.strictEqual(solution, 25);
     });
   });
 });

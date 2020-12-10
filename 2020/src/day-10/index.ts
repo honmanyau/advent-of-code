@@ -60,7 +60,7 @@ export function calcDifferences(adapters: number[]) {
   const allJoltagesSorted = [ ...adapters ].sort((a, b) => a - b);
 
   allJoltagesSorted.push(allJoltagesSorted[allJoltagesSorted.length - 1] + 3);
-
+  console.log(allJoltagesSorted);
   const differences = allJoltagesSorted.map((joltage, i) => {
     const prevJoltage = allJoltagesSorted[i - 1] || 0;
     const difference = joltage - prevJoltage;
@@ -71,7 +71,7 @@ export function calcDifferences(adapters: number[]) {
 
     return joltage - prevJoltage;
   });
-
+  console.log(differences);
   return differences;
 }
 
