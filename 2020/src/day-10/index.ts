@@ -102,10 +102,11 @@ export function solverPart1(adapters: number[]) {
 /**
  * The solver function for Part 2 of the Advent of Code 2020's
  * "Day 10: Adapter Array" challenge.
- * @param {number[]} input Entries of the challenge.
+ * @param {number[]} differences An array of joltage diffrences derived from a
+ *     sorted (ascending) list of adapter joltages.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2(adapters: number[]) {
+export function solverPart2(differences: number[]) {
   // The problem definitely can't be solved in a reasonable amount
   // of time by brute force. Given that the actual numbers do not matter,
   // and that the first part is a strong hint to that, the problem probably
@@ -242,6 +243,10 @@ export function splitDifferences(differences: number[]) {
  */
 export function generateSubsequences(differences: number[]) {
   const subsequences = [];
+
+  if (differences.length < 2) {
+    return [];
+  }
 
   for (let i = 1; i < differences.length; i++) {
     const sum = differences[i] + differences[i - 1];
