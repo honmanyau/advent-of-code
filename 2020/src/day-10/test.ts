@@ -230,7 +230,31 @@ describe('Day 10: Adapter Array (Part 2)', () => {
 
   describe('generateSubsequences()', () => {
     it([
-      `should return [ [ 2 ] for the test input [ 1, 1 ].`
+      `should return [] for the test input [ 1 ].`
+    ].join(''), () => {
+      const solution = generateSubsequences([ 1 ]);
+
+      assert.deepStrictEqual(solution, []);
+    });
+
+    it([
+      `should return [] for the test input [ 2 ].`
+    ].join(''), () => {
+      const solution = generateSubsequences([ 2 ]);
+
+      assert.deepStrictEqual(solution, []);
+    });
+
+    it([
+      `should return [] for the test input [ 3 ].`
+    ].join(''), () => {
+      const solution = generateSubsequences([ 3 ]);
+
+      assert.deepStrictEqual(solution, []);
+    });
+    
+    it([
+      `should return [ [ 2 ] ] for the test input [ 1, 1 ].`
     ].join(''), () => {
       const solution = generateSubsequences([ 1, 1 ]);
 
@@ -238,7 +262,7 @@ describe('Day 10: Adapter Array (Part 2)', () => {
     });
 
     it([
-      `should return [ [ 3 ] ]  for the test input [ 1, 2 ].`
+      `should return [ [ 3 ] ] for the test input [ 1, 2 ].`
     ].join(''), () => {
       const solution = generateSubsequences([ 1, 2 ]);
 
