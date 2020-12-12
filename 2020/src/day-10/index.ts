@@ -195,6 +195,40 @@ export function solverPart2(adapters: number[]) {
   //    reduction. This looks like some sort of recursion, and can probably
   //    be optimised by storing solved subsequences in memory. Am happy with
   //    that but sleepy, will continue tomorrow. ._.
+  //
+  // Continuing from a couple of days ago, it actually looks like one can already
+  // solve this problem.
 
   return -1;
+}
+
+/**
+ * This functions splits a sequence into subsequences by removing differences
+ * of 3.
+ * @param {number[]} differences An array of joltage differences.
+ */
+export function splitDifferences(differences: number[]) {
+  const subsequences = [];
+  let subsequence = [];
+
+  for (let i = 0; i < differences.length; i++) {
+    const difference = differences[i];
+    
+    if (difference === 3) {
+      if (subsequence.length) {
+        subsequences.push(subsequence);
+      }
+
+      subsequence = [];
+    }
+    else {
+      subsequence.push(difference);
+    }
+  }
+
+  if (subsequence.length) {
+    subsequences.push(subsequence);
+  }
+
+  return subsequences;
 }
