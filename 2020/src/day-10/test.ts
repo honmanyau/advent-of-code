@@ -5,6 +5,7 @@ import * as path from 'path';
 import { yellow } from '../utilities';
 import {
   calcDifferences,
+  generateSubsequences,
   processFile,
   solverPart1,
   solverPart2,
@@ -231,7 +232,7 @@ describe('Day 10: Adapter Array (Part 2)', () => {
     it([
       `should return [ [ 2 ] for the test input [ 1, 1 ].`
     ].join(''), () => {
-      const solution = splitDifferences([ 1, 1 ]);
+      const solution = generateSubsequences([ 1, 1 ]);
 
       assert.deepStrictEqual(solution, [ [ 2 ] ]);
     });
@@ -239,7 +240,7 @@ describe('Day 10: Adapter Array (Part 2)', () => {
     it([
       `should return [ [ 3 ] ]  for the test input [ 1, 2 ].`
     ].join(''), () => {
-      const solution = splitDifferences([ 1, 2 ]);
+      const solution = generateSubsequences([ 1, 2 ]);
 
       assert.deepStrictEqual(solution, [ [ 3 ] ]);
     });
@@ -256,7 +257,7 @@ describe('Day 10: Adapter Array (Part 2)', () => {
       `should return [ [ 3, 1 ], [ 1, 3 ] ] for the test`,
       ' input [ 1, 2, 1 ].'
     ].join(''), () => {
-      const solution = splitDifferences([ 1, 2, 1 ]);
+      const solution = generateSubsequences([ 1, 2, 1 ]);
 
       assert.deepStrictEqual(
         solution,
@@ -267,7 +268,7 @@ describe('Day 10: Adapter Array (Part 2)', () => {
     it([
       `should return [ [ 2, 1 ], [ 1, 2 ] ]  for the test input [ 1, 1, 1 ].`
     ].join(''), () => {
-      const solution = splitDifferences([ 1, 1, 1 ]);
+      const solution = generateSubsequences([ 1, 1, 1 ]);
 
       assert.deepStrictEqual(solution, [ [ 2, 1 ], [ 1, 2 ] ]);
     });
@@ -276,7 +277,7 @@ describe('Day 10: Adapter Array (Part 2)', () => {
       `should return [ [ 2, 1 ], [ 1, 2, 1 ], [ 1, 1, 2 ] ] for the test`,
       ' input [ 1, 1, 1, 1 ].'
     ].join(''), () => {
-      const solution = splitDifferences([ 1, 1, 1, 1 ]);
+      const solution = generateSubsequences([ 1, 1, 1, 1 ]);
 
       assert.deepStrictEqual(
         solution,
@@ -287,7 +288,7 @@ describe('Day 10: Adapter Array (Part 2)', () => {
     it([
       `should return [] for the test input [ 2, 2 ].`
     ].join(''), () => {
-      const solution = splitDifferences([ 2, 2 ]);
+      const solution = generateSubsequences([ 2, 2 ]);
 
       assert.deepStrictEqual(solution, []);
     });
@@ -295,7 +296,7 @@ describe('Day 10: Adapter Array (Part 2)', () => {
     it([
       `should return [] for the test input [ 2, 2, 2 ].`
     ].join(''), () => {
-      const solution = splitDifferences([ 2, 2, 2 ]);
+      const solution = generateSubsequences([ 2, 2, 2 ]);
 
       assert.deepStrictEqual(solution, []);
     });
