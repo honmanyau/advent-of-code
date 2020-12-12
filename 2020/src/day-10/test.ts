@@ -168,63 +168,61 @@ describe('Day 10: Adapter Array (Part 1)', () => {
 describe('Day 10: Adapter Array (Part 2)', () => {
   describe('splitDifferences()', () => {
     it([
-      `should return [ [ 1 ], [ 1 ] ] for the test input [ 3, 1, 3, 1 ].`
+      `should return [ [ 3 ], [ 1 ], [ 3 ], [ 1 ] ] for the test input`,
+      ' [ 3, 1, 3, 1 ].'
     ].join(''), () => {
       const solution = splitDifferences([ 3, 1, 3, 1 ]);
 
-      assert.deepStrictEqual(solution, [ [ 1 ], [ 1 ] ]);
+      assert.deepStrictEqual(solution, [ [ 3 ], [ 1 ], [ 3 ], [ 1 ] ]);
     });
 
     it([
-      `should return [ [ 1 ], [ 1 ] ] for the test input [ 3, 1, 3, 1 ].`
+      `should return [ [ 3 ], [ 1 ], [ 3 ] ] for the test input [ 3, 1, 3 ].`
     ].join(''), () => {
       const solution = splitDifferences([ 3, 1, 3 ]);
       
-      assert.deepStrictEqual(solution, [ [ 1 ] ]);
+      assert.deepStrictEqual(solution, [ [ 3 ], [ 1 ], [ 3 ] ]);
     });
 
     it([
-      `should return [ [ 1 ], [ 1 ] ] for the test input [ 3, 1, 3, 1, 3 ].`
+      `should return [ [ 3 ], [ 1 ], [ 3 ], [ 1 ], [ 3 ] ]`,
+      ' for the test input [ 3, 1, 3, 1, 3 ].'
     ].join(''), () => {
       const solution = splitDifferences([ 3, 1, 3, 1, 3 ]);
       
-      assert.deepStrictEqual(solution, [ [ 1 ], [ 1 ] ]);
+      assert.deepStrictEqual(solution, [ [ 3 ], [ 1 ], [ 3 ], [ 1 ], [ 3 ] ]);
     });
 
     it([
-      `should return [ [ 1, 2 ], [ 1 ] ] for the test input`,
-      ' [ 3, 1, 2, 3, 1, 3 ].'
+      `should return [ [ 3 ], [ 1, 2 ], [ 3 ], [ 1 ], [ 3 ] ]`,
+      ' for the test input [ 3, 1, 2, 3, 1, 3 ].'
     ].join(''), () => {
       const solution = splitDifferences([ 3, 1, 2, 3, 1, 3 ]);
       
-      assert.deepStrictEqual(solution, [ [ 1, 2 ], [ 1 ] ]);
+      assert.deepStrictEqual(
+        solution,
+        [ [ 3 ], [ 1, 2 ], [ 3 ], [ 1 ], [ 3 ] ]
+      );
     });
 
     it([
-      `should return [ [ 1, 2 ], [ 1 ] ] for the test input`,
-      ' [ 3, 1, 2, 3, 1, 3 ].'
-    ].join(''), () => {
-      const solution = splitDifferences([ 3, 1, 2, 3, 1, 3 ]);
-      
-      assert.deepStrictEqual(solution, [ [ 1, 2 ], [ 1 ] ]);
-    });
-
-    it([
-      `should return [ [ 1, 2 ], [ 1 ] ] for the test input`,
-      ' [ 3, 1, 2, 3, 1, 3 ].'
+      `should return [ [ 3 ], [ 1, 2, 1 ], [ 3 ] ]`,
+      ' for the test input [ 3, 1, 2, 3, 1, 3 ].'
     ].join(''), () => {
       const solution = splitDifferences([ 3, 1, 2, 1, 3 ]);
       
-      assert.deepStrictEqual(solution, [ [ 1, 2, 1 ] ]);
+      assert.deepStrictEqual(
+        solution, [ [ 3 ], [ 1, 2, 1 ], [ 3 ] ]
+      );
     });
 
     it([
-      `should return [] for the test input`,
+      `should return [ [ 3, 3, 3 ] ] for the test input`,
       ' [ 3, 3, 3 ].'
     ].join(''), () => {
       const solution = splitDifferences([ 3, 3, 3 ]);
-      
-      assert.deepStrictEqual(solution, []);
+
+      assert.deepStrictEqual(solution, [ [ 3, 3, 3 ] ]);
     });
   });
 
