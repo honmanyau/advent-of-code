@@ -227,6 +227,80 @@ describe('Day 10: Adapter Array (Part 2)', () => {
     });
   });
 
+  describe('generateSubsequences()', () => {
+    it([
+      `should return [ [ 2 ] for the test input [ 1, 1 ].`
+    ].join(''), () => {
+      const solution = splitDifferences([ 1, 1 ]);
+
+      assert.deepStrictEqual(solution, [ [ 2 ] ]);
+    });
+
+    it([
+      `should return [ [ 3 ] ]  for the test input [ 1, 2 ].`
+    ].join(''), () => {
+      const solution = splitDifferences([ 1, 2 ]);
+
+      assert.deepStrictEqual(solution, [ [ 3 ] ]);
+    });
+
+    it([
+      `should return [ [ 2, 1 ], [ 1, 2 ] ]  for the test input [ 1, 1, 1 ].`
+    ].join(''), () => {
+      const solution = splitDifferences([ 1, 1, 1 ]);
+
+      assert.deepStrictEqual(solution, [ [ 2, 1 ], [ 1, 2 ] ]);
+    });
+
+    it([
+      `should return [ [ 3, 1 ], [ 1, 3 ] ] for the test`,
+      ' input [ 1, 2, 1 ].'
+    ].join(''), () => {
+      const solution = splitDifferences([ 1, 2, 1 ]);
+
+      assert.deepStrictEqual(
+        solution,
+        [ [ 3, 1 ], [ 1, 3 ] ]
+      );
+    });
+
+    it([
+      `should return [ [ 2, 1 ], [ 1, 2 ] ]  for the test input [ 1, 1, 1 ].`
+    ].join(''), () => {
+      const solution = splitDifferences([ 1, 1, 1 ]);
+
+      assert.deepStrictEqual(solution, [ [ 2, 1 ], [ 1, 2 ] ]);
+    });
+
+    it([
+      `should return [ [ 2, 1 ], [ 1, 2, 1 ], [ 1, 1, 2 ] ] for the test`,
+      ' input [ 1, 1, 1, 1 ].'
+    ].join(''), () => {
+      const solution = splitDifferences([ 1, 1, 1, 1 ]);
+
+      assert.deepStrictEqual(
+        solution,
+        [ [ 2, 1, 1 ], [ 1, 2, 1 ], [ 1, 1, 2 ] ]
+      );
+    });
+
+    it([
+      `should return [] for the test input [ 2, 2 ].`
+    ].join(''), () => {
+      const solution = splitDifferences([ 2, 2 ]);
+
+      assert.deepStrictEqual(solution, []);
+    });
+
+    it([
+      `should return [] for the test input [ 2, 2, 2 ].`
+    ].join(''), () => {
+      const solution = splitDifferences([ 2, 2, 2 ]);
+
+      assert.deepStrictEqual(solution, []);
+    });
+  });
+
   describe('solverPart2()', () => {
     // Given example.
     it([
