@@ -206,6 +206,7 @@ export function solverPart2(adapters: number[]) {
  * This functions splits a sequence into subsequences by removing differences
  * of 3.
  * @param {number[]} differences An array of joltage differences.
+ * @returns {number[][] | []} An array of subsequences without the number 3.
  */
 export function splitDifferences(differences: number[]) {
   const subsequences = [];
@@ -228,6 +229,30 @@ export function splitDifferences(differences: number[]) {
 
   if (subsequence.length) {
     subsequences.push(subsequence);
+  }
+
+  return subsequences;
+}
+
+/**
+ * This function generates all valid subsequences (no diffence > 3) by
+ * combining pairs of elements.
+ * @param {number[]} differences An array of joltage differences.
+ * @returns {number[][] | []} An array of subsequences.
+ */
+export function generateSubsequences(differences: number[]) {
+  const subsequences = [];
+
+  for (let i = 1; i < differences.length; i++) {
+    const sum = differences[i] + differences[i - 1];
+
+    if (sum <= 3) {
+      subsequences.push([
+        ...differences.slice(0, i - 1),
+        sum,
+        ...differences.slice(i + 1, differences.length)
+      ]);
+    }
   }
 
   return subsequences;
