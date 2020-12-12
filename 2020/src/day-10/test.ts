@@ -216,6 +216,15 @@ describe('Day 10: Adapter Array (Part 2)', () => {
       
       assert.strictEqual(solution, 25);
     });
+
+    it([
+      `should return 11 for the test input [ 2, 3, 5, 6, 9 ],`,
+      ' for similar reason to the previous case.'
+    ].join(''), () => {
+      const solution = solverPart2([ 2, 3, 4, 5, 6, 9, 12 ]);
+      
+      assert.strictEqual(solution, 11);
+    });
   });
 });
 
