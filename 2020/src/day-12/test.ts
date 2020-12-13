@@ -58,9 +58,9 @@ describe('Day 12: Rain Risk (Part 1)', () => {
       `should return [ 'S', 0 ] if the instructions, starting facing 'E', are:`,
       `          [ 'R', 90 ]`
     ].join('\n'), () => {
-      const solution = navigate('E', [ 'R', 0 ]);
+      const solution = navigate('E', [ 'R', 90 ]);
 
-      assert.deepStrictEqual(solution, [ 'S', 42 ]);
+      assert.deepStrictEqual(solution, [ 'S', 0 ]);
     });
 
     it([
