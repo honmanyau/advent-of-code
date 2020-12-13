@@ -63,7 +63,7 @@ export function processLine(line: string) {
  *     evolve.
  * @returns {Layout} An evolved layout.
  */
-export function evolve(layout: Layout, iterations: number = 1): Layout {
+export function evolvePart1(layout: Layout, iterations: number = 1): Layout {
   const lengthY = layout.length;
   const lengthX = layout[0].length;
   const neighbourOffsets = [
@@ -131,6 +131,89 @@ export function evolve(layout: Layout, iterations: number = 1): Layout {
 }
 
 /**
+ * This function evolves a given `Layout` according to the following rules:
+ *   * If a seat is empty (L) and there are no occupied seats the first seat
+ *     they can see in each of those eight directions.
+ *   * If a seat is occupied (#) and five or more seats adjacent to it are
+ *     also occupied, the seat becomes empty.
+ *   * Otherwise, the seat's state does not change.
+ * @param {Layout} layout A `Layout` that describes seat occupancy in a waiting
+ *     area.
+ * @param {number} interations The number of iterations that the layout will
+ *     evolve.
+ * @returns {Layout} An evolved layout.
+ */
+export function evolvePart2(layout: Layout, iterations: number = 1): Layout {
+  const lengthY = layout.length;
+  const lengthX = layout[0].length;
+  const neighbourDirections = [
+    [ -1, -1 ], [ -1, 0 ], [ -1, 1 ],
+    [  0, -1 ],            [  0, 1 ],
+    [  1, -1 ], [  1, 0 ], [  1, 1 ]
+  ];
+  const neighboursLookup = layout.map((row, y) => {
+    return row.map((_unit, x) => {
+      return neighbourDirections.reduce((acc, [ dy, dx ]) => {
+        let currentY = y;
+        let currentX = x;
+        let outOfBounds = false;
+
+        while (!outOfBounds) {
+          currentY += dy;
+          currentX += dx;
+
+          outOfBounds = layout[currentY] === undefined
+            || layout[currentY][currentX] === undefined;
+
+          if (!outOfBounds) {
+            const currentUnit = layout[currentY][currentX];
+            const seatFound = currentUnit !== '.';
+
+            if (seatFound) {
+              acc.push([ currentY, currentX ]);
+              break;
+            }
+          }
+        }
+
+        return acc;
+      }, [] as number[][]);
+    });
+  });
+
+  let newLayout = JSON.parse(JSON.stringify(layout));
+
+  for (let i = 0; i < iterations; i++) {
+    newLayout = newLayout.map((row, y) => {
+      return row.map((unit, x) => {
+        const directions = neighboursLookup[y][x];
+        let numOccupiedSeatsSeen = 0;
+  
+        directions.forEach(([ neighbourY, neighbourX ]) => {
+          const neighbourUnit = newLayout[neighbourY][neighbourX];
+
+          if (neighbourUnit === '#') {
+            numOccupiedSeatsSeen += 1;
+          }
+        });
+
+        if (unit === '#' && numOccupiedSeatsSeen >= 5) {
+          return 'L';
+        }
+        else if (unit === 'L' && numOccupiedSeatsSeen === 0) {
+          return '#';
+        }
+        else {
+          return unit;
+        }
+      });
+    });
+  }
+
+  return newLayout;
+}
+
+/**
  * The solver function for Part 1 of the Advent of Code 2020's
  * "Day 11: Seating System" challenge.
  * @param {Layout} layout Entries of the challenge.
@@ -141,7 +224,7 @@ export function solverPart1(layout: Layout) {
   let stabilised = false;
 
   while (!stabilised) {
-    const nextLayout = evolve(currentLayout);
+    const nextLayout = evolvePart1(currentLayout);
 
     stabilised = currentLayout.toString() === nextLayout.toString();
     currentLayout = nextLayout;
