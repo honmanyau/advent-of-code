@@ -22,19 +22,6 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
 // ================
 // == Interfaces ==
 // ================
-interface Bags {
-  [name: string]: Bag
-}
-
-interface Bag {
-  name: string;
-  content: ContentBag[];
-}
-
-interface ContentBag {
-  name: string;
-  amount: number;
-}
 
 
 // ===============
