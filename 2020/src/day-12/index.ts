@@ -22,7 +22,7 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
 // ================
 // == Interfaces ==
 // ================
-type Instruction = [ string, number ];
+export type Instruction = [ string, number ];
 
 
 // ===============
@@ -45,9 +45,7 @@ export function processFile(file: string) {
  * @returns {string} An array where each line is an entry of the challenge.
  */
 export function processEntry(entry: string): Instruction {
-  const instructions = entry.split(' ');
-
-  return [ instructions[0], Number(instructions[1]) ];
+  return [ entry[0], Number(entry.slice(1)) ];
 }
 
 /**
