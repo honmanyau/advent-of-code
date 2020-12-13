@@ -214,11 +214,92 @@ describe('Day 12: Rain Risk (Part 1)', () => {
 
 describe('Day 12: Rain Risk (Part 2)', () => {
   describe('solverPart2()', () => {
-    // Given example.
     it([
-      `should do something.`
+      `should return 286 for the example.`
     ].join(''), () => {
       const solution = solverPart2(example);
+
+      assert.strictEqual(solution, 286);
+    });
+
+    it([
+      `should return 11 with the following instructions`,
+      ` as it starts at 10 units east and 1 unit north:`,
+      `          [ F 1 ]`
+    ].join('\n'), () => {
+      const testInput: Instruction[] = [
+        [ 'F', 1 ]
+      ];
+      const solution = solverPart2(testInput);
+
+      assert.strictEqual(solution, 11);
+    });
+
+    it([
+      `should return 110 with the following instructions`,
+      ` as it starts at 10 units east and 1 unit north:`,
+      `          [ F 1 ]`
+    ].join('\n'), () => {
+      const testInput: Instruction[] = [
+        [ 'F', 10 ]
+      ];
+      const solution = solverPart2(testInput);
+
+      assert.strictEqual(solution, 110);
+    });
+
+    it([
+      `should return 11 with the following instructions'`,
+      `          [ R 90 ]`,
+      `          [ F 1 ]`,
+    ].join('\n'), () => {
+      const testInput: Instruction[] = [
+        [ 'R', 90 ],
+        [ 'F', 1 ]
+      ];
+      const solution = solverPart2(testInput);
+
+      assert.strictEqual(solution, 11);
+    });
+
+    it([
+      `should return 20 with the following instructions'`,
+      `          [ F 1 ]`,
+      `          [ R 90 ]`,
+      `          [ F 1 ]`
+    ].join('\n'), () => {
+      const testInput: Instruction[] = [
+        [ 'F', 1 ],
+        [ 'R', 90 ],
+        [ 'F', 1 ]
+      ];
+      const solution = solverPart2(testInput);
+
+      assert.strictEqual(solution, 20);
+    });
+
+    it([
+      `should return 0 with the following instructions'`,
+      `          [ F 1 ]`,
+      `          [ R 90 ]`,
+      `          [ F 1 ]`,
+      `          [ R 90 ]`,
+      `          [ F 1 ]`,
+      `          [ R 90 ]`,
+      `          [ F 1 ]`
+    ].join('\n'), () => {
+      const testInput: Instruction[] = [
+        [ 'F', 1 ],
+        [ 'R', 90 ],
+        [ 'F', 1 ],
+        [ 'R', 90 ],
+        [ 'F', 1 ],
+        [ 'R', 90 ],
+        [ 'F', 1 ]
+      ];
+      const solution = solverPart2(testInput);
+
+      assert.strictEqual(solution, 0);
     });
   });
 });
