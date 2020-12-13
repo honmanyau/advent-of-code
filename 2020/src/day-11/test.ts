@@ -596,11 +596,11 @@ describe('Day 11: Seating System (Part 2)', () => {
     });
   });
 
-  describe(`sovlerPart2()`, () => {
+  describe(`solverPart2()`, () => {
     it([
       `should return 26 for the example.`
     ].join(''), () => {
-      const solution = sovlerPart2(example);
+      const solution = solverPart2(example);
   
       assert.strictEqual(solution, 26);
     });
@@ -616,7 +616,7 @@ describe('Day 11: Seating System (Part 2)', () => {
         '.L.',
         '...'
       ].map(processLine);
-      const solution = sovlerPart2(testInput);
+      const solution = solverPart2(testInput);
   
       assert.strictEqual(solution, 1);
     });
@@ -632,7 +632,7 @@ describe('Day 11: Seating System (Part 2)', () => {
         '.#.',
         '...'
       ].map(processLine);
-      const solution = sovlerPart2(testInput);
+      const solution = solverPart2(testInput);
   
       assert.strictEqual(solution, 1);
     });
@@ -648,7 +648,7 @@ describe('Day 11: Seating System (Part 2)', () => {
         '.#.',
         '#.#'
       ].map(processLine);
-      const solution = sovlerPart2(testInput);
+      const solution = solverPart2(testInput);
   
       assert.strictEqual(solution, 5);
     });
@@ -664,7 +664,7 @@ describe('Day 11: Seating System (Part 2)', () => {
         '.##',
         '#.#'
       ].map(processLine);
-      const solution = sovlerPart2(testInput);
+      const solution = solverPart2(testInput);
   
       assert.strictEqual(solution, 5);
     });
