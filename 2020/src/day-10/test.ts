@@ -321,7 +321,8 @@ describe('Day 10: Adapter Array (Part 2)', () => {
     it([
       `should return 8 for the first example in Part 1.`
     ].join(''), () => {
-      const solution = solverPart2(examplePart1a);
+      const differences = calcDifferences(examplePart1a)
+      const solution = solverPart2(differences);
       
       assert.strictEqual(solution, 8);
     });
@@ -330,7 +331,8 @@ describe('Day 10: Adapter Array (Part 2)', () => {
     it([
       `should return 19208 for the second example in Part 1.`
     ].join(''), () => {
-      const solution = solverPart2(examplePart1b);
+      const differences = calcDifferences(examplePart1b);
+      const solution = solverPart2(differences);
       
       assert.strictEqual(solution, 19208);
     });
@@ -338,7 +340,8 @@ describe('Day 10: Adapter Array (Part 2)', () => {
     it([
       `should return 1 for the test input [ 3, 6, 9 ].`
     ].join(''), () => {
-      const solution = solverPart2([ 3, 6, 9 ]);
+      const differences = calcDifferences([ 3, 6, 9 ]);
+      const solution = solverPart2(differences);
       
       assert.strictEqual(solution, 1);
     });
@@ -346,7 +349,8 @@ describe('Day 10: Adapter Array (Part 2)', () => {
     it([
       `should return 2 for the test input [ 2, 3, 6, 9 ].`
     ].join(''), () => {
-      const solution = solverPart2([ 2, 3, 6, 9 ]);
+      const differences = calcDifferences([ 2, 3, 6, 9 ]);
+      const solution = solverPart2(differences);
       
       assert.strictEqual(solution, 2);
     });
@@ -355,25 +359,28 @@ describe('Day 10: Adapter Array (Part 2)', () => {
       `should return 4 + 1 = 5 for the test input [ 2, 3, 4, 6, 9 ],`,
       ' as 3 can be replaced by 1 and 4'
     ].join(''), () => {
-      const solution = solverPart2([ 2, 3, 4, 6, 9 ]);
+      const differences = calcDifferences([ 2, 3, 4, 6, 9 ]);
+      const solution = solverPart2(differences);
       
       assert.strictEqual(solution, 4 + 1);
     });
-
+    
     it([
       `should return (4 + 1)^2 = 25 for the test input [ 2, 3, 5, 6, 9 ],`,
       ' for similar reason to the previous case.'
     ].join(''), () => {
-      const solution = solverPart2([ 2, 3, 4, 6, 8, 9, 10, 12 ]);
+      const differences = calcDifferences([ 2, 3, 4, 6, 8, 9, 10, 12 ]);
+      const solution = solverPart2(differences);
       
       assert.strictEqual(solution, 25);
     });
-
+    
     it([
       `should return 11 for the test input [ 2, 3, 5, 6, 9 ],`,
       ' for similar reason to the previous case.'
     ].join(''), () => {
-      const solution = solverPart2([ 2, 3, 4, 5, 6, 9, 12 ]);
+      const differences = calcDifferences([ 2, 3, 4, 5, 6, 9, 12 ]);
+      const solution = solverPart2(differences);
       
       assert.strictEqual(solution, 11);
     });

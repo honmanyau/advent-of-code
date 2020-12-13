@@ -1,7 +1,8 @@
+import { assert } from 'console';
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { green } from '../utilities';
+import { green, logDuration } from '../utilities';
 
 
 if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
@@ -9,7 +10,10 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
   const challengeFile = fs.readFileSync(challengePathname, 'utf-8');
   const challenge = processFile(challengeFile);
   const solutionPart1 = solverPart1(challenge);
-  const solutionPart2 = solverPart2(challenge);
+  const solutionPart2 = logDuration(
+    'solutionPart2',
+    () => solverPart2(calcDifferences(challenge))
+  );
 
   console.log([
     `The solutions for 2020's "Day 10: Adapter Array" are:`,
@@ -60,7 +64,7 @@ export function calcDifferences(adapters: number[]) {
   const allJoltagesSorted = [ ...adapters ].sort((a, b) => a - b);
 
   allJoltagesSorted.push(allJoltagesSorted[allJoltagesSorted.length - 1] + 3);
-  console.log(allJoltagesSorted);
+
   const differences = allJoltagesSorted.map((joltage, i) => {
     const prevJoltage = allJoltagesSorted[i - 1] || 0;
     const difference = joltage - prevJoltage;
@@ -71,7 +75,7 @@ export function calcDifferences(adapters: number[]) {
 
     return joltage - prevJoltage;
   });
-  console.log(differences);
+
   return differences;
 }
 
@@ -199,8 +203,53 @@ export function solverPart2(differences: number[]) {
   //
   // Continuing from a couple of days ago, it actually looks like one can already
   // solve this problem.
+  let solutions = 1;
 
-  return -1;
+  if (false) {
+    const splits = splitDifferences(differences);
+
+    for (const split of splits) {
+      const splitSolution = (split.includes(3))
+        ? 1
+        : solverPart2(split);
+
+      solutions *= splitSolution;
+    }
+  }
+  else {
+    let currentSequences = [ differences ];
+    let irreducible = false;
+
+    // This is not as recursive as I would like and likely not a very smart
+    // way to solve the problem because the only "optimisation" of the
+    // seeminly impossible to solve problem is the initial split: ideally one
+    // would do the part below recursively with solverPart2(), such that
+    // 3's that appear during reduction would go get split in the previous
+    // if statement.
+    //
+    // Have been tired the last few days and is incredibly obtuse at the
+    // moment (well, more so than usual), and I'm already behind for a couple
+    // of days. It is worth noting that without the initial split, the default
+    // amount of memory for Node.js is insufficient for solving the problem; and
+    // no output was observed after half a minute when memory is increased.
+    // Since the current implementation takes a surprisingly little
+    // amount of time (< 1 ms), meaning that the original input must already
+    // be quite segmented (by 3's), I'm going to leave it as is for now.
+
+    while (!irreducible) {
+      currentSequences = currentSequences
+        .map(generateSubsequences)
+        .reduce((acc, val) => acc.concat(val), [])
+        .filter((subsequence) => subsequence.length)
+
+      const uniqueSequences = new Set(currentSequences.map(String));
+
+      solutions += uniqueSequences.size;
+      irreducible = !uniqueSequences.size;
+    }
+  }
+
+  return solutions;
 }
 
 /**
@@ -212,6 +261,7 @@ export function solverPart2(differences: number[]) {
 export function splitDifferences(differences: number[]) {
   const subsequences = [];
   let subsequence = [];
+  let threes = [];
 
   for (let i = 0; i < differences.length; i++) {
     const difference = differences[i];
@@ -221,15 +271,27 @@ export function splitDifferences(differences: number[]) {
         subsequences.push(subsequence);
       }
 
+      threes.push(3);
+
       subsequence = [];
     }
     else {
+      if (threes.length) {
+        subsequences.push(threes);
+      }
+
       subsequence.push(difference);
+
+      threes = [];
     }
   }
 
   if (subsequence.length) {
     subsequences.push(subsequence);
+  }
+
+  if (threes.length) {
+    subsequences.push(threes);
   }
 
   return subsequences;
@@ -261,4 +323,13 @@ export function generateSubsequences(differences: number[]) {
   }
 
   return subsequences;
+}
+
+/**
+ * This function checks whether or not a sequence is irreducible.
+ * @param {number[]} differences An array of joltage differences.
+ * @returns {boolean} Whether or not a sequence *is irreducible*.
+ */
+export function checkIrreducibility(differences: number[]) {
+  return generateSubsequences(differences).length === 0;
 }
