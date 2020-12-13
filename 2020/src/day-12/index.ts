@@ -95,11 +95,11 @@ export function navigate(direction: Direction, instruction: Instruction) {
       }
 
       const l = compass.length;
-      const currentIndex = compass.indexOf(steer);
+      const currentIndex = compass.indexOf(direction);
       const turns = (magnitude / 90);
       const modifier = (steer === 'L') ? -1 : 1;
       const newIndex = (((currentIndex + modifier * turns) % l) + l) % l;
-
+      console.log({ steer, magnitude, currentIndex, turns, modifier, newIndex});
       return [ compass[newIndex], 0 ];
     default:
       throw Error('Something went horribly wrong!');
