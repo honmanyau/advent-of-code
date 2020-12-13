@@ -3,7 +3,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import {
-  evolve,
+  evolvePart1,
+  evolvePart2,
   processFile,
   processLine,
   solverPart1,
@@ -18,49 +19,19 @@ const example = processFile(exampleFile);
 describe('Day 11: Seating System (Part 1)', () => {
   describe(`evolve()`, () => {
     it([
-      `should lead the following plan after one interation:`,
-      `        #.##.##.##`,
-      `        #######.##`,
-      `        #.#.#..#..`,
-      `        ####.##.##`,
-      `        #.##.##.##`,
-      `        #.#####.##`,
-      `        ..#.#.....`,
-      `        ##########`,
-      `        #.######.#`,
-      `        #.#####.##`
-    ].join('\n'), () => {
-      const solution = evolve(example).toString();
-      const expected = [
-        `#.##.##.##`,
-        `#######.##`,
-        `#.#.#..#..`,
-        `####.##.##`,
-        `#.##.##.##`,
-        `#.#####.##`,
-        `..#.#.....`,
-        `##########`,
-        `#.######.#`,
-        `#.#####.##`
-      ].map(processLine).toString();
-      
-      assert.strictEqual(solution, expected);
-    });
-
-    it([
       `should lead the following plan after 1 interation:`,
-      `        #.##.##.##`,
-      `        #######.##`,
-      `        #.#.#..#..`,
-      `        ####.##.##`,
-      `        #.##.##.##`,
-      `        #.#####.##`,
-      `        ..#.#.....`,
-      `        ##########`,
-      `        #.######.#`,
-      `        #.#####.##`
+      `          #.##.##.##`,
+      `          #######.##`,
+      `          #.#.#..#..`,
+      `          ####.##.##`,
+      `          #.##.##.##`,
+      `          #.#####.##`,
+      `          ..#.#.....`,
+      `          ##########`,
+      `          #.######.#`,
+      `          #.#####.##`
     ].join('\n'), () => {
-      const solution = evolve(example).toString();
+      const solution = evolvePart1(example).toString();
       const expected = [
         `#.##.##.##`,
         `#######.##`,
@@ -79,18 +50,18 @@ describe('Day 11: Seating System (Part 1)', () => {
 
     it([
       `should lead the following plan after 2 interation:`,
-      `        #.LL.L#.##`,
-      `        #LLLLLL.L#`,
-      `        L.L.L..L..`,
-      `        #LLL.LL.L#`,
-      `        #.LL.LL.LL`,
-      `        #.LLLL#.##`,
-      `        ..L.L.....`,
-      `        #LLLLLLLL#`,
-      `        #.LLLLLL.L`,
-      `        #.#LLLL.##`
+      `          #.LL.L#.##`,
+      `          #LLLLLL.L#`,
+      `          L.L.L..L..`,
+      `          #LLL.LL.L#`,
+      `          #.LL.LL.LL`,
+      `          #.LLLL#.##`,
+      `          ..L.L.....`,
+      `          #LLLLLLLL#`,
+      `          #.LLLLLL.L`,
+      `          #.#LLLL.##`
     ].join('\n'), () => {
-      const solution = evolve(example, 2).toString();
+      const solution = evolvePart1(example, 2).toString();
       const expected = [
         `#.LL.L#.##`,
         `#LLLLLL.L#`,
@@ -109,18 +80,18 @@ describe('Day 11: Seating System (Part 1)', () => {
 
     it([
       `should lead the following plan after 3 interation:`,
-      `        #.##.L#.##`,
-      `        #L###LL.L#`,
-      `        L.#.#..#..`,
-      `        #L##.##.L#`,
-      `        #.##.LL.LL`,
-      `        #.###L#.##`,
-      `        ..#.#.....`,
-      `        #L######L#`,
-      `        #.LL###L.L`,
-      `        #.#L###.##`
+      `          #.##.L#.##`,
+      `          #L###LL.L#`,
+      `          L.#.#..#..`,
+      `          #L##.##.L#`,
+      `          #.##.LL.LL`,
+      `          #.###L#.##`,
+      `          ..#.#.....`,
+      `          #L######L#`,
+      `          #.LL###L.L`,
+      `          #.#L###.##`
     ].join('\n'), () => {
-      const solution = evolve(example, 3).toString();
+      const solution = evolvePart1(example, 3).toString();
       const expected = [
         `#.##.L#.##`,
         `#L###LL.L#`,
@@ -139,18 +110,18 @@ describe('Day 11: Seating System (Part 1)', () => {
 
     it([
       `should lead the following plan after 4 interation:`,
-      `        #.#L.L#.##`,
-      `        #LLL#LL.L#`,
-      `        L.L.L..#..`,
-      `        #LLL.##.L#`,
-      `        #.LL.LL.LL`,
-      `        #.LL#L#.##`,
-      `        ..L.L.....`,
-      `        #L#LLLL#L#`,
-      `        #.LLLLLL.L`,
-      `        #.#L#L#.##`
+      `          #.#L.L#.##`,
+      `          #LLL#LL.L#`,
+      `          L.L.L..#..`,
+      `          #LLL.##.L#`,
+      `          #.LL.LL.LL`,
+      `          #.LL#L#.##`,
+      `          ..L.L.....`,
+      `          #L#LLLL#L#`,
+      `          #.LLLLLL.L`,
+      `          #.#L#L#.##`
     ].join('\n'), () => {
-      const solution = evolve(example, 4).toString();
+      const solution = evolvePart1(example, 4).toString();
       const expected = [
         `#.#L.L#.##`,
         `#LLL#LL.L#`,
@@ -169,18 +140,18 @@ describe('Day 11: Seating System (Part 1)', () => {
 
     it([
       `should lead the following plan after 5 interation:`,
-      `        #.#L.L#.##`,
-      `        #LLL#LL.L#`,
-      `        L.#.L..#..`,
-      `        #L##.##.L#`,
-      `        #.#L.LL.LL`,
-      `        #.#L#L#.##`,
-      `        ..L.L.....`,
-      `        #L#L##L#L#`,
-      `        #.LLLLLL.L`,
-      `        #.#L#L#.##`
+      `          #.#L.L#.##`,
+      `          #LLL#LL.L#`,
+      `          L.#.L..#..`,
+      `          #L##.##.L#`,
+      `          #.#L.LL.LL`,
+      `          #.#L#L#.##`,
+      `          ..L.L.....`,
+      `          #L#L##L#L#`,
+      `          #.LLLLLL.L`,
+      `          #.#L#L#.##`
     ].join('\n'), () => {
-      const solution = evolve(example, 5).toString();
+      const solution = evolvePart1(example, 5).toString();
       const expected = [
         `#.#L.L#.##`,
         `#LLL#LL.L#`,
@@ -199,18 +170,18 @@ describe('Day 11: Seating System (Part 1)', () => {
 
     it([
       `should lead the following plan after 10 interation:`,
-      `        #.#L.L#.##`,
-      `        #LLL#LL.L#`,
-      `        L.#.L..#..`,
-      `        #L##.##.L#`,
-      `        #.#L.LL.LL`,
-      `        #.#L#L#.##`,
-      `        ..L.L.....`,
-      `        #L#L##L#L#`,
-      `        #.LLLLLL.L`,
-      `        #.#L#L#.##`
+      `          #.#L.L#.##`,
+      `          #LLL#LL.L#`,
+      `          L.#.L..#..`,
+      `          #L##.##.L#`,
+      `          #.#L.LL.LL`,
+      `          #.#L#L#.##`,
+      `          ..L.L.....`,
+      `          #L#L##L#L#`,
+      `          #.LLLLLL.L`,
+      `          #.#L#L#.##`
     ].join('\n'), () => {
-      const solution = evolve(example, 10).toString();
+      const solution = evolvePart1(example, 10).toString();
       const expected = [
         `#.#L.L#.##`,
         `#LLL#LL.L#`,
@@ -239,9 +210,9 @@ describe('Day 11: Seating System (Part 1)', () => {
 
     it([
       `should return 1 for the following layout:`,
-      '           ...',
-      '           .L.',
-      '           ...'
+      '          ...',
+      '          .L.',
+      '          ...'
     ].join('\n'), () => {
       const testInput = [
         '...',
@@ -255,9 +226,9 @@ describe('Day 11: Seating System (Part 1)', () => {
 
     it([
       `should return 1 for the following layout:`,
-      '           ...',
-      '           .#.',
-      '           ...'
+      '          ...',
+      '          .#.',
+      '          ...'
     ].join('\n'), () => {
       const testInput = [
         '...',
@@ -271,9 +242,9 @@ describe('Day 11: Seating System (Part 1)', () => {
 
     it([
       `should return 4 for the following layout:`,
-      '           #.#',
-      '           .#.',
-      '           #.#'
+      '          #.#',
+      '          .#.',
+      '          #.#'
     ].join('\n'), () => {
       const testInput = [
         '#.#',
@@ -287,9 +258,9 @@ describe('Day 11: Seating System (Part 1)', () => {
 
     it([
       `should return 4 for the following layout:`,
-      '           .#.',
-      '           ###',
-      '           .#.'
+      '          .#.',
+      '          ###',
+      '          .#.'
     ].join('\n'), () => {
       const testInput = [
         '.#.',
@@ -304,12 +275,324 @@ describe('Day 11: Seating System (Part 1)', () => {
 });
 
 describe('Day 11: Seating System (Part 2)', () => {
-  describe('solverPart2()', () => {
-    // Given example.
+  describe('evolvePart2()', () => {
     it([
-      `should do something.`
-    ].join(''), () => {
-      const solution = solverPart2(example);
+      `should cause the middle seat to become occupied:`,
+      '          .....',
+      '          .....',
+      '          ..L..',
+      '          .....',
+      '          .....'
+    ].join('\n'), () => {
+      const testInput = [
+        '.....',
+        '.....',
+        '..L..',
+        '.....',
+        '.....'
+      ].map(processLine);
+      const solution = evolvePart2(testInput).toString();
+      const expected = [
+        '.....',
+        '.....',
+        '..#..',
+        '.....',
+        '.....'
+      ].map(processLine).toString();
+      
+      assert.strictEqual(solution, expected);
+    });
+
+    it([
+      `should leave this layout to remain unchanged:`,
+      '          .....',
+      '          ..#..',
+      '          ..L..',
+      '          .....',
+      '          .....'
+    ].join('\n'), () => {
+      const testInput = [
+        '.....',
+        '..#..',
+        '..L..',
+        '.....',
+        '.....'
+      ].map(processLine);
+      const solution = evolvePart2(testInput).toString();
+      const expected = [
+        '.....',
+        '..#..',
+        '..L..',
+        '.....',
+        '.....'
+      ].map(processLine).toString();
+      
+      assert.strictEqual(solution, expected);
+    });
+
+    it([
+      `should leave this layout unchanged:`,
+      '          ..#..',
+      '          .....',
+      '          #.#.#',
+      '          .....',
+      '          ..#.L'
+    ].join('\n'), () => {
+      const testInput = [
+        '..#..',
+        '.....',
+        '#.#.#',
+        '.....',
+        '..#.L'
+      ].map(processLine);
+      const solution = evolvePart2(testInput).toString();
+      const expected = [
+        '..#..',
+        '.....',
+        '#.#.#',
+        '.....',
+        '..#.L'
+      ].map(processLine).toString();
+      
+      assert.strictEqual(solution, expected);
+    });
+
+    it([
+      `should make the middle seat unoccupied:`,
+      '          ..#..',
+      '          .....',
+      '          #.#.#',
+      '          .....',
+      '          ..#.#'
+    ].join('\n'), () => {
+      const testInput = [
+        '..#..',
+        '.....',
+        '#.#.#',
+        '.....',
+        '..#.#'
+      ].map(processLine);
+      const solution = evolvePart2(testInput).toString();
+      const expected = [
+        '..#..',
+        '.....',
+        '#.L.#',
+        '.....',
+        '..#.#'
+      ].map(processLine).toString();
+      
+      assert.strictEqual(solution, expected);
+    });
+
+    // Given example
+    it([
+      `should lead the following plan after 1 interation:`,
+      '         #.##.##.##',
+      '         #######.##',
+      '         #.#.#..#..',
+      '         ####.##.##',
+      '         #.##.##.##',
+      '         #.#####.##',
+      '         ..#.#.....',
+      '         ##########',
+      '         #.######.#',
+      '         #.#####.##'
+    ].join('\n'), () => {
+      const solution = evolvePart2(example).toString();
+      const expected = [
+        '#.##.##.##',
+        '#######.##',
+        '#.#.#..#..',
+        '####.##.##',
+        '#.##.##.##',
+        '#.#####.##',
+        '..#.#.....',
+        '##########',
+        '#.######.#',
+        '#.#####.##'
+      ].map(processLine).toString();
+      
+      assert.strictEqual(solution, expected);
+    });
+  
+    it([
+      `should lead the following plan after 2 interation:`,
+      '         #.LL.LL.L#',
+      '         #LLLLLL.LL',
+      '         L.L.L..L..',
+      '         LLLL.LL.LL',
+      '         L.LL.LL.LL',
+      '         L.LLLLL.LL',
+      '         ..L.L.....',
+      '         LLLLLLLLL#',
+      '         #.LLLLLL.L',
+      '         #.LLLLL.L#'
+    ].join('\n'), () => {
+      const solution = evolvePart2(example, 2).toString();
+      const expected = [
+        '#.LL.LL.L#',
+        '#LLLLLL.LL',
+        'L.L.L..L..',
+        'LLLL.LL.LL',
+        'L.LL.LL.LL',
+        'L.LLLLL.LL',
+        '..L.L.....',
+        'LLLLLLLLL#',
+        '#.LLLLLL.L',
+        '#.LLLLL.L#'
+      ].map(processLine).toString();
+      
+      assert.strictEqual(solution, expected);
+    });
+  
+    it([
+      `should lead the following plan after 3 interation:`,
+      '         #.L#.##.L#',
+      '         #L#####.LL',
+      '         L.#.#..#..',
+      '         ##L#.##.##',
+      '         #.##.#L.##',
+      '         #.#####.#L',
+      '         ..#.#.....',
+      '         LLL####LL#',
+      '         #.L#####.L',
+      '         #.L####.L#'
+    ].join('\n'), () => {
+      const solution = evolvePart2(example, 3).toString();
+      const expected = [
+        '#.L#.##.L#',
+        '#L#####.LL',
+        'L.#.#..#..',
+        '##L#.##.##',
+        '#.##.#L.##',
+        '#.#####.#L',
+        '..#.#.....',
+        'LLL####LL#',
+        '#.L#####.L',
+        '#.L####.L#'
+      ].map(processLine).toString();
+      
+      assert.strictEqual(solution, expected);
+    });
+  
+    it([
+      `should lead the following plan after 4 interation:`,
+      '         #.L#.L#.L#',
+      '         #LLLLLL.LL',
+      '         L.L.L..#..',
+      '         ##LL.LL.L#',
+      '         L.LL.LL.L#',
+      '         #.LLLLL.LL',
+      '         ..L.L.....',
+      '         LLLLLLLLL#',
+      '         #.LLLLL#.L',
+      '         #.L#LL#.L#'
+    ].join('\n'), () => {
+      const solution = evolvePart2(example, 4).toString();
+      const expected = [
+        '#.L#.L#.L#',
+        '#LLLLLL.LL',
+        'L.L.L..#..',
+        '##LL.LL.L#',
+        'L.LL.LL.L#',
+        '#.LLLLL.LL',
+        '..L.L.....',
+        'LLLLLLLLL#',
+        '#.LLLLL#.L',
+        '#.L#LL#.L#'
+      ].map(processLine).toString();
+      
+      assert.strictEqual(solution, expected);
+    });
+  
+    it([
+      `should lead the following plan after 5 interation:`,
+      '         #.L#.L#.L#',
+      '         #LLLLLL.LL',
+      '         L.L.L..#..',
+      '         ##L#.#L.L#',
+      '         L.L#.#L.L#',
+      '         #.L####.LL',
+      '         ..#.#.....',
+      '         LLL###LLL#',
+      '         #.LLLLL#.L',
+      '         #.L#LL#.L#'
+    ].join('\n'), () => {
+      const solution = evolvePart2(example, 5).toString();
+      const expected = [
+        '#.L#.L#.L#',
+        '#LLLLLL.LL',
+        'L.L.L..#..',
+        '##L#.#L.L#',
+        'L.L#.#L.L#',
+        '#.L####.LL',
+        '..#.#.....',
+        'LLL###LLL#',
+        '#.LLLLL#.L',
+        '#.L#LL#.L#'
+      ].map(processLine).toString();
+      
+      assert.strictEqual(solution, expected);
+    });
+  
+    it([
+      `should lead the following plan after 6 interation:`,
+      '         #.L#.L#.L#',
+      '         #LLLLLL.LL',
+      '         L.L.L..#..',
+      '         ##L#.#L.L#',
+      '         L.L#.LL.L#',
+      '         #.LLLL#.LL',
+      '         ..#.L.....',
+      '         LLL###LLL#',
+      '         #.LLLLL#.L',
+      '         #.L#LL#.L#'
+    ].join('\n'), () => {
+      const solution = evolvePart2(example, 6).toString();
+      const expected = [
+        '#.L#.L#.L#',
+        '#LLLLLL.LL',
+        'L.L.L..#..',
+        '##L#.#L.L#',
+        'L.L#.LL.L#',
+        '#.LLLL#.LL',
+        '..#.L.....',
+        'LLL###LLL#',
+        '#.LLLLL#.L',
+        '#.L#LL#.L#'
+      ].map(processLine).toString();
+      
+      assert.strictEqual(solution, expected);
+    });
+  
+    it([
+      `should lead the following plan after 10 interation:`,
+      '         #.L#.L#.L#',
+      '         #LLLLLL.LL',
+      '         L.L.L..#..',
+      '         ##L#.#L.L#',
+      '         L.L#.LL.L#',
+      '         #.LLLL#.LL',
+      '         ..#.L.....',
+      '         LLL###LLL#',
+      '         #.LLLLL#.L',
+      '         #.L#LL#.L#'
+    ].join('\n'), () => {
+      const solution = evolvePart2(example, 10).toString();
+      const expected = [
+        '#.L#.L#.L#',
+        '#LLLLLL.LL',
+        'L.L.L..#..',
+        '##L#.#L.L#',
+        'L.L#.LL.L#',
+        '#.LLLL#.LL',
+        '..#.L.....',
+        'LLL###LLL#',
+        '#.LLLLL#.L',
+        '#.L#LL#.L#'
+      ].map(processLine).toString();
+      
+      assert.strictEqual(solution, expected);
     });
   });
 });
