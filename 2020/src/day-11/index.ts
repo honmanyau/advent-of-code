@@ -240,5 +240,15 @@ export function solverPart1(layout: Layout) {
  * @returns {number} Number of valid entries.
  */
 export function solverPart2(layout: Layout) {
-  return layout;
+  let currentLayout = JSON.parse(JSON.stringify(layout));
+  let stabilised = false;
+
+  while (!stabilised) {
+    const nextLayout = evolvePart2(currentLayout);
+
+    stabilised = currentLayout.toString() === nextLayout.toString();
+    currentLayout = nextLayout;
+  }
+
+  return currentLayout.toString().replace(/[L\.\,]/g, '').length;
 }
