@@ -2,10 +2,10 @@ import * as assert from 'assert';
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { yellow } from '../utilities';
 import {
   evolve,
   processFile,
+  processLine,
   solverPart1,
   solverPart2
 } from './index';
@@ -42,7 +42,37 @@ describe('Day 11: Seating System (Part 1)', () => {
         `##########`,
         `#.######.#`,
         `#.#####.##`
-      ].join('')
+      ].map(processLine).toString();
+      
+      assert.strictEqual(solution, expected);
+    });
+
+    it([
+      `should lead the following plan after one interation:`,
+      `#.##.##.##`,
+      `#######.##`,
+      `#.#.#..#..`,
+      `####.##.##`,
+      `#.##.##.##`,
+      `#.#####.##`,
+      `..#.#.....`,
+      `##########`,
+      `#.######.#`,
+      `#.#####.##`
+    ].join(''), () => {
+      const solution = evolve(example).toString();
+      const expected = [
+        `#.##.##.##`,
+        `#######.##`,
+        `#.#.#..#..`,
+        `####.##.##`,
+        `#.##.##.##`,
+        `#.#####.##`,
+        `..#.#.....`,
+        `##########`,
+        `#.######.#`,
+        `#.#####.##`
+      ].map(processLine).toString();
       
       assert.strictEqual(solution, expected);
     });
@@ -72,7 +102,7 @@ describe('Day 11: Seating System (Part 1)', () => {
         `#LLLLLLLL#`,
         `#.LLLLLL.L`,
         `#.#LLLL.##`
-      ].join('')
+      ].map(processLine).toString();
       
       assert.strictEqual(solution, expected);
     });
@@ -102,7 +132,7 @@ describe('Day 11: Seating System (Part 1)', () => {
         `#L######L#`,
         `#.LL###L.L`,
         `#.#L###.##`
-      ].join('')
+      ].map(processLine).toString();
       
       assert.strictEqual(solution, expected);
     });
@@ -132,7 +162,7 @@ describe('Day 11: Seating System (Part 1)', () => {
         `#L#LLLL#L#`,
         `#.LLLLLL.L`,
         `#.#L#L#.##`
-      ].join('')
+      ].map(processLine).toString();
       
       assert.strictEqual(solution, expected);
     });
@@ -162,7 +192,7 @@ describe('Day 11: Seating System (Part 1)', () => {
         `#L#L##L#L#`,
         `#.LLLLLL.L`,
         `#.#L#L#.##`
-      ].join('')
+      ].map(processLine).toString();
       
       assert.strictEqual(solution, expected);
     });
