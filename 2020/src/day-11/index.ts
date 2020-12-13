@@ -127,8 +127,6 @@ export function evolve(layout: Layout, iterations: number = 1): Layout {
     });
   }
 
-  console.log(newLayout);
-
   return newLayout;
 }
 
@@ -139,7 +137,17 @@ export function evolve(layout: Layout, iterations: number = 1): Layout {
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(layout: Layout) {
-  return layout;
+  let currentLayout = JSON.parse(JSON.stringify(layout));
+  let stabilised = false;
+
+  while (!stabilised) {
+    const nextLayout = evolve(currentLayout);
+
+    stabilised = currentLayout.toString() === nextLayout.toString();
+    currentLayout = nextLayout;
+  }
+
+  return currentLayout.toString().replace(/[L\.\,]/g, '').length;
 }
 
 /**

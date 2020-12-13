@@ -258,7 +258,7 @@ describe('Day 11: Seating System (Part 1)', () => {
       '           ...',
       '           .#.',
       '           ...'
-    ].join(''), () => {
+    ].join('\n'), () => {
       const testInput = [
         '...',
         '.#.',
