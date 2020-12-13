@@ -595,6 +595,80 @@ describe('Day 11: Seating System (Part 2)', () => {
       assert.strictEqual(solution, expected);
     });
   });
+
+  describe(`sovlerPart2()`, () => {
+    it([
+      `should return 26 for the example.`
+    ].join(''), () => {
+      const solution = sovlerPart2(example);
+  
+      assert.strictEqual(solution, 26);
+    });
+  
+    it([
+      `should return 1 for the following layout:`,
+      '          ...',
+      '          .L.',
+      '          ...'
+    ].join('\n'), () => {
+      const testInput = [
+        '...',
+        '.L.',
+        '...'
+      ].map(processLine);
+      const solution = sovlerPart2(testInput);
+  
+      assert.strictEqual(solution, 1);
+    });
+  
+    it([
+      `should return 1 for the following layout:`,
+      '          ...',
+      '          .#.',
+      '          ...'
+    ].join('\n'), () => {
+      const testInput = [
+        '...',
+        '.#.',
+        '...'
+      ].map(processLine);
+      const solution = sovlerPart2(testInput);
+  
+      assert.strictEqual(solution, 1);
+    });
+  
+    it([
+      `should return 5 for the following layout:`,
+      '          #.#',
+      '          .#.',
+      '          #.#'
+    ].join('\n'), () => {
+      const testInput = [
+        '#.#',
+        '.#.',
+        '#.#'
+      ].map(processLine);
+      const solution = sovlerPart2(testInput);
+  
+      assert.strictEqual(solution, 5);
+    });
+  
+    it([
+      `should return 5 for the following layout:`,
+      '          #.#',
+      '          .##',
+      '          #.#'
+    ].join('\n'), () => {
+      const testInput = [
+        '#.#',
+        '.##',
+        '#.#'
+      ].map(processLine);
+      const solution = sovlerPart2(testInput);
+  
+      assert.strictEqual(solution, 5);
+    });
+  });
 });
 
 // ===============
