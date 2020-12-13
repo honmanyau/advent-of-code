@@ -88,7 +88,56 @@ export function solverPart1(instructions: [ string, number ][]): number {
  * @returns {number} Number of valid entries.
  */
 export function solverPart2(instructions: [ string, number ][]) {
-  return -1E16;
+  const longLatDistances = [ 0, 0 ];
+  const waypointLocation = [ 10, -1 ];
+
+  for (const instruction of instructions) {
+    const [ steer, magnitude ] = instruction;
+
+    switch (steer) {
+      case 'F':
+        longLatDistances[0] += waypointLocation[0] * magnitude;
+        longLatDistances[1] += waypointLocation[1] * magnitude;
+
+        break;
+      case 'R':
+      case 'L':
+        const turns = magnitude / 90;
+        
+        for (let turn = 0; turn < turns; turn++) {
+          waypointLocation.push(waypointLocation.shift());
+
+          if (steer === 'R') {
+            waypointLocation[0] *= -1;
+          }
+          else {
+            waypointLocation[1] *= -1;
+          }
+        }
+
+        break;
+      case 'N':
+        waypointLocation[1] -= magnitude;
+
+        break;
+      case 'E':
+        waypointLocation[0] += magnitude;
+        
+        break;
+      case 'S':
+        waypointLocation[1] += magnitude;
+
+        break;
+      case 'W':
+        waypointLocation[0] -= magnitude;
+
+        break;
+      default:      
+        throw Error('Something horrible happened in solverPart2()!');
+    }
+  }
+
+  return Math.abs(longLatDistances[0]) + Math.abs(longLatDistances[1]);
 }
 
 /**
@@ -104,7 +153,7 @@ export function navigate(
   const [ steer, magnitude ] = instruction;
   const compass = [ 'N', 'E', 'S', 'W' ];
   
-  switch(steer) {
+  switch (steer) {
     case 'F':
       return [ direction, magnitude ];
     case 'N':
