@@ -55,8 +55,30 @@ export function processEntry(entry: string): Instruction {
  * @param {string[]} instructions Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(instructions: [ string, number ][]) {
-  return -1E16;
+export function solverPart1(instructions: [ string, number ][]): number {
+  let longLatDistances = [ 0, 0 ];
+  let currentDirection: Direction = 'E';
+
+  for (const instruction of instructions) {
+    const interpretation = navigate(currentDirection, instruction);
+    const [ steer, magnitude ] = interpretation;
+    const isLongitudinal = (steer === 'E') || (steer === 'W');
+    const isTurning = (instruction[0] === 'R') || (instruction[0] === 'L');
+    const modifier = (steer === 'N' || steer === 'W') ? -1 : 1;
+
+    if (isLongitudinal) {
+      longLatDistances[0] += modifier * magnitude;
+    }
+    else {
+      longLatDistances[1] += modifier * magnitude;
+    }
+
+    if (isTurning) {
+      currentDirection = steer as Direction;
+    }
+  }
+
+  return Math.abs(longLatDistances[0]) + Math.abs(longLatDistances[1]);
 }
 
 /**
@@ -76,7 +98,9 @@ export function solverPart2(instructions: [ string, number ][]) {
  * @param {Instruction} instruction A set of navigation instructions.
  * @returns {Instruction} Instruciton for the direction and distance to travel.
  */
-export function navigate(direction: Direction, instruction: Instruction) {
+export function navigate(
+  direction: Direction, instruction: Instruction
+): Instruction {
   const [ steer, magnitude ] = instruction;
   const compass = [ 'N', 'E', 'S', 'W' ];
   
@@ -99,7 +123,7 @@ export function navigate(direction: Direction, instruction: Instruction) {
       const turns = (magnitude / 90);
       const modifier = (steer === 'L') ? -1 : 1;
       const newIndex = (((currentIndex + modifier * turns) % l) + l) % l;
-      console.log({ steer, magnitude, currentIndex, turns, modifier, newIndex});
+
       return [ compass[newIndex], 0 ];
     default:
       throw Error('Something went horribly wrong!');

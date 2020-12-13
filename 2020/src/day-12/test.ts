@@ -95,7 +95,7 @@ describe('Day 12: Rain Risk (Part 1)', () => {
     });
 
     it([
-      `should return 10 for the following test input:`,
+      `should return 21 for the following test input:`,
       '          [ F 21 ]'
     ].join('\n'), () => {
       const testInput: Instruction[] = [
@@ -103,7 +103,7 @@ describe('Day 12: Rain Risk (Part 1)', () => {
       ];
       const solution = solverPart1(testInput);
 
-      assert.strictEqual(solution, 10);
+      assert.strictEqual(solution, 21);
     });
     
     it([
