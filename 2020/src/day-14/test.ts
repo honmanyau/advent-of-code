@@ -300,7 +300,7 @@ describe('Day 14: Docking Data (Part 2)', () => {
       const solution = maskedAddressToDecimals(maskedAddress)
         .sort((a, b) => a - b);
 
-      assert.strictEqual(solution, [ 26, 27, 58, 59 ]);
+      assert.deepStrictEqual(solution, [ 26, 27, 58, 59 ]);
     });
 
     // Given example.
@@ -312,7 +312,7 @@ describe('Day 14: Docking Data (Part 2)', () => {
       const solution = maskedAddressToDecimals(maskedAddress)
         .sort((a, b) => a - b);
 
-      assert.strictEqual(solution, [ 16, 17, 18, 19, 24, 25, 26, 27 ]);
+      assert.deepStrictEqual(solution, [ 16, 17, 18, 19, 24, 25, 26, 27 ]);
     });
 
     it([
@@ -323,7 +323,7 @@ describe('Day 14: Docking Data (Part 2)', () => {
       const solution = maskedAddressToDecimals(maskedAddress)
         .sort((a, b) => a - b);
 
-      assert.strictEqual(solution, [ 2, 3 ]);
+      assert.deepStrictEqual(solution, [ 2, 3 ]);
     });
 
     it([
@@ -334,7 +334,7 @@ describe('Day 14: Docking Data (Part 2)', () => {
       const solution = maskedAddressToDecimals(maskedAddress)
         .sort((a, b) => a - b);
 
-      assert.strictEqual(solution, [ 2, 3, 10, 11 ]);
+      assert.deepStrictEqual(solution, [ 2, 3, 10, 11 ]);
     });
 
     it([
@@ -345,7 +345,7 @@ describe('Day 14: Docking Data (Part 2)', () => {
       const solution = maskedAddressToDecimals(maskedAddress)
         .sort((a, b) => a - b);
 
-      assert.strictEqual(solution, [ 2 ]);
+      assert.deepStrictEqual(solution, [ 2 ]);
     });
   });
 
