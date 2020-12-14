@@ -43,7 +43,7 @@ type Value = string;
  */
 export function processFile(file: string): Program {
   const lines = file.trim().split('\n');
-  const mask = lines.splice(-1)[0].replace('mask = ', '');
+  const mask = lines.splice(0, 1)[0].replace('mask = ', '');
   const instructions = lines.map(processEntry);
 
   return {
@@ -71,19 +71,43 @@ export function processEntry(entry: string): Instruction {
 /**
  * The solver function for Part 1 of the Advent of Code 2020's
  * "Day 14: Docking Data" challenge.
- * @param {string[]} input Entries of the challenge.
+ * @param {string[]} program Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(input: string[]) {
+export function solverPart1(program: Program) {
   return -1;
 }
 
 /**
  * The solver function for Part 2 of the Advent of Code 2020's
  * "Day 14: Docking Data" challenge.
- * @param {string[]} input Entries of the challenge.
+ * @param {string[]} program Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2(input: string[]) {
+export function solverPart2(program: Program) {
   return -1;
+}
+
+/**
+ * This function applies a bit mask to a string representing a binary value.
+ * @param {string} mask A 36-bit bit mask.
+ * @param {string} binaryNumber A binary number.
+ * @returns {string} The result of applying a bit mask to the given number.
+ */
+export function applyMask(mask: string, binaryNumber: string): string {
+  const paddedBinaryNumber = binaryNumber.padStart(36, '0');
+  let maskedBinaryNumber = '';
+
+  for (let i = 0; i < mask.length; i++) {
+    const bitMask = mask[i];
+    
+    if (bitMask === 'X') {
+      maskedBinaryNumber += paddedBinaryNumber[i];
+    }
+    else {
+      maskedBinaryNumber += mask[i];
+    }
+  }
+
+  return maskedBinaryNumber;
 }
