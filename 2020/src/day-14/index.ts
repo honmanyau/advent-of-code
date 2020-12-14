@@ -22,12 +22,13 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
 // ================
 // == Interfaces ==
 // ================
-interface Program {
-  mask: string;
-  instructions: Instruction[];
+interface Instruction {
+  type: 'mask' | 'write';
+  mask?: string;
+  write: [ MemoryLocation, Value ]
 }
 
-type Instruction = [ MemoryLocation, Value ];
+type Program = Instruction[];
 type MemoryLocation = number;
 type Value = string;
 
@@ -43,13 +44,9 @@ type Value = string;
  */
 export function processFile(file: string): Program {
   const lines = file.trim().split('\n');
-  const mask = lines.splice(0, 1)[0].replace('mask = ', '');
   const instructions = lines.map(processEntry);
 
-  return {
-    mask,
-    instructions
-  };
+  return instructions;
 }
 
 /**
@@ -59,13 +56,23 @@ export function processFile(file: string): Program {
  * @returns {string} An array where each line is an entry of the challenge.
  */
 export function processEntry(entry: string): Instruction {
-  const matched = entry.match(/^mem\[(\d+?)\] = (\d+?)$/);
+  const maskMatched = entry.match(/^mask = ([X01]{36})$/);
+  const instruction: Instruction = {} as Instruction;
 
-  if (!matched) {
-    throw Error('Incorrect RegEx in processEntry!');
+  if (maskMatched) {
+    instruction.type = 'mask';
+    instruction.mask = maskMatched[1];
+  }
+  else {
+    const writeMached = entry.match(/^mem\[(\d+?)\] = (\d+?)$/);
+
+    instruction.type = 'write';
+    instruction.write = [
+      Number(writeMached[1]), Number(writeMached[2]).toString(2)
+    ];
   }
 
-  return [ Number(matched[1]), Number(matched[2]).toString(2) ];
+  return instruction;
 }
 
 /**
@@ -75,15 +82,22 @@ export function processEntry(entry: string): Instruction {
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(program: Program) {
-  const { mask, instructions } = program;
   const memory = {};
+  let mask = program[0].mask;
 
-  for (const instruction of instructions) {
-    const [ memoryLocation, binaryNumber ] = instruction;
-    const maskedBinaryNumber = applyMask(mask, binaryNumber);
-    const maskedDecimalNumber = Number(`0b${maskedBinaryNumber}`);
+  for (const instruction of program) {
+    const { type } = instruction;
 
-    memory[memoryLocation] = maskedDecimalNumber;
+    if (type === 'mask') {
+      mask = instruction.mask;
+    }
+    else {
+      const [ memoryLocation, binaryNumber ] = instruction.write;
+      const maskedBinaryNumber = applyMask(mask, binaryNumber);
+      const maskedDecimalNumber = Number(`0b${maskedBinaryNumber}`);
+  
+      memory[memoryLocation] = maskedDecimalNumber;
+    }
   }
 
   return Object.keys(memory).reduce((acc, memoryLocation) => {
