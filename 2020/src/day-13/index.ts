@@ -72,12 +72,58 @@ export function solverPart1(input: [ string, string ]) {
 }
 
 /**
+ * This function uses the positions of two numbers in a timetable and return,
+ * the base number and multipliers, that describes the pattern of their occurence
+ * in the table that satisifies the index requirement in Part 2.
+ * @param {number} a One of the two numbers to be analysed.
+ * @param {number} b The other one of the two numbers to be analysed.
+ * @param {(number | string)[]} timetable A timetable.
+ * @returns {[ number, number ]} The base number and multiplier.
+ */
+export function findPattern(
+  a: number, b: number, timetable: (number | string)[]
+) {
+  const relativeIndexB = timetable.indexOf(b) - timetable.indexOf(a);
+  const intersections = [];
+  let i = 0;
+
+  while (intersections.length < 3) {
+    const timestampA = i * a;
+    const timestampB = timestampA + relativeIndexB;
+
+    if (timestampB % b === 0) {
+      intersections.push(timestampA);
+    }
+
+    i += 1;
+  }
+
+  return [ intersections[0], intersections[1] - intersections[0] ];
+}
+
+/**
  * The solver function for Part 2 of the Advent of Code 2020's
  * "Day 13: Shuttle Search" challenge.
  * @param {string[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
 export function solverPart2(input: string | [ string, string ]) {
+  // The initial attempt (`solverPart2Obsolete`) is likely leads to the correct
+  // solution but is too slow for the actual challenge. After having a closer
+  // look at simple examples and how solutions between pairs, triplets, and
+  // quadruplets, it as concluded that that a pattern of t = m + i * n exists.
+
+  throw Error('No solution found!');
+}
+
+
+/**
+ * The solver function for Part 2 of the Advent of Code 2020's
+ * "Day 13: Shuttle Search" challenge.
+ * @param {string[]} input Entries of the challenge.
+ * @returns {number} Number of valid entries.
+ */
+export function solverPart2Obsolete(input: string | [ string, string ]) {
   const idsString = (typeof input === 'string') ? input : input[1];
   const ids = idsString.split(',').map((v) => v === 'x' ? v : Number(v));
   const sortedIds = (ids
@@ -91,6 +137,7 @@ export function solverPart2(input: string | [ string, string ]) {
   const maxId = sortedIds[0];
   const maxIdIndex = ids.indexOf(maxId);
   let maxIdMultiple = 1;
+  let stepSize = 1;
   let solved = false;
 
   while (!solved) {
@@ -107,13 +154,17 @@ export function solverPart2(input: string | [ string, string ]) {
       if (relativeTimestamp % currentId !== 0) {
         break;
       }
-      else if (i === sortedIds.length - 1) {
-        // All ids satisify the index requirement.
-        return referenceTimestamp - maxIdIndex;
+      else {
+        stepSize = maxIdMultiple;
+
+        if (i === sortedIds.length - 1) {
+          // All ids satisify the index requirement.
+          return referenceTimestamp - maxIdIndex;
+        }
       }
     }
 
-    maxIdMultiple += 1;
+    maxIdMultiple += stepSize;
   }
 
   throw Error('No solution found!');
