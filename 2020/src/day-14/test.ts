@@ -5,6 +5,7 @@ import * as path from 'path';
 import {
   applyMask,
   applyMaskToAddress,
+  maskedAddressToDecimals,
   processFile,
   solverPart1,
   solverPart2
@@ -225,7 +226,7 @@ describe('Day 14: Docking Data (Part 2)', () => {
     it([
       `should take the mask 000000000000000000000000000000X1001X and memory`,
       ' location 42 and return the following masks:\n',
-      '         000000000000000000000000000000X1101X\n'
+      '          000000000000000000000000000000X1101X\n'
     ].join(''), () => {
       const mask = '000000000000000000000000000000X1001X';
       const memoryLocation = 42;
@@ -239,7 +240,7 @@ describe('Day 14: Docking Data (Part 2)', () => {
     it([
       `should take the mask 00000000000000000000000000000000X0XX and memory`,
       ' location 26 and return the following masks:\n',
-      '         00000000000000000000000000000001X0XX\n'
+      '          00000000000000000000000000000001X0XX\n'
     ].join(''), () => {
       const mask = '00000000000000000000000000000000X0XX';
       const memoryLocation = 26;
@@ -252,9 +253,9 @@ describe('Day 14: Docking Data (Part 2)', () => {
     it([
       `should take the mask 000000000000000000000000000000000000 and memory`,
       ' location 42 and return the following masks:\n',
-      '         000000000000000000000000000000101010\n'
+      '          000000000000000000000000000000101010\n'
     ].join(''), () => {
-      const mask = '00000000000000000000000000000000X0XX';
+      const mask = '000000000000000000000000000000000000';
       const memoryLocation = 42;
       const masked = applyMaskToAddress(mask, memoryLocation);
       const expected = '000000000000000000000000000000101010';
@@ -265,7 +266,7 @@ describe('Day 14: Docking Data (Part 2)', () => {
     it([
       `should take the mask 111111111111111111111111111111111111 and memory`,
       ' location 42 and return the following masks:\n',
-      '         111111111111111111111111111111111111\n'
+      '          111111111111111111111111111111111111\n'
     ].join(''), () => {
       const mask = '111111111111111111111111111111111111';
       const memoryLocation = 42;
@@ -278,7 +279,7 @@ describe('Day 14: Docking Data (Part 2)', () => {
     it([
       `should take the mask XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX and memory`,
       ' location 42 and return the following masks:\n',
-      '         XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n'
+      '          XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n'
     ].join(''), () => {
       const mask = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       const memoryLocation = 42;
@@ -286,6 +287,54 @@ describe('Day 14: Docking Data (Part 2)', () => {
       const expected = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
 
       assert.strictEqual(masked, expected);
+    });
+  });
+
+  describe('maskedAddressToDecimals()', () => {
+    // Given example.
+    it([
+      `should return [ 26, 27, 58, 59 ] for the mask.`,
+      ' 000000000000000000000000000000X1101X'
+    ].join(''), () => {
+      const maskedAddress = '000000000000000000000000000000X1101X';
+      const solution = maskedAddressToDecimals(maskedAddress)
+        .sort((a, b) => a - b);
+
+      assert.strictEqual(solution, [ 26, 27, 58, 59 ]);
+    });
+
+    // Given example.
+    it([
+      `should return [ 16, 17, 18, 19, 24, 25, 26, 27 ] for the mask.`,
+      ' 00000000000000000000000000000001X0XX'
+    ].join(''), () => {
+      const maskedAddress = '00000000000000000000000000000001X0XX';
+      const solution = maskedAddressToDecimals(maskedAddress)
+        .sort((a, b) => a - b);
+
+      assert.strictEqual(solution, [ 16, 17, 18, 19, 24, 25, 26, 27 ]);
+    });
+
+    it([
+      `should return [ 2, 3 ] for the mask.`,
+      ' 00000000000000000000000000000000001X'
+    ].join(''), () => {
+      const maskedAddress = '00000000000000000000000000000000001X';
+      const solution = maskedAddressToDecimals(maskedAddress)
+        .sort((a, b) => a - b);
+
+      assert.strictEqual(solution, [ 2, 3 ]);
+    });
+
+    it([
+      `should return [ 2, 3, 10, 11 ] for the mask.`,
+      ' 00000000000000000000000000000000001X'
+    ].join(''), () => {
+      const maskedAddress = '00000000000000000000000000000000X01X';
+      const solution = maskedAddressToDecimals(maskedAddress)
+        .sort((a, b) => a - b);
+
+      assert.strictEqual(solution, [ 2, 3, 10, 11 ]);
     });
   });
 
