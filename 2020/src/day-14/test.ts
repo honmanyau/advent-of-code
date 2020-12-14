@@ -4,6 +4,7 @@ import * as path from 'path';
 
 import {
   applyMask,
+  applyMaskToAddress,
   processFile,
   solverPart1,
   solverPart2
@@ -219,6 +220,75 @@ describe('Day 14: Docking Data (Part 1)', () => {
 });
 
 describe('Day 14: Docking Data (Part 2)', () => {
+  describe('applyMaskToAddress()', () => {
+    // Given example.
+    it([
+      `should take the mask 000000000000000000000000000000X1001X and memory`,
+      ' location 42 and return the following masks:\n',
+      '         000000000000000000000000000000X1101X\n'
+    ].join(''), () => {
+      const mask = '000000000000000000000000000000X1001X';
+      const memoryLocation = 42;
+      const masked = applyMaskToAddress(mask, memoryLocation);
+      const expected = '000000000000000000000000000000X1101X';
+
+      assert.strictEqual(masked, expected);
+    });
+
+    // Given example.
+    it([
+      `should take the mask 00000000000000000000000000000000X0XX and memory`,
+      ' location 26 and return the following masks:\n',
+      '         00000000000000000000000000000001X0XX\n'
+    ].join(''), () => {
+      const mask = '00000000000000000000000000000000X0XX';
+      const memoryLocation = 26;
+      const masked = applyMaskToAddress(mask, memoryLocation);
+      const expected = '00000000000000000000000000000001X0XX';
+
+      assert.strictEqual(masked, expected);
+    });
+
+    it([
+      `should take the mask 000000000000000000000000000000000000 and memory`,
+      ' location 42 and return the following masks:\n',
+      '         000000000000000000000000000000101010\n'
+    ].join(''), () => {
+      const mask = '00000000000000000000000000000000X0XX';
+      const memoryLocation = 42;
+      const masked = applyMaskToAddress(mask, memoryLocation);
+      const expected = '000000000000000000000000000000101010';
+
+      assert.strictEqual(masked, expected);
+    });
+
+    it([
+      `should take the mask 111111111111111111111111111111111111 and memory`,
+      ' location 42 and return the following masks:\n',
+      '         111111111111111111111111111111111111\n'
+    ].join(''), () => {
+      const mask = '111111111111111111111111111111111111';
+      const memoryLocation = 42;
+      const masked = applyMaskToAddress(mask, memoryLocation);
+      const expected = '111111111111111111111111111111111111';
+
+      assert.strictEqual(masked, expected);
+    });
+
+    it([
+      `should take the mask XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX and memory`,
+      ' location 42 and return the following masks:\n',
+      '         XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n'
+    ].join(''), () => {
+      const mask = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      const memoryLocation = 42;
+      const masked = applyMaskToAddress(mask, memoryLocation);
+      const expected = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+
+      assert.strictEqual(masked, expected);
+    });
+  });
+
   describe('solverPart2()', () => {
     // Given example.
     it([
