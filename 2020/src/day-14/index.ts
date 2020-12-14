@@ -164,3 +164,33 @@ export function applyMaskToAddress(
 
   return maskedBinaryNumber;
 }
+
+/**
+ * This function converts a masked address to the corresponding decimal
+ * addresses.
+ * @param {string} maskedAddress A masked address.
+ * @returns {number[]} An array of decimal addresses.
+ */
+export function maskedAddressToDecimals(maskedAddress: string): number[] {
+  const decimalAddresses = [];
+  const queue = [ maskedAddress ];
+
+  while (queue.length) {
+    const currentAddress = queue.shift();
+    const indexOfFirstX = currentAddress.indexOf('X');
+    const isFloating = !!~indexOfFirstX;
+
+    if (isFloating) {
+      const before = currentAddress.slice(0, indexOfFirstX);
+      const after = currentAddress.slice(indexOfFirstX + 1);
+
+      queue.push(before + '0' + after);
+      queue.push(before + '1' + after);
+    }
+    else {
+      decimalAddresses.push(Number(`0b${currentAddress}`));
+    }
+  }
+
+  return decimalAddresses;
+}
