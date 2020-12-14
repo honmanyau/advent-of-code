@@ -328,13 +328,24 @@ describe('Day 14: Docking Data (Part 2)', () => {
 
     it([
       `should return [ 2, 3, 10, 11 ] for the mask.`,
-      ' 00000000000000000000000000000000001X'
+      ' 00000000000000000000000000000000X01X'
     ].join(''), () => {
       const maskedAddress = '00000000000000000000000000000000X01X';
       const solution = maskedAddressToDecimals(maskedAddress)
         .sort((a, b) => a - b);
 
       assert.strictEqual(solution, [ 2, 3, 10, 11 ]);
+    });
+
+    it([
+      `should return [ 2 ] for the mask.`,
+      ' 000000000000000000000000000000000010'
+    ].join(''), () => {
+      const maskedAddress = '000000000000000000000000000000000010';
+      const solution = maskedAddressToDecimals(maskedAddress)
+        .sort((a, b) => a - b);
+
+      assert.strictEqual(solution, [ 2 ]);
     });
   });
 
