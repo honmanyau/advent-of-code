@@ -101,11 +101,11 @@ describe('Day 14: Docking Data (Part 1)', () => {
     it([
       `should return 7 for the following test input:`,
       '           mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XX',
-      '           mem[8] = 11'
+      '           mem[8] = 3'
     ].join('\n'), () => {
       const testInput = [
         'mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XX',
-        'mem[42] = 11'
+        'mem[42] = 3'
       ].join('\n');
       const solution = solverPart1(processFile(testInput));
 
@@ -115,11 +115,11 @@ describe('Day 14: Docking Data (Part 1)', () => {
     it([
       `should return 7 for the following test input:`,
       '           mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XX',
-      '           mem[404] = 11'
+      '           mem[404] = 3'
     ].join('\n'), () => {
       const testInput = [
         'mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XX',
-        'mem[404] = 11'
+        'mem[404] = 3'
       ].join('\n');
       const solution = solverPart1(processFile(testInput));
 
@@ -129,13 +129,13 @@ describe('Day 14: Docking Data (Part 1)', () => {
     it([
       `should return 14 for the following test input:`,
       '           mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XX',
-      '           mem[42] = 11',
-      '           mem[404] = 11',
+      '           mem[42] = 3',
+      '           mem[404] = 3',
     ].join('\n'), () => {
       const testInput = [
         'mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XX',
-        'mem[42] = 11',
-        'mem[404] = 11'
+        'mem[42] = 3',
+        'mem[404] = 3'
       ].join('\n');
       const solution = solverPart1(processFile(testInput));
 
@@ -145,13 +145,13 @@ describe('Day 14: Docking Data (Part 1)', () => {
     it([
       `should return 14 for the following test input:`,
       '           mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-      '           mem[42] = 111',
-      '           mem[404] = 111',
+      '           mem[42] = 7',
+      '           mem[404] = 7'
     ].join('\n'), () => {
       const testInput = [
         'mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XX',
-        'mem[42] = 111',
-        'mem[404] = 111'
+        'mem[42] = 7',
+        'mem[404] = 7'
       ].join('\n');
       const solution = solverPart1(processFile(testInput));
 
@@ -161,13 +161,13 @@ describe('Day 14: Docking Data (Part 1)', () => {
     it([
       `should return 16 for the following test input:`,
       '           mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1X00',
-      '           mem[42] = 11',
-      '           mem[404] = 11',
+      '           mem[42] = 3',
+      '           mem[404] = 3',
     ].join('\n'), () => {
       const testInput = [
         'mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1X00',
-        'mem[42] = 11',
-        'mem[404] = 11'
+        'mem[42] = 3',
+        'mem[404] = 3'
       ].join('\n');
       const solution = solverPart1(processFile(testInput));
 

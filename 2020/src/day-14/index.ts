@@ -59,13 +59,13 @@ export function processFile(file: string): Program {
  * @returns {string} An array where each line is an entry of the challenge.
  */
 export function processEntry(entry: string): Instruction {
-  const matched = entry.match(/^mem\[(\d+?)\] = ([01]+?)$/);
+  const matched = entry.match(/^mem\[(\d+?)\] = (\d+?)$/);
 
   if (!matched) {
     throw Error('Incorrect RegEx in processEntry!');
   }
 
-  return [ Number(matched[1]), matched[2] ];
+  return [ Number(matched[1]), Number(matched[2]).toString(2) ];
 }
 
 /**
@@ -75,7 +75,20 @@ export function processEntry(entry: string): Instruction {
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(program: Program) {
-  return -1;
+  const { mask, instructions } = program;
+  const memory = {};
+
+  for (const instruction of instructions) {
+    const [ memoryLocation, binaryNumber ] = instruction;
+    const maskedBinaryNumber = applyMask(mask, binaryNumber);
+    const maskedDecimalNumber = Number(`0b${maskedBinaryNumber}`);
+
+    memory[memoryLocation] = maskedDecimalNumber;
+  }
+
+  return Object.keys(memory).reduce((acc, memoryLocation) => {
+    return acc + memory[memoryLocation];
+  }, 0);
 }
 
 /**
