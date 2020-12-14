@@ -112,7 +112,29 @@ export function solverPart1(program: Program) {
  * @returns {number} Number of valid entries.
  */
 export function solverPart2(program: Program) {
-  return -1;
+  const memory = {};
+  let mask = program[0].mask;
+
+  for (const instruction of program) {
+    const { type } = instruction;
+
+    if (type === 'mask') {
+      mask = instruction.mask;
+    }
+    else {
+      const [ memoryLocation, binaryNumber ] = instruction.write;
+      const maskedAddress = applyMaskToAddress(mask, memoryLocation);
+      const decimalAddresses = maskedAddressToDecimals(maskedAddress);
+
+      for (const decimalAddress of decimalAddresses) {
+        memory[decimalAddress] = Number(`0b${binaryNumber}`);
+      }
+    }
+  }
+
+  return Object.keys(memory).reduce((acc, memoryLocation) => {
+    return acc + memory[memoryLocation];
+  }, 0);
 }
 
 /**
