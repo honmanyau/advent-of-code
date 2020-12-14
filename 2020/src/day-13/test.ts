@@ -25,25 +25,25 @@ describe('Day 13: Shuttle Search (Part 1)', () => {
     });
 
     it([
-      `should return 0 for the test input [ 8, '7,x,4' ].`
+      `should return 0 for the test input [ '8', '7,x,4' ].`
     ].join(''), () => {
-      const solution = solverPart1(example);
+      const solution = solverPart1([ '8', '7,x,4' ]);
 
       assert.strictEqual(solution, 0);
     });
 
     it([
-      `should return 12 for the test input [ 9, '7,x,4' ].`
+      `should return 12 for the test input [ '9', '7,x,4' ].`
     ].join(''), () => {
-      const solution = solverPart1(example);
+      const solution = solverPart1([ '9', '7,x,4' ]);
 
       assert.strictEqual(solution, 12);
     });
 
     it([
-      `should return 22 for the test input [ 9, '7,11,x,4' ].`
+      `should return 22 for the test input [ '9', '7,11,x,4' ].`
     ].join(''), () => {
-      const solution = solverPart1(example);
+      const solution = solverPart1([ '9', '7,11,x,4' ]);
 
       assert.strictEqual(solution, 22);
     });
