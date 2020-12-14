@@ -12,9 +12,12 @@ import {
 } from './index';
 
 
-const examplePathname = path.resolve(__dirname, './example.txt');
-const exampleFile = fs.readFileSync(examplePathname, 'utf-8');
-const example = processFile(exampleFile);
+const examplePathnamePart1 = path.resolve(__dirname, './example-part-1.txt');
+const examplePathnamePart2 = path.resolve(__dirname, './example-part-2.txt');
+const exampleFilePart1 = fs.readFileSync(examplePathnamePart1, 'utf-8');
+const exampleFilePart2 = fs.readFileSync(examplePathnamePart2, 'utf-8');
+const examplePart1 = processFile(exampleFilePart1);
+const examplePart2 = processFile(exampleFilePart2);
 
 describe('Day 14: Docking Data (Part 1)', () => {
   describe(`applyMask()`, () => {
@@ -93,9 +96,9 @@ describe('Day 14: Docking Data (Part 1)', () => {
 
   describe(`sovlerPart1()`, () => {
     it([
-      `should return 165 for the example.`
+      `should return 165 for the example in Part 1.`
     ].join(''), () => {
-      const solution = solverPart1(example);
+      const solution = solverPart1(examplePart1);
 
       assert.strictEqual(solution, 165);
     });
@@ -352,9 +355,99 @@ describe('Day 14: Docking Data (Part 2)', () => {
   describe('solverPart2()', () => {
     // Given example.
     it([
-      `should do something.`
+      `should return 208 for the example in Part 2.`
     ].join(''), () => {
-      const solution = solverPart2(example);
+      const solution = solverPart2(examplePart2);
+
+      assert.strictEqual(solution, 208);
+    });
+
+    it([
+      `should return 400 for the following test input:`,
+      '           mask = 000000000000000000000000000000X1001X',
+      '           mem[42] = 100'
+    ].join('\n'), () => {
+      const testInput = [
+        'mask = 000000000000000000000000000000X1001X',
+        'mem[42] = 100'
+      ].join('\n');
+      const solution = solverPart2(processFile(testInput));
+
+      assert.strictEqual(solution, 400);
+    });
+
+    it([
+      `should return 8 for the following test input:`,
+      '           mask = 00000000000000000000000000000000X0XX',
+      '           mem[26] = 1'
+    ].join('\n'), () => {
+      const testInput = [
+        'mask = 00000000000000000000000000000000X0XX',
+        'mem[26] = 1'
+      ].join('\n');
+      const solution = solverPart2(processFile(testInput));
+
+      assert.strictEqual(solution, 8);
+    });
+
+    it([
+      `should return 400 for the following test input:`,
+      '           mask = 000000000000000000000000000000X1001X',
+      '           mem[42] = 200',
+      '           mask = 00000000000000000000000000000000X0XX',
+      '           mem[26] = 2'
+    ].join('\n'), () => {
+      const testInput = [
+        'mask = 000000000000000000000000000000X1001X',
+        'mem[42] = 200',
+        'mask = 00000000000000000000000000000000X0XX',
+        'mem[26] = 2'
+      ].join('\n');
+      const solution = solverPart2(processFile(testInput));
+
+      assert.strictEqual(solution, 416);
+    });
+
+    it([
+      `should return 400 for the following test input:`,
+      '           mask = 000000000000000000000000000000X1001X',
+      '           mem[42] = 200',
+      '           mask = 00000000000000000000000000000000X0XX',
+      '           mem[26] = 1',
+      '           mask = 000000000000000000000000000000X1001X',
+      '           mem[42] = 100',
+    ].join('\n'), () => {
+      const testInput = [
+        'mask = 000000000000000000000000000000X1001X',
+        'mem[42] = 200',
+        'mask = 00000000000000000000000000000000X0XX',
+        'mem[26] = 2'
+      ].join('\n');
+      const solution = solverPart2(processFile(testInput));
+
+      assert.strictEqual(solution, 208);
+    });
+
+    it([
+      `should return 400 for the following test input:`,
+      '           mask = 000000000000000000000000000000X1001X',
+      '           mem[42] = 200',
+      '           mask = 00000000000000000000000000000000X0XX',
+      '           mem[26] = 1',
+      '           mask = 00000000000000000000X000000000001001',
+      '           mem[256] = 920',
+    ].join('\n'), () => {
+      const testInput = [
+        'mask = 000000000000000000000000000000X1001X',
+        'mem[42] = 200',
+        'mask = 00000000000000000000000000000000X0XX',
+        'mem[26] = 2',
+        'mask = 00000000000000000000X000000000001001',
+        'mem[256] = 920',
+      ].join('\n');
+      const solution = solverPart2(processFile(testInput));
+
+      assert.strictEqual(solution, 2048);
     });
   });
 });
