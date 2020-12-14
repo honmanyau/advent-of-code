@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { green } from '../utilities';
+import { green, logDuration } from '../utilities';
 
 
 if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
@@ -9,7 +9,10 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
   const challengeFile = fs.readFileSync(challengePathname, 'utf-8');
   const challenge = processFile(challengeFile);
   const solutionPart1 = solverPart1(challenge);
-  const solutionPart2 = solverPart2(challenge);
+  const solutionPart2 = logDuration(
+    'solverPart2',
+    () => solverPart2(challenge)
+  );
 
   console.log([
     `The solutions for 2020's "Day 13: Shuttle Search" are:`,
@@ -108,22 +111,47 @@ export function findPattern(
  * @returns {number} Number of valid entries.
  */
 export function solverPart2(input: string | [ string, string ]) {
-  // The initial attempt (`solverPart2Obsolete`) is likely leads to the correct
-  // solution but is too slow for the actual challenge. After having a closer
-  // look at simple examples and how solutions between pairs, triplets, and
-  // quadruplets, it as concluded that that a pattern of t = m + i * n exists.
+  const idsString = (typeof input === 'string') ? input : input[1];
+  const ids = idsString.split(',').map((v) => v === 'x' ? v : Number(v));
+  const sortedIds = (ids
+    .filter((v) => v !== 'x') as number[])
+    .sort((a: number, b: number) => b - a);
+  const relativeIndices = sortedIds.map(
+    (id) => ids.indexOf(id) - ids.indexOf(sortedIds[0])
+  );
+  let pattern = findPattern(sortedIds[0], sortedIds[1], ids);
+  let multiplier = 0;
+  let solved = false;
 
-  throw Error('No solution found!');
+  while (!solved) {
+    let isSolutionMultiplier = true;
+
+    for (let i = 2; i < sortedIds.length; i++) {
+      const [ offset, increment ] = pattern;
+      const id = sortedIds[i];
+      const timestamp = offset + increment * multiplier + relativeIndices[i];
+
+      isSolutionMultiplier = (isSolutionMultiplier) && (timestamp % id === 0);
+    }
+
+    solved = isSolutionMultiplier;
+
+    if (!isSolutionMultiplier) {
+      multiplier += 1;
+    }
+  }
+
+  return pattern[0] + pattern[1] * multiplier - ids.indexOf(sortedIds[0]);
 }
 
 
 /**
- * The solver function for Part 2 of the Advent of Code 2020's
+ * First attempt of the solver function for Part 2 of the Advent of Code 2020's
  * "Day 13: Shuttle Search" challenge.
  * @param {string[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2Obsolete(input: string | [ string, string ]) {
+export function solverPart2FirstAttempt(input: string | [ string, string ]) {
   const idsString = (typeof input === 'string') ? input : input[1];
   const ids = idsString.split(',').map((v) => v === 'x' ? v : Number(v));
   const sortedIds = (ids
