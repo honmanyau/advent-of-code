@@ -77,6 +77,44 @@ export function solverPart1(input: [ string, string ]) {
  * @param {string[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2(input: string[]) {
-  return -1;
+export function solverPart2(input: string | [ string, string ]) {
+  const idsString = (typeof input === 'string') ? input : input[1];
+  const ids = idsString.split(',').map((v) => v === 'x' ? v : Number(v));
+  const sortedIds = (ids
+    .filter((v) => v !== 'x') as number[])
+    .sort((a: number, b: number) => b - a);
+  
+  // Starting from the largest number should already reduce the search space
+  // substantially. The basic steps of this solution involves finding the
+  // multiples that satisify the index requirement in progressively smaller
+  // pairs of numbers.
+  const maxId = sortedIds[0];
+  const maxIdIndex = ids.indexOf(maxId);
+  let maxIdMultiple = 1;
+  let solved = false;
+
+  while (!solved) {
+    const referenceTimestamp = maxId * maxIdMultiple;
+
+    // Loop through multiples of and find a solution that satisifies the
+    // index requirement relative to the largest item in `sortedId`.
+    for (let i = 1; i < sortedIds.length; i++) {
+      const currentId = sortedIds[i];
+      const currentIdIndex = ids.indexOf(currentId);
+      const relativeIndex = currentIdIndex - maxIdIndex;
+      const relativeTimestamp = referenceTimestamp + relativeIndex;
+      
+      if (relativeTimestamp % currentId !== 0) {
+        break;
+      }
+      else if (i === sortedIds.length - 1) {
+        // All ids satisify the index requirement.
+        return referenceTimestamp - maxIdIndex;
+      }
+    }
+
+    maxIdMultiple += 1;
+  }
+
+  throw Error('No solution found!');
 }
