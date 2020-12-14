@@ -138,3 +138,29 @@ export function applyMask(mask: string, binaryNumber: string): string {
 
   return maskedBinaryNumber;
 }
+
+/**
+ * This function applies a bit mask to a string representing a binary value.
+ * @param {string} mask A 36-bit bit mask.
+ * @param {number} memoryLocation A decimal address.
+ * @returns {string} The result of applying a bit mask to the given number.
+ */
+export function applyMaskToAddress(
+  mask: string, memoryLocation: number
+): string {
+  const paddedBinaryNumber = memoryLocation.toString(2).padStart(36, '0');
+  let maskedBinaryNumber = '';
+
+  for (let i = 0; i < mask.length; i++) {
+    const bitMask = mask[i];
+    
+    if (bitMask === '0') {
+      maskedBinaryNumber += paddedBinaryNumber[i];
+    }
+    else {
+      maskedBinaryNumber += mask[i];
+    }
+  }
+
+  return maskedBinaryNumber;
+}
