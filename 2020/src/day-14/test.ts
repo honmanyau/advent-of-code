@@ -391,7 +391,7 @@ describe('Day 14: Docking Data (Part 2)', () => {
     });
 
     it([
-      `should return 400 for the following test input:`,
+      `should return 416 for the following test input:`,
       '           mask = 000000000000000000000000000000X1001X',
       '           mem[42] = 200',
       '           mask = 00000000000000000000000000000000X0XX',
@@ -409,7 +409,7 @@ describe('Day 14: Docking Data (Part 2)', () => {
     });
 
     it([
-      `should return 400 for the following test input:`,
+      `should return 406 for the following test input:`,
       '           mask = 000000000000000000000000000000X1001X',
       '           mem[42] = 200',
       '           mask = 00000000000000000000000000000000X0XX',
@@ -421,29 +421,31 @@ describe('Day 14: Docking Data (Part 2)', () => {
         'mask = 000000000000000000000000000000X1001X',
         'mem[42] = 200',
         'mask = 00000000000000000000000000000000X0XX',
-        'mem[26] = 2'
+        'mem[26] = 1',
+        'mask = 000000000000000000000000000000X1001X',
+        'mem[42] = 100',
       ].join('\n');
       const solution = solverPart2(processFile(testInput));
 
-      assert.strictEqual(solution, 208);
+      assert.strictEqual(solution, 406);
     });
 
     it([
-      `should return 400 for the following test input:`,
+      `should return 2048 for the following test input:`,
       '           mask = 000000000000000000000000000000X1001X',
       '           mem[42] = 200',
       '           mask = 00000000000000000000000000000000X0XX',
       '           mem[26] = 1',
       '           mask = 00000000000000000000X000000000001001',
-      '           mem[256] = 920',
+      '           mem[256] = 820',
     ].join('\n'), () => {
       const testInput = [
         'mask = 000000000000000000000000000000X1001X',
         'mem[42] = 200',
         'mask = 00000000000000000000000000000000X0XX',
-        'mem[26] = 2',
+        'mem[26] = 1',
         'mask = 00000000000000000000X000000000001001',
-        'mem[256] = 920',
+        'mem[256] = 820',
       ].join('\n');
       const solution = solverPart2(processFile(testInput));
 
