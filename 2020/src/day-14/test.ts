@@ -91,9 +91,87 @@ describe('Day 14: Docking Data (Part 1)', () => {
 
   describe(`sovlerPart1()`, () => {
     it([
-      `should do something.`
+      `should return 165 for the example.`
     ].join(''), () => {
       const solution = solverPart1(example);
+
+      assert.strictEqual(solution, 165);
+    });
+
+    it([
+      `should return 7 for the following test input:`,
+      '           mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XX',
+      '           mem[8] = 11'
+    ].join('\n'), () => {
+      const testInput = [
+        'mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XX',
+        'mem[42] = 11'
+      ].join('\n');
+      const solution = solverPart1(processFile(testInput));
+
+      assert.strictEqual(solution, 7);
+    });
+
+    it([
+      `should return 7 for the following test input:`,
+      '           mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XX',
+      '           mem[404] = 11'
+    ].join('\n'), () => {
+      const testInput = [
+        'mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XX',
+        'mem[404] = 11'
+      ].join('\n');
+      const solution = solverPart1(processFile(testInput));
+
+      assert.strictEqual(solution, 7);
+    });
+
+    it([
+      `should return 14 for the following test input:`,
+      '           mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XX',
+      '           mem[42] = 11',
+      '           mem[404] = 11',
+    ].join('\n'), () => {
+      const testInput = [
+        'mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XX',
+        'mem[42] = 11',
+        'mem[404] = 11'
+      ].join('\n');
+      const solution = solverPart1(processFile(testInput));
+
+      assert.strictEqual(solution, 14);
+    });
+
+    it([
+      `should return 14 for the following test input:`,
+      '           mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+      '           mem[42] = 111',
+      '           mem[404] = 111',
+    ].join('\n'), () => {
+      const testInput = [
+        'mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XX',
+        'mem[42] = 111',
+        'mem[404] = 111'
+      ].join('\n');
+      const solution = solverPart1(processFile(testInput));
+
+      assert.strictEqual(solution, 14);
+    });
+
+    it([
+      `should return 16 for the following test input:`,
+      '           mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1X00',
+      '           mem[42] = 11',
+      '           mem[404] = 11',
+    ].join('\n'), () => {
+      const testInput = [
+        'mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1X00',
+        'mem[42] = 11',
+        'mem[404] = 11'
+      ].join('\n');
+      const solution = solverPart1(processFile(testInput));
+
+      assert.strictEqual(solution, 16);
     });
   });
 });
