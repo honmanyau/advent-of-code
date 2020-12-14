@@ -54,9 +54,56 @@ describe('Day 13: Shuttle Search (Part 2)', () => {
   describe('solverPart2()', () => {
     // Given example.
     it([
-      `should do something.`
+      `should return 1068781 for the example.`
     ].join(''), () => {
       const solution = solverPart2(example);
+
+      assert.strictEqual(solution, 1068781);
+    });
+
+    // Given example.
+    it([
+      `should return 3417 for the input '17,x,13,19'.`
+    ].join(''), () => {
+      const solution = solverPart2('17,x,13,19');
+
+      assert.strictEqual(solution, 3417);
+    });
+
+    // Given example.
+    it([
+      `should return 754018 for the input '67,7,59,61'.`
+    ].join(''), () => {
+      const solution = solverPart2('67,7,59,61');
+
+      assert.strictEqual(solution, 754018);
+    });
+
+    // Given example.
+    it([
+      `should return 779210 for the input '67,x,7,59,61'.`
+    ].join(''), () => {
+      const solution = solverPart2('67,x,7,59,61');
+
+      assert.strictEqual(solution, 779210);
+    });
+
+    // Given example.
+    it([
+      `should return 1261476 for the input '67,7,x,59,61'.`
+    ].join(''), () => {
+      const solution = solverPart2('67,7,x,59,61');
+
+      assert.strictEqual(solution, 1261476);
+    });
+
+    // Given example.
+    it([
+      `should return 1202161486 for the input '1789,37,47,1889'.`
+    ].join(''), () => {
+      const solution = solverPart2('1789,37,47,1889');
+
+      assert.strictEqual(solution, 1202161486);
     });
   });
 });
