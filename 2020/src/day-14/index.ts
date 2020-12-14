@@ -22,6 +22,14 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
 // ================
 // == Interfaces ==
 // ================
+interface Program {
+  mask: string;
+  instructions: Instruction[];
+}
+
+type Instruction = [ MemoryLocation, Value ];
+type MemoryLocation = number;
+type Value = string;
 
 
 // ===============
@@ -33,8 +41,15 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
  * @param {string} file A challenge file read in as a string.
  * @returns {string[]} An array where each line is an entry of the challenge.
  */
-export function processFile(file: string) {
-  return file.trim().split('\n').map(processEntry);
+export function processFile(file: string): Program {
+  const lines = file.trim().split('\n');
+  const mask = lines.splice(-1)[0].replace('mask = ', '');
+  const instructions = lines.map(processEntry);
+
+  return {
+    mask,
+    instructions
+  };
 }
 
 /**
@@ -43,8 +58,14 @@ export function processFile(file: string) {
  * @param {string} file A challenge file read in as a string.
  * @returns {string} An array where each line is an entry of the challenge.
  */
-export function processEntry(entry: string) {
-  return entry;
+export function processEntry(entry: string): Instruction {
+  const matched = entry.match(/^mem\[(\d+?)\] = ([01]+?)$/);
+
+  if (!matched) {
+    throw Error('Incorrect RegEx in processEntry!');
+  }
+
+  return [ Number(matched[1]), matched[2] ];
 }
 
 /**
