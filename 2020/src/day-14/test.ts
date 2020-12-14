@@ -173,6 +173,48 @@ describe('Day 14: Docking Data (Part 1)', () => {
 
       assert.strictEqual(solution, 16);
     });
+
+    it([
+      `should return 46 for the following test input:`,
+      '           mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1X00',
+      '           mem[42] = 3',
+      '           mem[404] = 3',
+      '           mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXX',
+      '           mem[42] = 7',
+      '           mem[404] = 7',
+    ].join('\n'), () => {
+      const testInput = [
+        'mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1X00',
+        'mem[42] = 3',
+        'mem[404] = 3',
+        'mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX',
+        'mem[42] = 7',
+        'mem[404] = 7'
+      ].join('\n');
+      const solution = solverPart1(processFile(testInput));
+
+      assert.strictEqual(solution, 46);
+    });
+
+    it([
+      `should return 31 for the following test input:`,
+      '           mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1X00',
+      '           mem[42] = 3',
+      '           mem[404] = 3',
+      '           mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXX',
+      '           mem[42] = 7'
+    ].join('\n'), () => {
+      const testInput = [
+        'mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1X00',
+        'mem[42] = 3',
+        'mem[404] = 3',
+        'mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX',
+        'mem[42] = 7'
+      ].join('\n');
+      const solution = solverPart1(processFile(testInput));
+
+      assert.strictEqual(solution, 31);
+    });
   });
 });
 
