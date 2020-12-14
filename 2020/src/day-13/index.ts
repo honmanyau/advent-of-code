@@ -85,7 +85,7 @@ export function solverPart1(input: [ string, string ]) {
  */
 export function findPattern(
   a: number, b: number, timetable: (number | string)[]
-) {
+): [ number, number ] {
   const relativeIndexB = timetable.indexOf(b) - timetable.indexOf(a);
   const intersections = [];
   let i = 0;
@@ -99,6 +99,41 @@ export function findPattern(
     }
 
     i += 1;
+  }
+
+  return [ intersections[0], intersections[1] - intersections[0] ];
+}
+
+/**
+ * This function takes a pattern and an that was not used in the
+ * generation of the pattern, and generates a new pattern that is a solution to
+ * all ids that have been been involved in the history of that pattern. 
+ * @param {[ number, number ]} pattern The base pattern.
+ * @param {number} id The new id to be incorporated into the pattern.
+ * @param {(string | number)[]} ids The original array of ids.
+ * @returns {[ number, number ]} A new pattern.
+ */
+export function getNewPattern(
+  pattern: [ number, number ],
+  id: number,
+  ids: (string | number)[]
+): [ number, number ] {
+  const idMax = Math.max(...(ids.filter((v) => v !== 'x') as number[]));
+  const indexMax = ids.indexOf(idMax);
+  const index = ids.indexOf(id);
+  const offset = index - indexMax;
+  const intersections = [];
+  let multiplier = 0;
+
+  while (intersections.length < 2) {
+    const baseTimestamp = pattern[0] + pattern[1] * multiplier;
+    const timestamp = baseTimestamp + offset;
+
+    if (timestamp % id === 0) {
+      intersections.push(baseTimestamp);
+    }
+
+    multiplier += 1;
   }
 
   return [ intersections[0], intersections[1] - intersections[0] ];
@@ -120,30 +155,15 @@ export function solverPart2(input: string | [ string, string ]) {
     (id) => ids.indexOf(id) - ids.indexOf(sortedIds[0])
   );
   let pattern = findPattern(sortedIds[0], sortedIds[1], ids);
-  let multiplier = 0;
-  let solved = false;
 
-  while (!solved) {
-    let isSolutionMultiplier = true;
-
-    for (let i = 2; i < sortedIds.length; i++) {
-      const [ offset, increment ] = pattern;
-      const id = sortedIds[i];
-      const timestamp = offset + increment * multiplier + relativeIndices[i];
-
-      isSolutionMultiplier = (isSolutionMultiplier) && (timestamp % id === 0);
-    }
-
-    solved = isSolutionMultiplier;
-
-    if (!isSolutionMultiplier) {
-      multiplier += 1;
-    }
+  for (let i = 2; i < sortedIds.length; i++) {
+    const id = sortedIds[i];
+    
+    pattern = getNewPattern(pattern, id, ids);
   }
 
-  return pattern[0] + pattern[1] * multiplier - ids.indexOf(sortedIds[0]);
+  return pattern[0] - ids.indexOf(sortedIds[0]);
 }
-
 
 /**
  * First attempt of the solver function for Part 2 of the Advent of Code 2020's
@@ -151,7 +171,7 @@ export function solverPart2(input: string | [ string, string ]) {
  * @param {string[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2FirstAttempt(input: string | [ string, string ]) {
+export function solverPart2Attempt1(input: string | [ string, string ]) {
   const idsString = (typeof input === 'string') ? input : input[1];
   const ids = idsString.split(',').map((v) => v === 'x' ? v : Number(v));
   const sortedIds = (ids
@@ -196,4 +216,44 @@ export function solverPart2FirstAttempt(input: string | [ string, string ]) {
   }
 
   throw Error('No solution found!');
+}
+
+/**
+ * The solver function for Part 2 of the Advent of Code 2020's
+ * "Day 13: Shuttle Search" challenge.
+ * @param {string[]} input Entries of the challenge.
+ * @returns {number} Number of valid entries.
+ */
+export function solverPart2Attempt2(input: string | [ string, string ]) {
+  const idsString = (typeof input === 'string') ? input : input[1];
+  const ids = idsString.split(',').map((v) => v === 'x' ? v : Number(v));
+  const sortedIds = (ids
+    .filter((v) => v !== 'x') as number[])
+    .sort((a: number, b: number) => b - a);
+  const relativeIndices = sortedIds.map(
+    (id) => ids.indexOf(id) - ids.indexOf(sortedIds[0])
+  );
+  let pattern = findPattern(sortedIds[0], sortedIds[1], ids);
+  let multiplier = 0;
+  let solved = false;
+
+  while (!solved) {
+    let isSolutionMultiplier = true;
+
+    for (let i = 2; i < sortedIds.length; i++) {
+      const [ offset, increment ] = pattern;
+      const id = sortedIds[i];
+      const timestamp = offset + increment * multiplier + relativeIndices[i];
+
+      isSolutionMultiplier = (isSolutionMultiplier) && (timestamp % id === 0);
+    }
+
+    solved = isSolutionMultiplier;
+
+    if (!isSolutionMultiplier) {
+      multiplier += 1;
+    }
+  }
+
+  return pattern[0] + pattern[1] * multiplier - ids.indexOf(sortedIds[0]);
 }
