@@ -168,9 +168,65 @@ describe('Day 15: Rambunctious Recitation (Part 2)', () => {
   describe('solverPart2()', () => {
     // Given example.
     it([
-      `should do something.`
+      `should return 175594 for the starting sequence [ 306 ].`
     ].join(''), () => {
-      const solution = solverPart2(example);
+      const solution = solverPart1([ 306 ]);
+
+      assert.strictEqual(solution, 175594);
+    });
+    
+    // Given example.
+    it([
+      `should return 2578 for the starting sequence [ 1, 3, 2 ].`
+    ].join(''), () => {
+      const solution = solverPart2([ 1, 3, 2 ]);
+
+      assert.strictEqual(solution, 2578);
+    });
+
+    // Given example.
+    it([
+      `should return 261214 for the starting sequence [ 2, 1, 3 ].`
+    ].join(''), () => {
+      const solution = solverPart2([ 2, 1, 3 ]);
+
+      assert.strictEqual(solution, 261214);
+    });
+
+    // Given example.
+    it([
+      `should return 261214 for the starting sequence [ 1, 2, 3 ].`
+    ].join(''), () => {
+      const solution = solverPart2([ 1, 2, 3 ]);
+
+      assert.strictEqual(solution, 261214);
+    });
+
+    // Given example.
+    it([
+      `should return 6895259 for the starting sequence [ 2, 3, 1 ].`
+    ].join(''), () => {
+      const solution = solverPart2([ 2, 3, 1 ]);
+
+      assert.strictEqual(solution, 6895259);
+    });
+
+    // Given example.
+    it([
+      `should return 18 for the starting sequence [ 3, 2, 1 ].`
+    ].join(''), () => {
+      const solution = solverPart2([ 3, 2, 1 ]);
+
+      assert.strictEqual(solution, 18);
+    });
+
+    // Given example.
+    it([
+      `should return 362 for the starting sequence [ 3, 1, 2 ].`
+    ].join(''), () => {
+      const solution = solverPart2([ 3, 1, 2 ]);
+
+      assert.strictEqual(solution, 362);
     });
   });
 });
