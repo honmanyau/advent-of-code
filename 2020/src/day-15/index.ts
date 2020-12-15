@@ -66,29 +66,28 @@ export function solverPart2(input: number[]) {
  * @param {number} turns The number of turns to simulate the game for.
  */
 export function play(input, turns) {
-  const memory = {};
+  const arrayLength = Math.max(...input, input.length, turns) + 1;
+  const memory = new Int32Array({ length: arrayLength }).fill(-1);
   let lastSpoken = input[0];
 
   for (let i = 1; i < input.length && i < turns; i++) {
-    const key = `o${lastSpoken}`;
     const lastTurn = i - 1;
 
-    memory[key] = lastTurn;
+    memory[lastSpoken] = lastTurn;
     lastSpoken = input[i]; 
   }
 
   for (let i = input.length; i < turns; i++) {
-    const key = `o${lastSpoken}`;
-    const secondLastTurn = memory[key];
+    const secondLastTurn = memory[lastSpoken] as number;
     const lastTurn = i - 1;
 
-    if (secondLastTurn === undefined) {
-      memory[key] = lastTurn;
+    if (secondLastTurn === -1) {
+      memory[lastSpoken] = lastTurn;
 
       lastSpoken = 0;
     }
     else {
-      memory[key] = lastTurn;
+      memory[lastSpoken] = lastTurn;
       lastSpoken = lastTurn - secondLastTurn;
     }
   }
