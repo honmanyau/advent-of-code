@@ -100,6 +100,42 @@ export function play(input, turns) {
  * @param {number[]} input The starting numbers being spoken.
  * @param {number} turns The number of turns to simulate the game for.
  */
+export function playAttempt2(input, turns) {
+  const memory = {};
+  let lastSpoken = input[0];
+
+  for (let i = 1; i < input.length && i < turns; i++) {
+    const key = `${lastSpoken}`;
+    const lastTurn = i - 1;
+
+    memory[key] = lastTurn;
+    lastSpoken = input[i]; 
+  }
+
+  for (let i = input.length; i < turns; i++) {
+    const key = `${lastSpoken}`;
+    const secondLastTurn = memory[key];
+    const lastTurn = i - 1;
+
+    if (secondLastTurn === undefined) {
+      memory[key] = lastTurn;
+
+      lastSpoken = 0;
+    }
+    else {
+      memory[key] = lastTurn;
+      lastSpoken = lastTurn - secondLastTurn;
+    }
+  }
+
+  return lastSpoken;
+}
+
+/**
+ * This funtion plays the Elves' game for a given number of turns.
+ * @param {number[]} input The starting numbers being spoken.
+ * @param {number} turns The number of turns to simulate the game for.
+ */
 export function playAttempt1(input, turns) {
   const memory = {};
   let lastSpoken = -1;
