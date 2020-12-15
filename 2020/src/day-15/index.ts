@@ -34,7 +34,7 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
  * @returns {string[]} An array where each line is an entry of the challenge.
  */
 export function processFile(file: string) {
-  return file.trim().split('\n').map(Number);
+  return file.trim().split(',').map(Number);
 }
 
 /**
@@ -92,46 +92,6 @@ export function play(input, turns) {
       }
     }
   }
-
-  console.log(lastSpoken);
-
-  // if (t < input.length) {
-  //   return input[t];
-  // }
-  // else {
-  //   lastSpoken = input[0];
-    
-  //   for (let i = 1; i < input.length - 1; i++) {
-  //     if (!memory[lastSpoken]) {
-  //       memory[lastSpoken] = [ i - 1 ];
-
-  //       lastSpoken = input[i];
-  //     }
-  //     else {
-  //       throw Error('This should never run for the given input!');
-  //     }
-  //   }
-
-  //   console.log('=====', lastSpoken);
-
-  //   for (let i = input.length; i < turns; i++) {
-  //     const lastSpokenMemory = memory[lastSpoken];
-  //     console.log('=====', memory, lastSpokenMemory);
-  //     if (!lastSpokenMemory) {
-  //       memory[lastSpoken] = [ i ];
-
-  //       lastSpoken = 0;
-  //     }
-  //     else {
-  //       lastSpokenMemory.push(i);
-
-  //       const lastTwoTurns = memory[lastSpoken].slice(-2);
-  //       const difference = lastTwoTurns[1] - lastTwoTurns[0];
-
-  //       lastSpoken = difference;
-  //     }
-  //   }
-  // }
 
   return lastSpoken;
 }
