@@ -54,11 +54,11 @@ describe('Day 15: Rambunctious Recitation (Part 1)', () => {
     
     // Given example.
     it([
-      `should return 4 - 1 = 3 for the 5th turn of the game.`
+      `should return 3 for the 5th turn of the game.`
     ].join(''), () => {
       const solution = play([ 0, 3, 6 ], 5);
 
-      assert.strictEqual(solution, 4 - 1);
+      assert.strictEqual(solution, 3);
     });
     
     // Given example.
@@ -168,9 +168,9 @@ describe('Day 15: Rambunctious Recitation (Part 2)', () => {
   describe('solverPart2()', () => {
     // Given example.
     it([
-      `should return 175594 for the starting sequence [ 306 ].`
+      `should return 175594 for the starting sequence [ 0, 3, 6 ].`
     ].join(''), () => {
-      const solution = solverPart1([ 306 ]);
+      const solution = solverPart2([ 0, 3, 6 ]);
 
       assert.strictEqual(solution, 175594);
     });
@@ -186,11 +186,11 @@ describe('Day 15: Rambunctious Recitation (Part 2)', () => {
 
     // Given example.
     it([
-      `should return 261214 for the starting sequence [ 2, 1, 3 ].`
+      `should return 3544142 for the starting sequence [ 2, 1, 3 ].`
     ].join(''), () => {
       const solution = solverPart2([ 2, 1, 3 ]);
 
-      assert.strictEqual(solution, 261214);
+      assert.strictEqual(solution, 3544142);
     });
 
     // Given example.
