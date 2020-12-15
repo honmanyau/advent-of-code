@@ -34,27 +34,17 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
  * @returns {string[]} An array where each line is an entry of the challenge.
  */
 export function processFile(file: string) {
-  return file.trim().split('\n').map(processEntry);
-}
-
-/**
- * This function processes each entry of pre-processed input.
- * the Advent of Code 2020's "Day 15: Rambunctious Recitation" challenge.
- * @param {string} file A challenge file read in as a string.
- * @returns {string} An array where each line is an entry of the challenge.
- */
-export function processEntry(entry: string) {
-  return entry;
+  return file.trim().split('\n').map(Number);
 }
 
 /**
  * The solver function for Part 1 of the Advent of Code 2020's
  * "Day 15: Rambunctious Recitation" challenge.
- * @param {string[]} input Entries of the challenge.
+ * @param {number[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(input: string[]) {
-  return -1;
+export function solverPart1(input: number[]) {
+  return play(input, 2020);
 }
 
 /**
@@ -63,7 +53,7 @@ export function solverPart1(input: string[]) {
  * @param {string[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2(input: string[]) {
+export function solverPart2(input: number[]) {
   return -1;
 }
 
