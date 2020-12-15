@@ -73,5 +73,75 @@ export function solverPart2(input: string[]) {
  * @param {number} turns The number of turns to simulate the game for.
  */
 export function play(input, turns) {
-  return -1;
+  const memory = {};
+  let lastSpoken = -1;
+
+  lastSpoken = input[0];
+    
+  for (let i = 1; i < turns; i++) {
+    if (i < input.length) {
+      memory[lastSpoken] = [ i - 1 ];
+
+      lastSpoken = input[i];
+    }
+    else {
+      const lastSpokenMemory = memory[lastSpoken];
+
+      if (!lastSpokenMemory) {
+        memory[lastSpoken] = [ i - 1 ];
+
+        lastSpoken = 0;
+      }
+      else {
+        lastSpokenMemory.push(i - 1);
+        
+        const lastTwoTurns = lastSpokenMemory.slice(-2);
+        const difference = lastTwoTurns[1] - lastTwoTurns[0];
+
+        lastSpoken = difference;
+      }
+    }
+  }
+
+  console.log(lastSpoken);
+
+  // if (t < input.length) {
+  //   return input[t];
+  // }
+  // else {
+  //   lastSpoken = input[0];
+    
+  //   for (let i = 1; i < input.length - 1; i++) {
+  //     if (!memory[lastSpoken]) {
+  //       memory[lastSpoken] = [ i - 1 ];
+
+  //       lastSpoken = input[i];
+  //     }
+  //     else {
+  //       throw Error('This should never run for the given input!');
+  //     }
+  //   }
+
+  //   console.log('=====', lastSpoken);
+
+  //   for (let i = input.length; i < turns; i++) {
+  //     const lastSpokenMemory = memory[lastSpoken];
+  //     console.log('=====', memory, lastSpokenMemory);
+  //     if (!lastSpokenMemory) {
+  //       memory[lastSpoken] = [ i ];
+
+  //       lastSpoken = 0;
+  //     }
+  //     else {
+  //       lastSpokenMemory.push(i);
+
+  //       const lastTwoTurns = memory[lastSpoken].slice(-2);
+  //       const difference = lastTwoTurns[1] - lastTwoTurns[0];
+
+  //       lastSpoken = difference;
+  //     }
+  //   }
+  // }
+
+  return lastSpoken;
 }
