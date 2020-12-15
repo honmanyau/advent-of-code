@@ -17,6 +17,7 @@ const example = processFile(exampleFile);
 
 describe('Day 15: Rambunctious Recitation (Part 1)', () => {
   describe(`play()`, () => {
+    // Given example.
     it([
       `should return 0 for the 1st turn of the game.`
     ].join(''), () => {
@@ -24,7 +25,8 @@ describe('Day 15: Rambunctious Recitation (Part 1)', () => {
 
       assert.strictEqual(solution, 0);
     });
-
+    
+    // Given example.
     it([
       `should return 3 for the 2nd turn of the game.`
     ].join(''), () => {
@@ -32,7 +34,8 @@ describe('Day 15: Rambunctious Recitation (Part 1)', () => {
 
       assert.strictEqual(solution, 3);
     });
-
+    
+    // Given example.
     it([
       `should return 6 for the 3rd turn of the game.`
     ].join(''), () => {
@@ -40,7 +43,8 @@ describe('Day 15: Rambunctious Recitation (Part 1)', () => {
 
       assert.strictEqual(solution, 6);
     });
-
+    
+    // Given example.
     it([
       `should return 0 for the 4th turn of the game.`
     ].join(''), () => {
@@ -48,7 +52,8 @@ describe('Day 15: Rambunctious Recitation (Part 1)', () => {
 
       assert.strictEqual(solution, 0);
     });
-
+    
+    // Given example.
     it([
       `should return 4 - 1 = 3 for the 5th turn of the game.`
     ].join(''), () => {
@@ -56,7 +61,8 @@ describe('Day 15: Rambunctious Recitation (Part 1)', () => {
 
       assert.strictEqual(solution, 4 - 1);
     });
-
+    
+    // Given example.
     it([
       `should return 3 for the 6th turn of the game.`
     ].join(''), () => {
@@ -64,7 +70,8 @@ describe('Day 15: Rambunctious Recitation (Part 1)', () => {
 
       assert.strictEqual(solution, 3);
     });
-
+    
+    // Given example.
     it([
       `should return 1 for the 7th turn of the game.`
     ].join(''), () => {
@@ -72,7 +79,8 @@ describe('Day 15: Rambunctious Recitation (Part 1)', () => {
 
       assert.strictEqual(solution, 1);
     });
-
+    
+    // Given example.
     it([
       `should return 0 for the 8th turn of the game.`
     ].join(''), () => {
@@ -80,7 +88,8 @@ describe('Day 15: Rambunctious Recitation (Part 1)', () => {
 
       assert.strictEqual(solution, 0);
     });
-
+    
+    // Given example.
     it([
       `should return 4 for the 9th turn of the game.`
     ].join(''), () => {
@@ -88,7 +97,8 @@ describe('Day 15: Rambunctious Recitation (Part 1)', () => {
 
       assert.strictEqual(solution, 4);
     });
-
+    
+    // Given example.
     it([
       `should return 0 for the 10th turn of the game.`
     ].join(''), () => {
@@ -97,7 +107,74 @@ describe('Day 15: Rambunctious Recitation (Part 1)', () => {
       assert.strictEqual(solution, 0);
     });
   });
+
+  describe('solverPart1()', () => {
+    // Given example.
+    it([
+      `should return 1 for the starting sequence [ 1, 3, 2 ].`
+    ].join(''), () => {
+      const solution = solverPart1([ 1, 3, 2 ]);
+
+      assert.strictEqual(solution, 1);
+    });
+
+    // Given example.
+    it([
+      `should return 10 for the starting sequence [ 2, 1, 3 ].`
+    ].join(''), () => {
+      const solution = solverPart1([ 2, 1, 3 ]);
+
+      assert.strictEqual(solution, 10);
+    });
+
+    // Given example.
+    it([
+      `should return 27 for the starting sequence [ 1, 2, 3 ].`
+    ].join(''), () => {
+      const solution = solverPart1([ 1, 2, 3 ]);
+
+      assert.strictEqual(solution, 27);
+    });
+    
+    // Given example.
+    it([
+      `should return 78 for the starting sequence [ 2, 3, 1 ].`
+    ].join(''), () => {
+      const solution = solverPart1([ 2, 3, 1 ]);
+
+      assert.strictEqual(solution, 78);
+    });
+
+    // Given example.
+    it([
+      `should return 438 for the starting sequence [ 3, 2, 1 ].`
+    ].join(''), () => {
+      const solution = solverPart1([ 3, 2, 1 ]);
+
+      assert.strictEqual(solution, 438);
+    });
+
+    // Given example.
+    it([
+      `should return 1836 for the starting sequence [ 3, 1, 2 ].`
+    ].join(''), () => {
+      const solution = solverPart1([ 3, 1, 2 ]);
+
+      assert.strictEqual(solution, 1836);
+    });
+  });
 });
+
+/*
+
+    Given the starting numbers 1,3,2, the 2020th number spoken is 1.
+    Given the starting numbers 2,1,3, the 2020th number spoken is 10.
+    Given the starting numbers 1,2,3, the 2020th number spoken is 27.
+    Given the starting numbers 2,3,1, the 2020th number spoken is 78.
+    Given the starting numbers 3,2,1, the 2020th number spoken is 438.
+    Given the starting numbers 3,1,2, the 2020th number spoken is 1836.
+
+*/
 
 describe('Day 15: Rambunctious Recitation (Part 2)', () => {
   describe('solverPart2()', () => {
