@@ -26,7 +26,7 @@ describe('Day 15: Rambunctious Recitation (Part 1)', () => {
     });
 
     it([
-      `should return 0 for the 2nd turn of the game.`
+      `should return 3 for the 2nd turn of the game.`
     ].join(''), () => {
       const solution = play([ 0, 3, 6 ], 2);
 
@@ -34,7 +34,7 @@ describe('Day 15: Rambunctious Recitation (Part 1)', () => {
     });
 
     it([
-      `should return 0 for the 3rd turn of the game.`
+      `should return 6 for the 3rd turn of the game.`
     ].join(''), () => {
       const solution = play([ 0, 3, 6 ], 3);
 
