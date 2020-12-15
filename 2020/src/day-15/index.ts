@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { green } from '../utilities';
+import { logDuration } from '../utilities';
 
 
 if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
@@ -9,7 +9,10 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
   const challengeFile = fs.readFileSync(challengePathname, 'utf-8');
   const challenge = processFile(challengeFile);
   const solutionPart1 = solverPart1(challenge);
-  const solutionPart2 = solverPart2(challenge);
+  const solutionPart2 = logDuration(
+    'solverPart2()',
+    () => solverPart2(challenge)
+  );
 
   console.log([
     `The solutions for 2020's "Day 15: Rambunctious Recitation" are:`,
@@ -54,7 +57,7 @@ export function solverPart1(input: number[]) {
  * @returns {number} Number of valid entries.
  */
 export function solverPart2(input: number[]) {
-  return -1;
+  return play(input, 30000000);
 }
 
 /**
@@ -63,33 +66,35 @@ export function solverPart2(input: number[]) {
  * @param {number} turns The number of turns to simulate the game for.
  */
 export function play(input, turns) {
+  if (turns <= input.length) {
+    return input[turns - 1];
+  }
+
   const memory = {};
   let lastSpoken = -1;
 
   lastSpoken = input[0];
-    
-  for (let i = 1; i < turns; i++) {
-    if (i < input.length) {
-      memory[lastSpoken] = [ i - 1 ];
 
-      lastSpoken = input[i];
+  for (let i = 1; i < input.length; i++) {
+    const key = `m${lastSpoken}`;
+
+    memory[key] = [ null, i - 1 ];
+
+    lastSpoken = input[i];
+  }
+    
+  for (let i = 3; i < turns; i++) {
+    const key = `m${lastSpoken}`;
+
+    if (!memory[key]) {
+      memory[key] = [ null, i - 1 ];
+
+      lastSpoken = 0;
     }
     else {
-      const lastSpokenMemory = memory[lastSpoken];
-
-      if (!lastSpokenMemory) {
-        memory[lastSpoken] = [ i - 1 ];
-
-        lastSpoken = 0;
-      }
-      else {
-        lastSpokenMemory.push(i - 1);
-        
-        const lastTwoTurns = lastSpokenMemory.slice(-2);
-        const difference = lastTwoTurns[1] - lastTwoTurns[0];
-
-        lastSpoken = difference;
-      }
+      memory[key][0] = memory[key][1];
+      memory[key][1] = (i - 1);
+      lastSpoken = memory[key][1] - memory[key][0];
     }
   }
 
