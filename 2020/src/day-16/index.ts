@@ -60,7 +60,7 @@ export function processParts(parts: string[]): Notes {
     myTicket: [],
     nearbyTickets: []
   };
-
+  console.log(rules, myTicket, nearbyTickets);
   // Process rules.
   rules.split('\n').forEach((line) => {
     const matched = line.match(/^(.+?): (.+) or (.+)$/);
@@ -85,7 +85,12 @@ export function processParts(parts: string[]): Notes {
 
 /**
  * The solver function for Part 1 of the Advent of Code 2020's
- * "Day 16: Ticket Translation" challenge.
+ * "Day 16: Ticket Translation" challenge. This is a naive solution so that
+ * I can catch up on the days that I missed first, there appears to be
+ * a few oportunities for optimisation, such as 1. values < lower end of
+ * a pair of ranges is automatically invalid; 2. values > upper end of a pair of
+ * ranges is also automatically invalid; 3. combine, sort, and filter for
+ * both the ranges and tickets to facilitate binary or more efficient searches.
  * @param {string[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
