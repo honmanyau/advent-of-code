@@ -276,12 +276,14 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
 
       assert.strictEqual(solution, 38);
     });
+  });
 
+  describe('solverPart1()', () => {
     it([
       `should return 112 for the example after 6 generations.`
     ].join(''), () => {
       const exampleCopy = JSON.parse(JSON.stringify(example));
-      const solution = countActiveNodes(evolve(exampleCopy, 6));
+      const solution = solverPart1(exampleCopy);
 
       assert.strictEqual(solution, 112);
     });
