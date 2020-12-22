@@ -22,7 +22,7 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
 // ================
 // == Interfaces ==
 // ================
-interface Notes {
+export interface Notes {
   rules: Rule;
   myTicket: number[];
   nearbyTickets: number[][]
