@@ -6,7 +6,8 @@ import { yellow } from '../utilities';
 import {
   Cube,
   countActiveNodes,
-  evolve,
+  evolvePart1,
+  evolvePart2,
   processFile,
   solverPart1,
   solverPart2
@@ -18,9 +19,9 @@ const exampleFile = fs.readFileSync(examplePathname, 'utf-8');
 const example = processFile(exampleFile);
 
 describe('Day 17: Conway Cubes (Part 1)', () => {
-  describe(`evolve()`, () => {
+  describe(`evolvePart1()`, () => {
     it([
-      `should produce the following output after 1 cycle:`,
+      `should produce the following output after 1 generation:`,
       `           z=-1`,
       `           #..`,
       `           ..#`,
@@ -37,7 +38,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
       `           .#.`
     ].join('\n'), () => {
       const exampleCopy = JSON.parse(JSON.stringify(example));
-      const solution = converCubeToString(evolve(exampleCopy, 1));
+      const solution = converCubeToString(evolvePart1(exampleCopy, 1));
       const expected = [
         [
           `#..`,
@@ -60,7 +61,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
     });
 
     it([
-      `should produce the following output after 2 cycles:`,
+      `should produce the following output after 2 generations:`,
       `           z=-2`,
       `           .....`,
       `           .....`,
@@ -97,7 +98,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
       `           .....`
     ].join('\n'), () => {
       const exampleCopy = JSON.parse(JSON.stringify(example));
-      const solution = converCubeToString(evolve(exampleCopy, 2));
+      const solution = converCubeToString(evolvePart1(exampleCopy, 2));
       const expected = [
         [
           `.....`,
@@ -140,7 +141,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
     });
 
     it([
-      `should produce the following output after 3 cycle:`,
+      `should produce the following output after 3 generation:`,
       `           z=-2`,
       `           .......`,
       `           .......`,
@@ -187,7 +188,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
       `           .......`
     ].join('\n'), () => {
       const exampleCopy = JSON.parse(JSON.stringify(example));
-      const solution = converCubeToString(evolve(exampleCopy, 3));
+      const solution = converCubeToString(evolvePart1(exampleCopy, 3));
       const expected = [
         [
           `.......`,
@@ -254,7 +255,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
       `should return 11 for the example after 1 generation.`
     ].join(''), () => {
       const exampleCopy = JSON.parse(JSON.stringify(example));
-      const solution = countActiveNodes(evolve(exampleCopy, 1));
+      const solution = countActiveNodes(evolvePart1(exampleCopy, 1));
 
       assert.strictEqual(solution, 11);
     });
@@ -263,7 +264,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
       `should return 21 for the example after 2 generations.`
     ].join(''), () => {
       const exampleCopy = JSON.parse(JSON.stringify(example));
-      const solution = countActiveNodes(evolve(exampleCopy, 2));
+      const solution = countActiveNodes(evolvePart1(exampleCopy, 2));
 
       assert.strictEqual(solution, 21);
     });
@@ -272,7 +273,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
       `should return 38 for the example after 3 generations.`
     ].join(''), () => {
       const exampleCopy = JSON.parse(JSON.stringify(example));
-      const solution = countActiveNodes(evolve(exampleCopy, 3));
+      const solution = countActiveNodes(evolvePart1(exampleCopy, 3));
 
       assert.strictEqual(solution, 38);
     });
@@ -291,6 +292,469 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
 });
 
 describe('Day 17: Conway Cubes (Part 2)', () => {
+  describe(`evolvePart2()`, () => {
+    it([
+      `should produce the following output after 1 generation:`,
+      `           z=-1, w=-1`,
+      `           #..`,
+      `           ..#`,
+      `           .#.`,
+      `           `,
+      `           z=0, w=-1`,
+      `           #..`,
+      `           ..#`,
+      `           .#.`,
+      `           `,
+      `           z=1, w=-1`,
+      `           #..`,
+      `           ..#`,
+      `           .#.`,
+      `           `,
+      `           z=-1, w=0`,
+      `           #..`,
+      `           ..#`,
+      `           .#.`,
+      `           `,
+      `           z=0, w=0`,
+      `           #.#`,
+      `           .##`,
+      `           .#.`,
+      `           `,
+      `           z=1, w=0`,
+      `           #..`,
+      `           ..#`,
+      `           .#.`,
+      `           `,
+      `           z=-1, w=1`,
+      `           #..`,
+      `           ..#`,
+      `           .#.`,
+      `           `,
+      `           z=0, w=1`,
+      `           #..`,
+      `           ..#`,
+      `           .#.`,
+      `           `,
+      `           z=1, w=1`,
+      `           #..`,
+      `           ..#`,
+      `           .#.`,
+      `           `
+    ].join('\n'), () => {
+      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const solution = converCubeToString(evolvePart2(exampleCopy, 1));
+      const expected = [
+        [
+          '#..',
+          '..#',
+          '.#.'
+        ],
+        [
+          '#..',
+          '..#',
+          '.#.'
+        ],
+        [
+          '#..',
+          '..#',
+          '.#.'
+        ],
+        [
+          '#..',
+          '..#',
+          '.#.'
+        ],
+        [
+          '#.#',
+          '.##',
+          '.#.'
+        ],
+        [
+          '#..',
+          '..#',
+          '.#.'
+        ],
+        [
+          '#..',
+          '..#',
+          '.#.'
+        ],
+        [
+          '#..',
+          '..#',
+          '.#.'
+        ],
+        [
+          '#..',
+          '..#',
+          '.#.'        
+        ]
+      ];
+
+      assert.deepStrictEqual(solution, expected);
+    });
+
+    it([
+      `should produce the following output after 2 generations:`,
+      `           z=-2, w=-2`,
+      `           .....`,
+      `           .....`,
+      `           ..#..`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=-1, w=-2`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=0, w=-2`,
+      `           ###..`,
+      `           ##.##`,
+      `           #...#`,
+      `           .#..#`,
+      `           .###.`,
+      `           `,
+      `           z=1, w=-2`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=2, w=-2`,
+      `           .....`,
+      `           .....`,
+      `           ..#..`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=-2, w=-1`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=-1, w=-1`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=0, w=-1`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=1, w=-1`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=2, w=-1`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=-2, w=0`,
+      `           ###..`,
+      `           ##.##`,
+      `           #...#`,
+      `           .#..#`,
+      `           .###.`,
+      `           `,
+      `           z=-1, w=0`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=0, w=0`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=1, w=0`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=2, w=0`,
+      `           ###..`,
+      `           ##.##`,
+      `           #...#`,
+      `           .#..#`,
+      `           .###.`,
+      `           `,
+      `           z=-2, w=1`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=-1, w=1`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=0, w=1`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=1, w=1`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=2, w=1`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=-2, w=2`,
+      `           .....`,
+      `           .....`,
+      `           ..#..`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=-1, w=2`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=0, w=2`,
+      `           ###..`,
+      `           ##.##`,
+      `           #...#`,
+      `           .#..#`,
+      `           .###.`,
+      `           `,
+      `           z=1, w=2`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           .....`,
+      `           `,
+      `           z=2, w=2`,
+      `           .....`,
+      `           .....`,
+      `           ..#..`,
+      `           .....`,
+      `           .....`
+    ].join('\n'), () => {
+      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const solution = converCubeToString(evolvePart2(exampleCopy, 2));
+      const expected = [
+        [
+          '.....',
+          '.....',
+          '..#..',
+          '.....',
+          '.....'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '###..',
+          '##.##',
+          '#...#',
+          '.#..#',
+          '.###.'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '.....',
+          '.....',
+          '..#..',
+          '.....',
+          '.....'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '###..',
+          '##.##',
+          '#...#',
+          '.#..#',
+          '.###.'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '###..',
+          '##.##',
+          '#...#',
+          '.#..#',
+          '.###.'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '.....',
+          '.....',
+          '..#..',
+          '.....',
+          '.....'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '###..',
+          '##.##',
+          '#...#',
+          '.#..#',
+          '.###.'
+        ],
+        [
+          '.....',
+          '.....',
+          '.....',
+          '.....',
+          '.....'
+        ],
+        [
+          '.....',
+          '.....',
+          '..#..',
+          '.....',
+          '.....'
+        ]
+      ];
+
+      assert.deepStrictEqual(solution, expected);
+    });
+  });
+
   describe('solverPart2()', () => {
     // Given example.
     it([
