@@ -84,11 +84,11 @@ export function solverPart1(cube: Cube) {
 /**
  * The solver function for Part 2 of the Advent of Code 2020's
  * "Day 17: Conway Cubes" challenge.
- * @param {Hypercube} cube A Conway Cube.
+ * @param {Hypercube} hypercube A Conway Cube.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2(cube: Hypercube) {
-  return -1;
+export function solverPart2(hypercube: Hypercube) {
+  return countActiveNodes(evolvePart2(hypercube, 6), 'hypercube');
 }
 
 /**
