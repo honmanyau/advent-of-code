@@ -78,7 +78,7 @@ export function processFile(
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(cube: Cube) {
-  return countActiveNodes(evolvePart1(cube, 6));
+  return countActiveNodes(evolvePart1(cube, 6), 'cube');
 }
 
 /**
@@ -452,17 +452,35 @@ export function getHypercubicNeighbours(
 
 /**
  * THis function counts the number of active nodes in a cube.
- * @param {Cube} cube A Conway Cube
+ * @param {Cube | Hypercube} cube A Conway Cube
  * @returns {number} The number of active nodes.
  */
-export function countActiveNodes(cube: Cube): number {
+export function countActiveNodes(
+  cube: Cube | Hypercube,
+  type: 'cube' | 'hypercube'
+): number {
   let count = 0;
 
-  for (const z of Object.keys(cube)) {
-    for (const y of Object.keys(cube[z])) {
-      for (const x of Object.keys(cube[z][y])) {
-        if (cube[z][y][x] === '#') {
-          count++;
+  if (type === 'cube') {
+    for (const z of Object.keys(cube)) {
+      for (const y of Object.keys(cube[z])) {
+        for (const x of Object.keys(cube[z][y])) {
+          if (cube[z][y][x] === '#') {
+            count++;
+          }
+        }
+      }
+    }
+  }
+  else {
+    for (const w of Object.keys(cube)) {
+      for (const z of Object.keys(cube[w])) {
+        for (const y of Object.keys(cube[w][z])) {
+          for (const x of Object.keys(cube[w][z][y])) {
+            if (cube[w][z][y][x] === '#') {
+              count++;
+            }
+          }
         }
       }
     }
