@@ -241,3 +241,24 @@ export function getNeighbours(z, y, x): [ number, number, number ][] {
 
   return neighbours;
 }
+
+/**
+ * THis function counts the number of active nodes in a cube.
+ * @param {Cube} cube A Conway Cube
+ * @returns {number} The number of active nodes.
+ */
+export function countActiveNodes(cube: Cube): number {
+  let count = 0;
+
+  for (const z of Object.keys(cube)) {
+    for (const y of Object.keys(cube[z])) {
+      for (const x of Object.keys(cube[z][y])) {
+        if (cube[z][y][x] === '#') {
+          count++;
+        }
+      }
+    }
+  }
+
+  return count;
+}
