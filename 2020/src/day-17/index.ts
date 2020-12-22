@@ -1,3 +1,4 @@
+import { count } from 'console';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -69,7 +70,7 @@ export function processFile(file: string): Cube {
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(cube: Cube) {
-  return -1;
+  return countActiveNodes(evolve(cube, 6));
 }
 
 /**
