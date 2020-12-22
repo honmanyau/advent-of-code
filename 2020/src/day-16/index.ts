@@ -91,7 +91,7 @@ export function processParts(parts: string[]): Notes {
  * a pair of ranges is automatically invalid; 2. values > upper end of a pair of
  * ranges is also automatically invalid; 3. combine, sort, and filter for
  * both the ranges and tickets to facilitate binary or more efficient searches.
- * @param {string[]} input Entries of the challenge.
+ * @param {Notes} notes Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(notes: Notes) {
@@ -126,9 +126,51 @@ export function solverPart1(notes: Notes) {
 /**
  * The solver function for Part 2 of the Advent of Code 2020's
  * "Day 16: Ticket Translation" challenge.
- * @param {string[]} input Entries of the challenge.
+ * @param {Notes} notes Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
 export function solverPart2(notes: Notes) {
+  pruneInvalidTickets(notes);
+  console.log(notes);
   return -1;
+}
+
+/**
+ * This function removes invalid tickets from `notes.nearbyTickets`, it is
+ * effectively solverPart1() modified to for use in solverPart2().
+ * @param {Notes} notes Entries of the challenge.
+ */
+export function pruneInvalidTickets(notes: Notes): Notes {
+  const { rules, nearbyTickets } = notes;
+  const allRanges: Range[] = [];
+
+  for (const rule in rules) {
+    allRanges.push(...rules[rule]);
+  }
+
+  for (const ticket of nearbyTickets.splice(0)) {
+    let ticketValid = true;
+
+    for (const value of ticket) {
+      let valueValid = false;
+
+      for (const range of allRanges) {
+        if (value >= range[0] && value <= range[1]) {
+          valueValid = true;
+          break;
+        }
+      }
+
+      if (!valueValid) {
+        ticketValid = false;
+        break;
+      }
+    }
+
+    if (ticketValid) {
+      nearbyTickets.push(ticket);
+    }
+  }
+
+  return notes;
 }
