@@ -5,6 +5,7 @@ import * as path from 'path';
 import {
   Notes,
   processFile,
+  pruneInvalidTickets,
   solverPart1,
   solverPart2
 } from './index';
@@ -200,6 +201,94 @@ describe('Day 16: Ticket Translation (Part 1)', () => {
 });
 
 describe('Day 16: Ticket Translation (Part 2)', () => {
+  describe('pruneInvalidTickets()', () => {
+    // Given example.
+    it([
+      `should remove all tickets but [ 7, 3, 47 ] when given the example.`
+    ].join(''), () => {
+      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const solution = pruneInvalidTickets(exampleCopy);
+
+      assert.deepStrictEqual(solution.nearbyTickets, [ [ 7, 3, 47 ] ])
+    });
+
+    it([
+      `should should leave the following ticket intact:`,
+      `         class: 1-3 or 5-7`,
+      `         `,
+      `         your ticket:`,
+      `         7,1,14`,
+      `         `,
+      `         nearby tickets:`,
+      `         1,3,5,7`
+    ].join('\n'), () => {
+      const testInput: Notes = {
+        rules: {
+          class: [ [ 1, 3 ], [ 5, 7 ] ]
+        },
+        myTicket: [ 7, 1, 14 ],
+        nearbyTickets: [
+          [ 1, 3, 5, 7 ]
+        ]
+      };
+      const solution = pruneInvalidTickets(testInput);
+      
+      assert.deepStrictEqual(solution.nearbyTickets, [ [ 1, 3, 5, 7 ] ]);
+    });
+
+    it([
+      `should remove the ticket [ 2, 4, 6, 8 ] nearbyTickets in:`,
+      `         class: 1-3 or 5-7`,
+      `         `,
+      `         your ticket:`,
+      `         7,1,14`,
+      `         `,
+      `         nearby tickets:`,
+      `         1,3,5,7`,
+      `         2,4,6,8`
+    ].join('\n'), () => {
+      const testInput: Notes = {
+        rules: {
+          class: [ [ 1, 3 ], [ 5, 7 ] ]
+        },
+        myTicket: [ 7, 1, 14 ],
+        nearbyTickets: [
+          [ 1, 3, 5, 7 ],
+          [ 2, 4, 6, 8 ]
+        ]
+      };
+      const solution = pruneInvalidTickets(testInput);
+      
+      assert.deepStrictEqual(solution.nearbyTickets, [ [ 1, 3, 5, 7 ] ]);
+    });
+
+    it([
+      `should remove all entries in nearbyTickets in:`,
+      `         class: 1-3 or 5-7`,
+      `         `,
+      `         your ticket:`,
+      `         7,1,14`,
+      `         `,
+      `         nearby tickets:`,
+      `         1,3,5,7`,
+      `         2,4,6,8`
+    ].join('\n'), () => {
+      const testInput: Notes = {
+        rules: {
+          class: [ [ 1, 3 ], [ 5, 7 ] ]
+        },
+        myTicket: [ 7, 1, 14 ],
+        nearbyTickets: [
+          [ 1, 4, 5, 7 ],
+          [ 2, 6, 8 ]
+        ]
+      };
+      const solution = pruneInvalidTickets(testInput);
+      
+      assert.deepStrictEqual(solution.nearbyTickets, []);
+    });
+  });
+
   describe('solverPart2()', () => {
     // Given example.
     it([
