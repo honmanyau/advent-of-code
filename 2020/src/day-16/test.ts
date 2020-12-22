@@ -12,8 +12,11 @@ import {
 
 
 const examplePathname = path.resolve(__dirname, './example.txt');
+const inputPathname = path.resolve(__dirname, './input.txt');
 const exampleFile = fs.readFileSync(examplePathname, 'utf-8');
+const inputFile = fs.readFileSync(inputPathname, 'utf-8');
 const example = processFile(exampleFile);
+const input = processFile(inputFile);
 
 describe('Day 16: Ticket Translation (Part 1)', () => {
   describe(`sovlerPart1()`, () => {
@@ -202,7 +205,6 @@ describe('Day 16: Ticket Translation (Part 1)', () => {
 
 describe('Day 16: Ticket Translation (Part 2)', () => {
   describe('pruneInvalidTickets()', () => {
-    // Given example.
     it([
       `should remove all tickets but [ 7, 3, 47 ] when given the example.`
     ].join(''), () => {
@@ -286,6 +288,26 @@ describe('Day 16: Ticket Translation (Part 2)', () => {
       const solution = pruneInvalidTickets(testInput);
       
       assert.deepStrictEqual(solution.nearbyTickets, []);
+    });
+
+    it([
+      `should cause the example to return 0 with solverPart1():`,
+    ].join('\n'), () => {
+      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const pruned = pruneInvalidTickets(exampleCopy);
+      const solution = solverPart1(exampleCopy);
+      
+      assert.strictEqual(solution, 0);
+    });
+
+    it([
+      `should cause the challenge input to return 0 with solverPart1():`,
+    ].join('\n'), () => {
+      const inputCopy = JSON.parse(JSON.stringify(input));
+      const pruned = pruneInvalidTickets(inputCopy);
+      const solution = solverPart1(inputCopy);
+      
+      assert.strictEqual(solution, 0);
     });
   });
 
