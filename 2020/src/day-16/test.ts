@@ -18,7 +18,7 @@ const example = processFile(exampleFile);
 describe('Day 16: Ticket Translation (Part 1)', () => {
   describe(`sovlerPart1()`, () => {
     it([
-      `should do something.`
+      `should return 71 for the example in Part 1.`
     ].join(''), () => {
       const solution = solverPart1(example);
       
@@ -290,11 +290,132 @@ describe('Day 16: Ticket Translation (Part 2)', () => {
   });
 
   describe('solverPart2()', () => {
-    // Given example.
     it([
-      `should do something.`
-    ].join(''), () => {
-      const solution = solverPart2(example);
+      `should return 11 for the following input:`,
+      `         class: 0-1 or 4-19`,
+      `         departure-row: 0-5 or 8-19`,
+      `         seat: 0-13 or 16-19`,
+      `         `,
+      `         your ticket:`,
+      `         11,12,13`,
+      `         `,
+      `         nearby tickets:`,
+      `         3,9,18`,
+      `         15,1,5`,
+      `         5,14,9`,
+    ].join('\n'), () => {
+      const testInput: Notes = {
+        rules: {
+          "class": [ [ 0, 1 ], [ 4, 19 ] ],
+          "departure-row": [ [ 0, 5 ], [ 8, 19 ] ],
+          "seat": [ [ 0, 13 ], [ 16, 19 ] ]
+        },
+        myTicket: [ 11, 12, 13 ],
+        nearbyTickets: [
+          [ 3, 9, 18 ],
+          [ 15, 1, 5 ],
+          [ 5, 14, 9 ]
+        ]
+      };
+      const solution = solverPart2(testInput);
+
+      assert.strictEqual(solution, 11);
+    });
+
+    it([
+      `should return 132 for the following input:`,
+      `         departure-class: 0-1 or 4-19`,
+      `         departure-row: 0-5 or 8-19`,
+      `         seat: 0-13 or 16-19`,
+      `         `,
+      `         your ticket:`,
+      `         11,12,13`,
+      `         `,
+      `         nearby tickets:`,
+      `         3,9,18`,
+      `         15,1,5`,
+      `         5,14,9`,
+    ].join('\n'), () => {
+      const testInput: Notes = {
+        rules: {
+          "departure-class": [ [ 0, 1 ], [ 4, 19 ] ],
+          "departure-row": [ [ 0, 5 ], [ 8, 19 ] ],
+          "seat": [ [ 0, 13 ], [ 16, 19 ] ]
+        },
+        myTicket: [ 11, 12, 13 ],
+        nearbyTickets: [
+          [ 3, 9, 18 ],
+          [ 15, 1, 5 ],
+          [ 5, 14, 9 ]
+        ]
+      };
+      const solution = solverPart2(testInput);
+
+      assert.strictEqual(solution, 132);
+    });
+
+    it([
+      `should return 1716 for the following input:`,
+      `         departure-class: 0-1 or 4-19`,
+      `         departure-row: 0-5 or 8-19`,
+      `         departure-seat: 0-13 or 16-19`,
+      `         `,
+      `         your ticket:`,
+      `         11,12,13`,
+      `         `,
+      `         nearby tickets:`,
+      `         3,9,18`,
+      `         15,1,5`,
+      `         5,14,9`,
+    ].join('\n'), () => {
+      const testInput: Notes = {
+        rules: {
+          "departure-class": [ [ 0, 1 ], [ 4, 19 ] ],
+          "departure-row": [ [ 0, 5 ], [ 8, 19 ] ],
+          "departure-seat": [ [ 0, 13 ], [ 16, 19 ] ]
+        },
+        myTicket: [ 11, 12, 13 ],
+        nearbyTickets: [
+          [ 3, 9, 18 ],
+          [ 15, 1, 5 ],
+          [ 5, 14, 9 ]
+        ]
+      };
+      const solution = solverPart2(testInput);
+
+      assert.strictEqual(solution, 1716);
+    });
+
+    it([
+      `should return 1716 for the following input:`,
+      `         departure-class: 0-1 or 4-19`,
+      `         departure-row: 0-5 or 8-19`,
+      `         departure-seat: 0-13 or 16-19`,
+      `         `,
+      `         your ticket:`,
+      `         11,12,13`,
+      `         `,
+      `         nearby tickets:`,
+      `         3,9,18`,
+      `         15,1,5`,
+      `         5,14,9`,
+    ].join('\n'), () => {
+      const testInput: Notes = {
+        rules: {
+          "departure-class": [ [ 0, 1 ], [ 4, 19 ] ],
+          "departure-row": [ [ 0, 5 ], [ 8, 19 ] ],
+          "departure-seat": [ [ 0, 13 ], [ 16, 19 ] ]
+        },
+        myTicket: [ 11, 12, 13 ],
+        nearbyTickets: [
+          [ 3, 9, 18 ],
+          [ 15, 1, 5 ],
+          [ 5, 14, 9 ]
+        ]
+      };
+      const solution = solverPart2(testInput);
+
+      assert.strictEqual(solution, 1716);
     });
   });
 });
