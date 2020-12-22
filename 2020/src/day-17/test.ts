@@ -5,6 +5,7 @@ import * as path from 'path';
 import { yellow } from '../utilities';
 import {
   Cube,
+  countActiveNodes,
   evolve,
   processFile,
   solverPart1,
@@ -239,11 +240,50 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
     });
   });
   
-  describe(`sovlerPart1()`, () => {
+  describe(`countActiveNodes()`, () => {
     it([
-      `should do something.`
+      `should return 5 for the unevolved example.`
     ].join(''), () => {
-      const solution = solverPart1(example);
+      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const solution = countActiveNodes(exampleCopy);
+
+      assert.strictEqual(solution, 5);
+    });
+
+    it([
+      `should return 11 for the example after 1 generation.`
+    ].join(''), () => {
+      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const solution = countActiveNodes(evolve(exampleCopy, 1));
+
+      assert.strictEqual(solution, 11);
+    });
+
+    it([
+      `should return 21 for the example after 2 generations.`
+    ].join(''), () => {
+      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const solution = countActiveNodes(evolve(exampleCopy, 2));
+
+      assert.strictEqual(solution, 21);
+    });
+
+    it([
+      `should return 38 for the example after 3 generations.`
+    ].join(''), () => {
+      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const solution = countActiveNodes(evolve(exampleCopy, 3));
+
+      assert.strictEqual(solution, 38);
+    });
+
+    it([
+      `should return 112 for the example after 6 generations.`
+    ].join(''), () => {
+      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const solution = countActiveNodes(evolve(exampleCopy, 6));
+
+      assert.strictEqual(solution, 112);
     });
   });
 });
