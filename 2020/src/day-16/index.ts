@@ -22,7 +22,17 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
 // ================
 // == Interfaces ==
 // ================
+interface Notes {
+  rules: Rule;
+  myTicket: number[];
+  nearbyTickets: number[][]
+}
 
+interface Rule {
+  [name: string]: [ Range, Range ]
+}
+
+type Range = [ number, number ];
 
 // ===============
 // == Functions ==
@@ -34,7 +44,7 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
  * @returns {string[]} An array where each line is an entry of the challenge.
  */
 export function processFile(file: string) {
-  return file.trim().split('\n').map(processEntry);
+  return processParts(file.trim().split('\n\n'));
 }
 
 /**
@@ -43,8 +53,34 @@ export function processFile(file: string) {
  * @param {string} file A challenge file read in as a string.
  * @returns {string} An array where each line is an entry of the challenge.
  */
-export function processEntry(entry: string) {
-  return entry;
+export function processParts(parts: string[]): Notes {
+  const [ rules, myTicket, nearbyTickets ] = parts;
+  const notes: Notes = {
+    rules: {},
+    myTicket: [],
+    nearbyTickets: []
+  };
+
+  // Process rules.
+  rules.split('\n').forEach((line) => {
+    const matched = line.match(/^(.+?): (.+) or (.+)$/);
+    const [ _line, name, range1, range2 ] = matched;
+
+    notes.rules[name] = [
+      range1.split('-').map(Number) as Range,
+      range2.split('-').map(Number) as Range
+    ]
+  });
+
+  notes.myTicket = myTicket.split('\n')[1].split(',').map(Number);
+  
+  nearbyTickets.split('\n').forEach((line, i) => {
+    if (i !== 0) {
+      notes.nearbyTickets.push(line.split(',').map(Number));
+    }
+  });
+
+  return notes;
 }
 
 /**
@@ -53,7 +89,7 @@ export function processEntry(entry: string) {
  * @param {string[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(input: string[]) {
+export function solverPart1(notes: Notes) {
   return -1;
 }
 
@@ -63,6 +99,6 @@ export function solverPart1(input: string[]) {
  * @param {string[]} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2(input: string[]) {
+export function solverPart2(notes: Notes) {
   return -1;
 }
