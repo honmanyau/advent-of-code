@@ -248,7 +248,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
       `should return 5 for the unevolved example.`
     ].join(''), () => {
       const exampleCopy = JSON.parse(JSON.stringify(cubeExample));
-      const solution = countActiveNodes(exampleCopy);
+      const solution = countActiveNodes(exampleCopy, 'cube');
 
       assert.strictEqual(solution, 5);
     });
@@ -257,7 +257,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
       `should return 11 for the example after 1 generation.`
     ].join(''), () => {
       const exampleCopy = JSON.parse(JSON.stringify(cubeExample));
-      const solution = countActiveNodes(evolvePart1(exampleCopy, 1));
+      const solution = countActiveNodes(evolvePart1(exampleCopy, 1), 'cube');
 
       assert.strictEqual(solution, 11);
     });
@@ -266,7 +266,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
       `should return 21 for the example after 2 generations.`
     ].join(''), () => {
       const exampleCopy = JSON.parse(JSON.stringify(cubeExample));
-      const solution = countActiveNodes(evolvePart1(exampleCopy, 2));
+      const solution = countActiveNodes(evolvePart1(exampleCopy, 2), 'cube');
 
       assert.strictEqual(solution, 21);
     });
@@ -275,7 +275,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
       `should return 38 for the example after 3 generations.`
     ].join(''), () => {
       const exampleCopy = JSON.parse(JSON.stringify(cubeExample));
-      const solution = countActiveNodes(evolvePart1(exampleCopy, 3));
+      const solution = countActiveNodes(evolvePart1(exampleCopy, 3), 'cube');
 
       assert.strictEqual(solution, 38);
     });
@@ -762,7 +762,7 @@ describe('Day 17: Conway Cubes (Part 2)', () => {
       `should return 5 for the unevolved example.`
     ].join(''), () => {
       const exampleCopy = JSON.parse(JSON.stringify(hypercubeExample));
-      const solution = countActiveNodes(exampleCopy);
+      const solution = countActiveNodes(exampleCopy, 'hypercube');
 
       assert.strictEqual(solution, 5);
     });
@@ -771,7 +771,9 @@ describe('Day 17: Conway Cubes (Part 2)', () => {
       `should return 29 for the example after 1 generation.`
     ].join(''), () => {
       const exampleCopy = JSON.parse(JSON.stringify(hypercubeExample));
-      const solution = countActiveNodes(evolvePart1(exampleCopy, 1));
+      const solution = countActiveNodes(
+        evolvePart2(exampleCopy, 1), 'hypercube'
+      );
 
       assert.strictEqual(solution, 29);
     });
@@ -780,7 +782,9 @@ describe('Day 17: Conway Cubes (Part 2)', () => {
       `should return 60 for the example after 2 generations.`
     ].join(''), () => {
       const exampleCopy = JSON.parse(JSON.stringify(hypercubeExample));
-      const solution = countActiveNodes(evolvePart1(exampleCopy, 2));
+      const solution = countActiveNodes(
+        evolvePart2(exampleCopy, 2), 'hypercube'
+      );
 
       assert.strictEqual(solution, 60);
     });
