@@ -90,7 +90,32 @@ export function processParts(parts: string[]): Notes {
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(notes: Notes) {
-  return -1;
+  const { rules, nearbyTickets } = notes;
+  const allRanges: Range[] = [];
+  let errorRate = 0;
+
+  for (const rule in rules) {
+    allRanges.push(...rules[rule]);
+  }
+
+  for (const ticket of nearbyTickets) {
+    for (const value of ticket) {
+      let valid = false;
+
+      for (const range of allRanges) {
+        if (value >= range[0] && value <= range[1]) {
+          valid = true;
+          break;
+        }
+      }
+
+      if (!valid) {
+        errorRate += value;
+      }
+    }
+  }
+  
+  return errorRate;
 }
 
 /**
