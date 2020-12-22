@@ -5,6 +5,7 @@ import * as path from 'path';
 import { yellow } from '../utilities';
 import {
   Cube,
+  Hypercube,
   countActiveNodes,
   evolvePart1,
   evolvePart2,
@@ -16,7 +17,8 @@ import {
 
 const examplePathname = path.resolve(__dirname, './example.txt');
 const exampleFile = fs.readFileSync(examplePathname, 'utf-8');
-const example = processFile(exampleFile);
+const cubeExample = processFile(exampleFile, 'cube');
+const hypercubeExample = processFile(exampleFile, 'hypercube');
 
 describe('Day 17: Conway Cubes (Part 1)', () => {
   describe(`evolvePart1()`, () => {
@@ -37,7 +39,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
       `           ..#`,
       `           .#.`
     ].join('\n'), () => {
-      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const exampleCopy = JSON.parse(JSON.stringify(cubeExample));
       const solution = converCubeToString(evolvePart1(exampleCopy, 1));
       const expected = [
         [
@@ -97,7 +99,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
       `           .....`,
       `           .....`
     ].join('\n'), () => {
-      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const exampleCopy = JSON.parse(JSON.stringify(cubeExample));
       const solution = converCubeToString(evolvePart1(exampleCopy, 2));
       const expected = [
         [
@@ -187,7 +189,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
       `           .......`,
       `           .......`
     ].join('\n'), () => {
-      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const exampleCopy = JSON.parse(JSON.stringify(cubeExample));
       const solution = converCubeToString(evolvePart1(exampleCopy, 3));
       const expected = [
         [
@@ -245,7 +247,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
     it([
       `should return 5 for the unevolved example.`
     ].join(''), () => {
-      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const exampleCopy = JSON.parse(JSON.stringify(cubeExample));
       const solution = countActiveNodes(exampleCopy);
 
       assert.strictEqual(solution, 5);
@@ -254,7 +256,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
     it([
       `should return 11 for the example after 1 generation.`
     ].join(''), () => {
-      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const exampleCopy = JSON.parse(JSON.stringify(cubeExample));
       const solution = countActiveNodes(evolvePart1(exampleCopy, 1));
 
       assert.strictEqual(solution, 11);
@@ -263,7 +265,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
     it([
       `should return 21 for the example after 2 generations.`
     ].join(''), () => {
-      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const exampleCopy = JSON.parse(JSON.stringify(cubeExample));
       const solution = countActiveNodes(evolvePart1(exampleCopy, 2));
 
       assert.strictEqual(solution, 21);
@@ -272,7 +274,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
     it([
       `should return 38 for the example after 3 generations.`
     ].join(''), () => {
-      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const exampleCopy = JSON.parse(JSON.stringify(cubeExample));
       const solution = countActiveNodes(evolvePart1(exampleCopy, 3));
 
       assert.strictEqual(solution, 38);
@@ -283,7 +285,7 @@ describe('Day 17: Conway Cubes (Part 1)', () => {
     it([
       `should return 112 for the example after 6 generations.`
     ].join(''), () => {
-      const exampleCopy = JSON.parse(JSON.stringify(example));
+      const exampleCopy = JSON.parse(JSON.stringify(cubeExample));
       const solution = solverPart1(exampleCopy);
 
       assert.strictEqual(solution, 112);
@@ -341,8 +343,8 @@ describe('Day 17: Conway Cubes (Part 2)', () => {
       `           .#.`,
       `           `
     ].join('\n'), () => {
-      const exampleCopy = JSON.parse(JSON.stringify(example));
-      const solution = converCubeToString(evolvePart2(exampleCopy, 1));
+      const exampleCopy = JSON.parse(JSON.stringify(hypercubeExample));
+      const solution = convertHypercubeToString(evolvePart2(exampleCopy, 1));
       const expected = [
         [
           '#..',
@@ -571,8 +573,8 @@ describe('Day 17: Conway Cubes (Part 2)', () => {
       `           .....`,
       `           .....`
     ].join('\n'), () => {
-      const exampleCopy = JSON.parse(JSON.stringify(example));
-      const solution = converCubeToString(evolvePart2(exampleCopy, 2));
+      const exampleCopy = JSON.parse(JSON.stringify(hypercubeExample));
+      const solution = convertHypercubeToString(evolvePart2(exampleCopy, 2));
       const expected = [
         [
           '.....',
@@ -760,7 +762,7 @@ describe('Day 17: Conway Cubes (Part 2)', () => {
     it([
       `should do something.`
     ].join(''), () => {
-      const solution = solverPart2(example);
+      // const solution = solverPart2(cubeExample);
     });
   });
 });
@@ -798,4 +800,41 @@ function converCubeToString(cube: Cube): string[][] {
   }
 
   return layers;
+}
+
+/**
+ * This function converts a Cube into an array of strings for easier testing
+ * that doesn't involve indices.
+ * @param {Hypercube} hypercube A Conway Cube or Hypercube.
+ * @returns {string[][]} An array of strings, sorted in ascending order of z
+ *     indices, of the Conway Cube
+ */
+function convertHypercubeToString(hypercube: Hypercube): string[][] {
+  const ws = Object.keys(hypercube).map(Number).sort((a, b) => a - b);
+  const zs = Object.keys(hypercube[ws[0]]).map(Number).sort((a, b) => a - b);
+  const ys = Object.keys(hypercube[ws[0]][zs[0]]).map(Number)
+    .sort((a, b) => a - b);
+  const xs = Object.keys(hypercube[ws[0]][zs[0]][ys[0]]).map(Number)
+    .sort((a, b) => a - b);
+  const hyperlayers = [];
+
+  for (const w of ws) {
+    for (const z of zs) {
+      const layer = [];
+
+      for (const y of ys) {
+        let row = '';
+
+        for (const x of xs) {
+          row += hypercube[w][z][y][x];
+        }
+
+        layer.push(row);
+      }
+
+      hyperlayers.push(layer);
+    }
+  }
+
+  return hyperlayers;
 }
