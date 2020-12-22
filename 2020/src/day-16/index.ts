@@ -131,8 +131,74 @@ export function solverPart1(notes: Notes) {
  */
 export function solverPart2(notes: Notes) {
   pruneInvalidTickets(notes);
-  console.log(notes);
-  return -1;
+
+  const allFieldInformation = [];
+
+  for (const field in notes.rules) {
+    const ranges = notes.rules[field];
+    const fieldInformation = {
+      field,
+      validIndices: []
+    };
+
+    for (let i = 0; i < notes.myTicket.length; i++) {
+      let validForAllTickets = true;
+
+      for (const ticket of notes.nearbyTickets) {
+        const value = ticket[i];
+        const validForCurrentTicket = 
+          (value >= ranges[0][0] && value <= ranges[0][1])
+          || (value >= ranges[1][0] && value <= ranges[1][1]);
+
+        if (!validForCurrentTicket) {
+          validForAllTickets = false;
+
+          break;
+        }
+      }
+
+      if(!validForAllTickets) {
+        continue;
+      }
+      else {
+        fieldInformation.validIndices.push(i);
+      }
+    }
+
+    allFieldInformation.push(fieldInformation);
+  }
+
+  allFieldInformation.sort((a, b) => {
+    return a.validIndices.length - b.validIndices.length;
+  });
+
+  // console.log(allFieldInformation.map((v) => v.validIndices.length));
+  // There are 20 fields in totoal in the challenge input, and the indices
+  // that each field is valid for, when sorted, goes from 1 to 20, with every
+  // integer including and between the range appearing exactly once.
+
+  for (let i = 0; i < allFieldInformation.length; i++) {
+    const usedIndeces = allFieldInformation[i].validIndices;
+
+    for (let j = i + 1; j < allFieldInformation.length; j++) {
+      const filteredIndices = allFieldInformation[j].validIndices
+        .filter((v) => {
+          return !usedIndeces.includes(v);
+        });
+
+      allFieldInformation[j].validIndices = filteredIndices;
+    }
+  }
+
+  return allFieldInformation.reduce((acc, fieldInformation) => {
+    const isDepartureField = !!fieldInformation.field.match(/^departure/);
+
+    if (isDepartureField) {
+      acc *= notes.myTicket[fieldInformation.validIndices[0]]
+    }
+
+    return acc;
+  }, 1);
 }
 
 /**
