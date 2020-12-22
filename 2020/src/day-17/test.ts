@@ -757,12 +757,43 @@ describe('Day 17: Conway Cubes (Part 2)', () => {
     });
   });
 
-  describe('solverPart2()', () => {
-    // Given example.
+  describe(`countActiveNodes()`, () => {
     it([
-      `should do something.`
+      `should return 5 for the unevolved example.`
     ].join(''), () => {
-      // const solution = solverPart2(cubeExample);
+      const exampleCopy = JSON.parse(JSON.stringify(hypercubeExample));
+      const solution = countActiveNodes(exampleCopy);
+
+      assert.strictEqual(solution, 5);
+    });
+
+    it([
+      `should return 29 for the example after 1 generation.`
+    ].join(''), () => {
+      const exampleCopy = JSON.parse(JSON.stringify(hypercubeExample));
+      const solution = countActiveNodes(evolvePart1(exampleCopy, 1));
+
+      assert.strictEqual(solution, 29);
+    });
+
+    it([
+      `should return 60 for the example after 2 generations.`
+    ].join(''), () => {
+      const exampleCopy = JSON.parse(JSON.stringify(hypercubeExample));
+      const solution = countActiveNodes(evolvePart1(exampleCopy, 2));
+
+      assert.strictEqual(solution, 60);
+    });
+  });
+
+  describe('solverPart2()', () => {
+    it([
+      `should return 848 for the example after 6 generations.`
+    ].join(''), () => {
+      const exampleCopy = JSON.parse(JSON.stringify(hypercubeExample));
+      const solution = solverPart2(exampleCopy);
+
+      assert.strictEqual(solution, 848);
     });
   });
 });
