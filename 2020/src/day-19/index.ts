@@ -102,9 +102,13 @@ export function processFile(file: string): Input {
 export function solverPart1(input: Input) {
   const { origins, rules, messages } = input;
   const solvedIndices = [ ...origins ];
+  const numIndices = Object.keys(rules).length;
   let numValidMessages = 0;
 
-  while (rules[0].permutations.length === 0) {
+  while (
+    rules[0].permutations.length === 0 
+    // && solvedIndices.length < numIndices - 1
+  ) {
     const ruleIndices = Object.keys(rules).map(Number);
 
     for (const ruleIndex of ruleIndices) {
@@ -122,7 +126,7 @@ export function solverPart1(input: Input) {
         }, true);
         
         if (canBeSolved) {
-          const allPermutations = [];
+          const allPermutations = {};
 
           for (const item of rule.description) {
             let permutations = [ ...rules[item[0]].permutations ];
@@ -134,16 +138,19 @@ export function solverPart1(input: Input) {
               )
             }
 
-            allPermutations.push(...permutations);
+            for (const permutation of permutations) {
+              allPermutations[permutation] = true;
+            }
           }
 
-          rule.permutations = Array.from(new Set(allPermutations));
+          rule.permutations = Object.keys(allPermutations);
           solvedIndices.push(ruleIndex);
         }
       }
     }
   }
 
+  // With the actual input we run out of memory at this point because there are
   for (const message of messages) {
     if (rules[0].permutations.includes(message)) {
       numValidMessages++;
@@ -172,17 +179,15 @@ export function solverPart2(input: Input) {
  * @return {string[]} The resultant permutations.
  */
 export function generatePermutations(arr: string[], brr: string[]): string[] {
-  const permutations = [];
+  const permutations = {};
 
   for (const a of arr) {
     for (const b of brr) {
       const combined = a + b;
 
-      if (!permutations.includes(combined)) {
-        permutations.push(combined);
-      }
+      permutations[combined] = true;
     }
   }
 
-  return permutations;
+  return Object.keys(permutations);
 }
