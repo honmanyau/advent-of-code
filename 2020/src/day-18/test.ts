@@ -76,6 +76,69 @@ describe('Day 18: Operation Order (Part 1)', () => {
 
       assert.strictEqual(solution, 13632);
     });
+
+    it([
+      `should return 0 for 0`
+    ].join(''), () => {
+      const tokens = processEntry(`0`);
+      const solution = evaluate(tokens);
+
+      assert.strictEqual(solution, 0);
+    });
+
+    it([
+      `should return 2 for 2`
+    ].join(''), () => {
+      const tokens = processEntry(`2`);
+      const solution = evaluate(tokens);
+
+      assert.strictEqual(solution, 2);
+    });
+
+    it([
+      `should return 0 for (0)`
+    ].join(''), () => {
+      const tokens = processEntry(`(0)`);
+      const solution = evaluate(tokens);
+
+      assert.strictEqual(solution, 0);
+    });
+
+    it([
+      `should return 2 for (2)`
+    ].join(''), () => {
+      const tokens = processEntry(`(2)`);
+      const solution = evaluate(tokens);
+
+      assert.strictEqual(solution, 2);
+    });
+
+    it([
+      `should return 3 for 1 + (2)`
+    ].join(''), () => {
+      const tokens = processEntry(`(1) + (2)`);
+      const solution = evaluate(tokens);
+
+      assert.strictEqual(solution, 3);
+    });
+
+    it([
+      `should return 3 for 1 + (2)`
+    ].join(''), () => {
+      const tokens = processEntry(`(1) + (2)`);
+      const solution = evaluate(tokens);
+
+      assert.strictEqual(solution, 3);
+    });
+
+    it([
+      `should return 3 for (1) + (2)`
+    ].join(''), () => {
+      const tokens = processEntry(`(1) + (2)`);
+      const solution = evaluate(tokens);
+
+      assert.strictEqual(solution, 3);
+    });
   });
 
   describe(`solverPart1()`, () => {
