@@ -4,9 +4,10 @@ import * as path from 'path';
 
 import { yellow } from '../utilities';
 import {
-  evaluate,
+  evaluatePart1,
   processFile,
   processEntry,
+  evaluatePart2,
   solverPart1,
   solverPart2
 } from './index';
@@ -23,7 +24,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
       `should return 71 for 1 + 2 * 3 + 4 * 5 + 6`
     ].join(''), () => {
       const tokens = processEntry(`1 + 2 * 3 + 4 * 5 + 6`);
-      const solution = evaluate(tokens);
+      const solution = evaluatePart1(tokens);
 
       assert.strictEqual(solution, 71);
     });
@@ -32,7 +33,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
       `should return 51 for 1 + (2 * 3) + (4 * (5 + 6))`
     ].join(''), () => {
       const tokens = processEntry(`1 + (2 * 3) + (4 * (5 + 6))`);
-      const solution = evaluate(tokens);
+      const solution = evaluatePart1(tokens);
 
       assert.strictEqual(solution, 51);
     });
@@ -41,7 +42,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
       `should return 26 for 2 * 3 + (4 * 5)`
     ].join(''), () => {
       const tokens = processEntry(`2 * 3 + (4 * 5)`);
-      const solution = evaluate(tokens);
+      const solution = evaluatePart1(tokens);
 
       assert.strictEqual(solution, 26);
     });
@@ -50,7 +51,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
       `should return 437 for 5 + (8 * 3 + 9 + 3 * 4 * 3)`
     ].join(''), () => {
       const tokens = processEntry(`5 + (8 * 3 + 9 + 3 * 4 * 3)`);
-      const solution = evaluate(tokens);
+      const solution = evaluatePart1(tokens);
 
       assert.strictEqual(solution, 437);
     });
@@ -61,7 +62,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
       const tokens = processEntry(
         `5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))`
       );
-      const solution = evaluate(tokens);
+      const solution = evaluatePart1(tokens);
 
       assert.strictEqual(solution, 12240);
     });
@@ -72,7 +73,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
       const tokens = processEntry(
         `((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2`
       );
-      const solution = evaluate(tokens);
+      const solution = evaluatePart1(tokens);
 
       assert.strictEqual(solution, 13632);
     });
@@ -81,7 +82,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
       `should return 0 for 0`
     ].join(''), () => {
       const tokens = processEntry(`0`);
-      const solution = evaluate(tokens);
+      const solution = evaluatePart1(tokens);
 
       assert.strictEqual(solution, 0);
     });
@@ -90,7 +91,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
       `should return 2 for 2`
     ].join(''), () => {
       const tokens = processEntry(`2`);
-      const solution = evaluate(tokens);
+      const solution = evaluatePart1(tokens);
 
       assert.strictEqual(solution, 2);
     });
@@ -99,7 +100,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
       `should return 0 for (0)`
     ].join(''), () => {
       const tokens = processEntry(`(0)`);
-      const solution = evaluate(tokens);
+      const solution = evaluatePart1(tokens);
 
       assert.strictEqual(solution, 0);
     });
@@ -108,7 +109,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
       `should return 2 for (2)`
     ].join(''), () => {
       const tokens = processEntry(`(2)`);
-      const solution = evaluate(tokens);
+      const solution = evaluatePart1(tokens);
 
       assert.strictEqual(solution, 2);
     });
@@ -117,7 +118,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
       `should return 3 for 1 + (2)`
     ].join(''), () => {
       const tokens = processEntry(`(1) + (2)`);
-      const solution = evaluate(tokens);
+      const solution = evaluatePart1(tokens);
 
       assert.strictEqual(solution, 3);
     });
@@ -126,7 +127,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
       `should return 3 for 1 + (2)`
     ].join(''), () => {
       const tokens = processEntry(`(1) + (2)`);
-      const solution = evaluate(tokens);
+      const solution = evaluatePart1(tokens);
 
       assert.strictEqual(solution, 3);
     });
@@ -135,7 +136,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
       `should return 3 for (1) + (2)`
     ].join(''), () => {
       const tokens = processEntry(`(1) + (2)`);
-      const solution = evaluate(tokens);
+      const solution = evaluatePart1(tokens);
 
       assert.strictEqual(solution, 3);
     });
@@ -208,9 +209,60 @@ describe('Day 18: Operation Order (Part 2)', () => {
   describe('solverPart2()', () => {
     // Given example.
     it([
-      `should do something.`
+      `should return 231 for 1 + 2 * 3 + 4 * 5 + 6`
     ].join(''), () => {
-      // const solution = solverPart2(example);
+      const tokens = processEntry(`1 + 2 * 3 + 4 * 5 + 6`);
+      const solution = evaluatePart2(tokens);
+
+      assert.strictEqual(solution, 231);
+    });
+
+    it([
+      `should return 51 for 1 + (2 * 3) + (4 * (5 + 6))`
+    ].join(''), () => {
+      const tokens = processEntry(`1 + (2 * 3) + (4 * (5 + 6))`);
+      const solution = evaluatePart2(tokens);
+
+      assert.strictEqual(solution, 51);
+    });
+
+    it([
+      `should return 46 for 2 * 3 + (4 * 5)`
+    ].join(''), () => {
+      const tokens = processEntry(`2 * 3 + (4 * 5)`);
+      const solution = evaluatePart2(tokens);
+
+      assert.strictEqual(solution, 46);
+    });
+
+    it([
+      `should return 1445 for 5 + (8 * 3 + 9 + 3 * 4 * 3)`
+    ].join(''), () => {
+      const tokens = processEntry(`5 + (8 * 3 + 9 + 3 * 4 * 3)`);
+      const solution = evaluatePart2(tokens);
+
+      assert.strictEqual(solution, 1445);
+    });
+
+    it([
+      `should return 669060 for 5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))`
+    ].join(''), () => {
+      const tokens = processEntry(`5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))`);
+      const solution = evaluatePart2(tokens);
+
+      assert.strictEqual(solution, 669060);
+    });
+
+    it([
+      `should return 23340 for ((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 `,
+      ` * 2`
+    ].join(''), () => {
+      const tokens = processEntry(
+        `((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2`
+      );
+      const solution = evaluatePart2(tokens);
+
+      assert.strictEqual(solution, 23340);
     });
   });
 });
