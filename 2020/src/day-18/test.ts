@@ -77,11 +77,59 @@ describe('Day 18: Operation Order (Part 1)', () => {
     });
   });
 
-  describe(`evaluate()`, () => {
+  describe(`solverPart1()`, () => {
     it([
-      `should do something.`
+      `should return 71 + 51 + 26, 437 + 13632 + 12240 = 26457 for the`,
+      ` example.`
     ].join(''), () => {
-      // const solution = evaluate(example);
+      const solution = solverPart1(example);
+
+      assert.strictEqual(solution, 26457);
+    });
+
+    it([
+      `should return 51 + 26, 437 + 13632 + 12240 = 26386 for the`,
+      ` example if the first entry is removed.`
+    ].join(''), () => {
+      const solution = solverPart1(example.slice(1));
+
+      assert.strictEqual(solution, 26386);
+    });
+
+    it([
+      `should return 26 + 437 + 13632 + 12240 = 26335 for the`,
+      ` example if the first 2 entries are removed.`
+    ].join(''), () => {
+      const solution = solverPart1(example.slice(2));
+
+      assert.strictEqual(solution, 26335);
+    });
+
+    it([
+      `should return 437 + 13632 + 12240 = 26309 for the`,
+      ` example if the first 3 entries are removed.`
+    ].join(''), () => {
+      const solution = solverPart1(example.slice(3));
+
+      assert.strictEqual(solution, 26309);
+    });
+
+    it([
+      `should return 13632 + 12240 = 25872 for the`,
+      ` example if the first 4 entries are removed.`
+    ].join(''), () => {
+      const solution = solverPart1(example.slice(4));
+
+      assert.strictEqual(solution, 25872);
+    });
+
+    it([
+      `should return 12240 = 25872 for the`,
+      ` example if the first 5 entries are removed.`
+    ].join(''), () => {
+      const solution = solverPart1(example.slice(5));
+
+      assert.strictEqual(solution, 12240);
     });
   });
 });
