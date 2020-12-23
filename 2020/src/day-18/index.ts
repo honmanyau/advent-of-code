@@ -8,9 +8,9 @@ import { green } from '../utilities';
 if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
   const challengePathname = path.resolve(__dirname, './input.txt');
   const challengeFile = fs.readFileSync(challengePathname, 'utf-8');
-  const challenge = processFile(challengeFile);
-  const solutionPart1 = solverPart1(challenge);
-  const solutionPart2 = solverPart2(challenge);
+  const challengeString = JSON.stringify(processFile(challengeFile));
+  const solutionPart1 = solverPart1(JSON.parse(challengeString));
+  const solutionPart2 = solverPart2(JSON.parse(challengeString));
 
   console.log([
     `The solutions for 2020's "Day 18: Operation Order" are:`,
@@ -124,7 +124,6 @@ export function evaluatePart1(tokens: (string | number)[]) {
  * @returns {number} Number of valid entries.
  */
 export function evaluatePart2(tokens: (string | number)[]) {
-  const operators = [ '+', '*' ];
   const queue = [];
   let result: number = null;
 
@@ -165,7 +164,6 @@ export function evaluatePart2(tokens: (string | number)[]) {
   }
 
   // Process multiplications.
-  
   result = queue
     .filter((v) => typeof v === 'number')
     .reduce((acc, v) => acc * v);
