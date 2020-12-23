@@ -39,14 +39,14 @@ export function processFile(file: string) {
 }
 
 /**
- * This function processes each entry of pre-processed input.
+ * This function processes each entry of pre-processed input in
  * the Advent of Code 2020's "Day 18: Operation Order" challenge.
  * @param {string} file A challenge file read in as a string.
  * @returns {string} An array where each line is an entry of the challenge.
  */
 export function processEntry(entry: string): (string | number)[] {
-  const tokens = [];
   const operators = [ ')', '(', '+', '*' ];
+  const tokens = [];
   let currentNumber = '';
 
   for (const character of entry.replace(/\s/g, '')) {
@@ -77,9 +77,9 @@ export function processEntry(entry: string): (string | number)[] {
  * @param {number} startingIndex The index to begin evaluation at.
  * @returns {number} Number of valid entries.
  */
-export function evaluate(tokens: (string | number)[]) {
-  const stack = []
+export function evaluatePart1(tokens: (string | number)[]) {
   const operators = [ '(', '+', '*' ];
+  const stack = [];
   let result: number = null;
 
   while (tokens.length) {
@@ -94,10 +94,10 @@ export function evaluate(tokens: (string | number)[]) {
 
       if (token === '(') {
         if (operation === undefined) {
-          result = evaluate(tokens);
+          result = evaluatePart1(tokens);
         }
         else {
-          result = operation(evaluate(tokens), result);
+          result = operation(evaluatePart1(tokens), result);
         }
       }
       else if (token === '+' || token === '*') {
@@ -117,13 +117,74 @@ export function evaluate(tokens: (string | number)[]) {
 }
 
 /**
+ * The function evaluates an expreession according to the rules described in
+ * Part 2 of the challenges.
+ * @param {string[]} tokens Tokenised entries of the challenge.
+ * @param {number} startingIndex The index to begin evaluation at.
+ * @returns {number} Number of valid entries.
+ */
+export function evaluatePart2(tokens: (string | number)[]) {
+  const operators = [ '+', '*' ];
+  const queue = [];
+  let result: number = null;
+
+  while (tokens.length) {
+    const token = tokens.shift()
+
+    if (token === '(') {
+      queue.push(evaluatePart2(tokens));
+    }
+    else if (token === ')') {
+      break;
+    }
+    else {
+      queue.push(token);
+    }
+  }
+
+  const tempQueue = queue.splice(0);
+  const buffer = [];
+
+  // Process additions in the queue first.
+  while (tempQueue.length) {
+    const tempToken = tempQueue.shift();
+
+    if (typeof tempToken === 'number') {
+      buffer.push(tempToken);
+    }
+    
+    if (tempToken === '*' || tempQueue.length === 0) {
+      const bufferSum = buffer.splice(0).reduce((acc, v) => acc + v);
+
+      queue.push(bufferSum);
+
+      if (tempToken === '*') {
+        queue.push(tempToken);
+      }
+    }
+  }
+
+  // Process multiplications in the queue
+  if (tempQueue.length !== 0 || buffer.length !== 0) {
+    throw Error('Something went wrong in addition for Part 2.');
+  }
+
+  // Process multiplications.
+  result = queue
+    .filter((v) => typeof v === 'number')
+    .reduce((acc, v) => acc * v);
+  
+  return result;
+}
+
+/**
  * The solver function for Part 1 of the Advent of Code 2020's
  * "Day 18: Operation Order" challenge.
  * @param {string[]} tokens Tokenised entries of the challenge.
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(tokens: (string | number)[][]) {
-  const sums = tokens.map(evaluate);
+  const sums = tokens.map(evaluatePart1);
 
   return sums.reduce((acc, val) => acc + val);
 }
