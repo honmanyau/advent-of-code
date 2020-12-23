@@ -34,12 +34,13 @@ interface Rules {
 
 interface Rule {
   description: (string | number[])[];
-  permutations: {
-    [permutation: string]: boolean;
-  };
+  permutations: Permutations;
 }
 
 type Messages = string[];
+type Permutations = {
+  [permutation: string]: boolean;
+};
 
 
 // ===============
