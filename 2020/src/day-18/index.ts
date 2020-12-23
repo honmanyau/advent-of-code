@@ -23,7 +23,7 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
 // ================
 // == Interfaces ==
 // ================
-
+type Tokens = (string | number)[];
 
 // ===============
 // == Functions ==
@@ -164,12 +164,8 @@ export function evaluatePart2(tokens: (string | number)[]) {
     }
   }
 
-  // Process multiplications in the queue
-  if (tempQueue.length !== 0 || buffer.length !== 0) {
-    throw Error('Something went wrong in addition for Part 2.');
-  }
-
   // Process multiplications.
+  
   result = queue
     .filter((v) => typeof v === 'number')
     .reduce((acc, v) => acc * v);
@@ -180,11 +176,11 @@ export function evaluatePart2(tokens: (string | number)[]) {
 /**
  * The solver function for Part 1 of the Advent of Code 2020's
  * "Day 18: Operation Order" challenge.
- * @param {string[]} tokens Tokenised entries of the challenge.
+ * @param {Tokens[]} allTokens Tokenised entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(tokens: (string | number)[][]) {
-  const sums = tokens.map(evaluatePart1);
+export function solverPart1(allTokens: Tokens[]) {
+  const sums = allTokens.map(evaluatePart1);
 
   return sums.reduce((acc, val) => acc + val);
 }
@@ -192,11 +188,13 @@ export function solverPart1(tokens: (string | number)[][]) {
 /**
  * The solver function for Part 2 of the Advent of Code 2020's
  * "Day 18: Operation Order" challenge.
- * @param {string} expression Entries of the challenge.
+ * @param {Tokens[]} allTokens Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2(expression: (string | number)[][]) {
-  return -1;
+export function solverPart2(allTokens: Tokens[]) {
+  const sums = allTokens.map(evaluatePart2);
+
+  return sums.reduce((acc, val) => acc + val);
 }
 
 /**
