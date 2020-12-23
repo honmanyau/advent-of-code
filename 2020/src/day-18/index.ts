@@ -80,7 +80,6 @@ export function processEntry(entry: string): (string | number)[] {
 export function evaluate(tokens: (string | number)[]) {
   const stack = []
   const operators = [ '(', '+', '*' ];
-  let prevNum: number = null;
   let result: number = null;
 
   while (tokens.length) {
@@ -120,11 +119,13 @@ export function evaluate(tokens: (string | number)[]) {
 /**
  * The solver function for Part 1 of the Advent of Code 2020's
  * "Day 18: Operation Order" challenge.
- * @param {string[]} expressions Entries of the challenge.
+ * @param {string[]} tokens Tokenised entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(expressions: (string | number)[][]) {
-  return -1;
+export function solverPart1(tokens: (string | number)[][]) {
+  const sums = tokens.map(evaluate);
+
+  return sums.reduce((acc, val) => acc + val);
 }
 
 /**
