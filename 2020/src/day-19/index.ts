@@ -22,6 +22,22 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
 // ================
 // == Interfaces ==
 // ================
+interface Input {
+  origins: number[];
+  rules: Rules;
+  messages: Messages;
+}
+
+interface Rules {
+  [ruleIndex: number]: Rule;
+}
+
+interface Rule {
+  rule: (string | number | number[])[];
+  permutations: string[];
+}
+
+type Messages = string[];
 
 
 // ===============
@@ -33,36 +49,64 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
  * @param {string} file A challenge file read in as a string.
  * @returns {string[]} An array where each line is an entry of the challenge.
  */
-export function processFile(file: string) {
-  return file.trim().split('\n').map(processEntry);
-}
+export function processFile(file: string): Input {
+  const [ unparsedRules, unparsedMessages ] = file
+    .trim()
+    .split('\n\n');
+  const origins = [];
+  const rules: Rules = {};
+  const messages: Messages = unparsedMessages.split('\n');
 
-/**
- * This function processes each entry of pre-processed input.
- * the Advent of Code 2020's "Day 19: Monster Messages" challenge.
- * @param {string} file A challenge file read in as a string.
- * @returns {string} An array where each line is an entry of the challenge.
- */
-export function processEntry(entry: string) {
-  return entry;
+  for (const unparsedRule of unparsedRules.split('\n')) {
+    const matched = unparsedRule.match(/^(\d+?): (.+)$/);
+    const ruleIndex = Number(matched[1]);
+
+    if (matched[2] === '"a"' || matched[2] === '"b"') {
+      const letter = matched[2].replace(/\"/g, '')
+
+      origins.push(ruleIndex);
+      rules[ruleIndex] = {
+        rule: [ letter ],
+        permutations: [ letter ]
+      };
+    }
+    else {
+      if (matched[2].match('|')) {
+        const rule = matched[2]
+          .split('|')
+          .map((s) => s.trim().split(' ').map(Number));
+
+        rules[ruleIndex] = { rule, permutations: [] };
+      }
+      else {
+        const rule = matched[2]
+          .split(' ')
+          .map(Number);
+
+        rules[ruleIndex] = { rule, permutations: [] };
+      }
+    }
+  }
+
+  return { origins, rules, messages };
 }
 
 /**
  * The solver function for Part 1 of the Advent of Code 2020's
  * "Day 19: Monster Messages" challenge.
- * @param {string[]} input Entries of the challenge.
+ * @param {Input} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(input: string[]) {
+export function solverPart1(input: Input) {
   return -1;
 }
 
 /**
  * The solver function for Part 2 of the Advent of Code 2020's
  * "Day 19: Monster Messages" challenge.
- * @param {string[]} input Entries of the challenge.
+ * @param {Input} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2(input: string[]) {
+export function solverPart2(input: Input) {
   return -1;
 }
