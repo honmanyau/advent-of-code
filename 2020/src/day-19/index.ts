@@ -151,8 +151,13 @@ export function solverPart1(input: Input) {
   }
 
   // With the actual input we run out of memory at this point because there are
+  const solutionLength = rules[0].permutations[0].length;
+
   for (const message of messages) {
-    if (rules[0].permutations.includes(message)) {
+    if (
+      message.length === solutionLength
+      && rules[0].permutations.includes(message)
+    ) {
       numValidMessages++;
     }
   }
