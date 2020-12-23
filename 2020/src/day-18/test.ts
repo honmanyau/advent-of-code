@@ -6,6 +6,7 @@ import { yellow } from '../utilities';
 import {
   evaluate,
   processFile,
+  processEntry,
   solverPart1,
   solverPart2
 } from './index';
@@ -20,7 +21,8 @@ describe('Day 18: Operation Order (Part 1)', () => {
     it([
       `should return 71 for 1 + 2 * 3 + 4 * 5 + 6`
     ].join(''), () => {
-      const solution = solverPart1(`1 + 2 * 3 + 4 * 5 + 6`);
+      const tokens = processEntry(`1 + 2 * 3 + 4 * 5 + 6`);
+      const solution = evaluate(tokens);
 
       assert.strictEqual(solution, 71);
     });
@@ -28,7 +30,8 @@ describe('Day 18: Operation Order (Part 1)', () => {
     it([
       `should return 51 for 1 + (2 * 3) + (4 * (5 + 6))`
     ].join(''), () => {
-      const solution = solverPart1(`1 + (2 * 3) + (4 * (5 + 6))`);
+      const tokens = processEntry(`1 + (2 * 3) + (4 * (5 + 6))`);
+      const solution = evaluate(tokens);
 
       assert.strictEqual(solution, 51);
     });
@@ -36,7 +39,8 @@ describe('Day 18: Operation Order (Part 1)', () => {
     it([
       `should return 26 for 2 * 3 + (4 * 5)`
     ].join(''), () => {
-      const solution = solverPart1(`2 * 3 + (4 * 5)`);
+      const tokens = processEntry(`2 * 3 + (4 * 5)`);
+      const solution = evaluate(tokens);
 
       assert.strictEqual(solution, 26);
     });
@@ -44,7 +48,8 @@ describe('Day 18: Operation Order (Part 1)', () => {
     it([
       `should return 437 for 5 + (8 * 3 + 9 + 3 * 4 * 3)`
     ].join(''), () => {
-      const solution = solverPart1(`5 + (8 * 3 + 9 + 3 * 4 * 3)`);
+      const tokens = processEntry(`5 + (8 * 3 + 9 + 3 * 4 * 3)`);
+      const solution = evaluate(tokens);
 
       assert.strictEqual(solution, 437);
     });
@@ -52,17 +57,21 @@ describe('Day 18: Operation Order (Part 1)', () => {
     it([
       `should return 13632 for 5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))`
     ].join(''), () => {
-      const solution = solverPart1(
+      const tokens = processEntry(
         `((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2`
       );
+      const solution = evaluate(tokens);
 
       assert.strictEqual(solution, 13632);
     });
 
-    t([
+    it([
       `should return 12240 for 5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))`
     ].join(''), () => {
-      const solution = solverPart1(`5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))`);
+      const tokens = processEntry(
+        `5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))`
+      );
+      const solution = evaluate(tokens);
 
       assert.strictEqual(solution, 12240);
     });
@@ -72,7 +81,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
     it([
       `should do something.`
     ].join(''), () => {
-      const solution = solverPart1(example);
+      // const solution = evaluate(example);
     });
   });
 });
@@ -83,7 +92,7 @@ describe('Day 18: Operation Order (Part 2)', () => {
     it([
       `should do something.`
     ].join(''), () => {
-      const solution = solverPart2(example);
+      // const solution = solverPart2(example);
     });
   });
 });
