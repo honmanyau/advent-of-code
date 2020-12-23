@@ -144,7 +144,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
 
   describe(`solverPart1()`, () => {
     it([
-      `should return 71 + 51 + 26, 437 + 12240 + 13632 = 26457 for the`,
+      `should return 71 + 51 + 26 + 437 + 12240 + 13632 = 26457 for the`,
       ` example.`
     ].join(''), () => {
       const exampleCopy = JSON.parse(stringifiedExample);
@@ -194,7 +194,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
     });
 
     it([
-      `should return 13632 = 25872 for the`,
+      `should return 13632 for the`,
       ` example if the first 5 entries are removed.`
     ].join(''), () => {
       const exampleCopy = JSON.parse(stringifiedExample);
@@ -206,7 +206,7 @@ describe('Day 18: Operation Order (Part 1)', () => {
 });
 
 describe('Day 18: Operation Order (Part 2)', () => {
-  describe('solverPart2()', () => {
+  describe('evaluatePart2()', () => {
     // Given example.
     it([
       `should return 231 for 1 + 2 * 3 + 4 * 5 + 6`
@@ -262,6 +262,68 @@ describe('Day 18: Operation Order (Part 2)', () => {
       );
       const solution = evaluatePart2(tokens);
 
+      assert.strictEqual(solution, 23340);
+    });
+  });
+
+  describe(`solverPart2()`, () => {
+    it([
+      `should return 231 + 51 + 46 + 1445 + 669060 + 23340 = 694173 for the`,
+      ` example.`
+    ].join(''), () => {
+      const exampleCopy = JSON.parse(stringifiedExample);
+      const solution = solverPart2(exampleCopy);
+  
+      assert.strictEqual(solution, 694173);
+    });
+  
+    it([
+      `should return 51 + 46 + 1445 + 669060 + 23340 = 693942 for the`,
+      ` example if the first entry is removed.`
+    ].join(''), () => {
+      const exampleCopy = JSON.parse(stringifiedExample);
+      const solution = solverPart2(exampleCopy.slice(1));
+  
+      assert.strictEqual(solution, 693942);
+    });
+  
+    it([
+      `should return 46 + 1445 + 669060 + 23340 = 693891 for the`,
+      ` example if the first 2 entries are removed.`
+    ].join(''), () => {
+      const exampleCopy = JSON.parse(stringifiedExample);
+      const solution = solverPart2(exampleCopy.slice(2));
+  
+      assert.strictEqual(solution, 693891);
+    });
+  
+    it([
+      `should return 1445 + 669060 + 23340 = 693845 for the`,
+      ` example if the first 3 entries are removed.`
+    ].join(''), () => {
+      const exampleCopy = JSON.parse(stringifiedExample);
+      const solution = solverPart2(exampleCopy.slice(3));
+  
+      assert.strictEqual(solution, 693845);
+    });
+  
+    it([
+      `should return 669060 + 23340 = 692400 for the`,
+      ` example if the first 4 entries are removed.`
+    ].join(''), () => {
+      const exampleCopy = JSON.parse(stringifiedExample);
+      const solution = solverPart2(exampleCopy.slice(4));
+  
+      assert.strictEqual(solution, 692400);
+    });
+  
+    it([
+      `should return 23340 for the`,
+      ` example if the first 5 entries are removed.`
+    ].join(''), () => {
+      const exampleCopy = JSON.parse(stringifiedExample);
+      const solution = solverPart2(exampleCopy.slice(5));
+  
       assert.strictEqual(solution, 23340);
     });
   });
