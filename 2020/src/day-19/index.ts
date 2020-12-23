@@ -125,12 +125,9 @@ export function solverPart1(input: Input) {
           const allPermutations = [];
 
           for (const item of rule.description) {
-            let permutations = generatePermutations(
-              rules[item[0]].permutations,
-              rules[item[1]].permutations
-            );
+            let permutations = [ ...rules[item[0]].permutations ];
 
-            for (let i = 2; i < item.length; i++) {
+            for (let i = 1; i < item.length; i++) {
               permutations = generatePermutations(
                 permutations,
                 rules[item[i]].permutations
@@ -151,7 +148,7 @@ export function solverPart1(input: Input) {
     if (rules[0].permutations.includes(message)) {
       numValidMessages++;
     }
-  }  
+  }
 
   return numValidMessages;
 }
