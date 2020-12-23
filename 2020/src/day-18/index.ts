@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { stringify } from 'querystring';
 
 import { green } from '../utilities';
 
@@ -43,18 +44,77 @@ export function processFile(file: string) {
  * @param {string} file A challenge file read in as a string.
  * @returns {string} An array where each line is an entry of the challenge.
  */
-export function processEntry(entry: string) {
-  return entry;
+export function processEntry(entry: string): (string | number)[] {
+  const tokens = [];
+  const operators = [ ')', '(', '+', '*' ];
+  let currentNumber = '';
+
+  for (const character of entry.replace(/\s/g, '')) {
+    if (operators.includes(character)) {
+      if (currentNumber !== '') {
+        tokens.push(Number(currentNumber));
+        currentNumber = '';
+      }
+
+      tokens.push(character);
+    }
+    else {
+      currentNumber += character;
+    }
+  }
+
+  if (currentNumber !== '') {
+    tokens.push(Number(currentNumber));
+  }
+  
+  return tokens;
 }
 
 /**
  * The function evaluates an expreession according to the rules described in
  * Part 1 of the challenges.
- * @param {string} expression Entries of the challenge.
+ * @param {string[]} tokens Tokenised entries of the challenge.
+ * @param {number} startingIndex The index to begin evaluation at.
  * @returns {number} Number of valid entries.
  */
-export function evaluate(expression: string) {
-  return -1;
+export function evaluate(tokens: (string | number)[]) {
+  const stack = []
+  const operators = [ '(', '+', '*' ];
+  let prevNum: number = null;
+  let result: number = null;
+
+  while (tokens.length) {
+    const token = tokens.shift()
+
+    if (token === ')') {
+      return result;
+    }
+
+    if (operators.includes(String(token))) {
+      const operation = getOperation(stack.pop());
+
+      if (token === '(') {
+        if (operation === undefined) {
+          result = evaluate(tokens);
+        }
+        else {
+          result = operation(evaluate(tokens), result);
+        }
+      }
+      else if (token === '+' || token === '*') {
+        stack.push(token);
+      }
+    }
+    else {
+      const operation = getOperation(stack.pop());
+
+      result = !!operation
+        ? operation(result, Number(token))
+        : Number(token);
+    }
+  }
+
+  return result;
 }
 
 /**
@@ -63,7 +123,7 @@ export function evaluate(expression: string) {
  * @param {string[]} expressions Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(expressions: string[]) {
+export function solverPart1(expressions: (string | number)[][]) {
   return -1;
 }
 
@@ -73,6 +133,26 @@ export function solverPart1(expressions: string[]) {
  * @param {string} expression Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2(expression: string) {
+export function solverPart2(expression: (string | number)[][]) {
   return -1;
+}
+
+/**
+ * This function returns a function that performs an operation on two numbers
+ * that correspond to the operator provided.
+ * @param {string} operator The operator that represents the operator to
+ *     perform.
+ * @returns {function} A function that performs the requested operation on
+ *     two numebrs.
+ */
+export function getOperation(operator: string) {
+  const multiply = (a: number, b: number) => a * b;
+  const add = (a: number, b: number) => a + b;
+
+  const operations = {
+    '*': multiply,
+    '+': add
+  };
+  
+  return operations[operator];
 }
