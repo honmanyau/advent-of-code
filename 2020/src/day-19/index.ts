@@ -34,7 +34,9 @@ interface Rules {
 
 interface Rule {
   description: (string | number[])[];
-  permutations: string[];
+  permutations: {
+    [permutation: string]: boolean;
+  };
 }
 
 type Messages = string[];
@@ -67,7 +69,7 @@ export function processFile(file: string): Input {
       origins.push(ruleIndex);
       rules[ruleIndex] = {
         description: [ letter ],
-        permutations: [ letter ]
+        permutations: { [letter]: true }
       };
     }
     else {
@@ -76,7 +78,7 @@ export function processFile(file: string): Input {
           .split('|')
           .map((s) => s.trim().split(' ').map(Number));
 
-        rules[ruleIndex] = { description: rule, permutations: [] };
+        rules[ruleIndex] = { description: rule, permutations: {} };
       }
       else {
         const rule = [
@@ -85,7 +87,7 @@ export function processFile(file: string): Input {
             .map(Number)
         ];
 
-        rules[ruleIndex] = { description: rule, permutations: [] };
+        rules[ruleIndex] = { description: rule, permutations: {} };
       }
     }
   }
@@ -106,14 +108,14 @@ export function solverPart1(input: Input) {
   let numValidMessages = 0;
 
   while (
-    rules[0].permutations.length === 0 
+    Object.keys(rules[0].permutations).length === 0 
     // && solvedIndices.length < numIndices - 1
   ) {
     const ruleIndices = Object.keys(rules).map(Number);
 
     for (const ruleIndex of ruleIndices) {
       const rule = rules[ruleIndex];
-      const isUnsolved = rule.permutations.length === 0;
+      const isUnsolved = Object.keys(rule.permutations).length === 0;
       
       if (isUnsolved) {
         const canBeSolved = rule.description.reduce((acc, indices) => {
@@ -129,12 +131,12 @@ export function solverPart1(input: Input) {
           const allPermutations = {};
 
           for (const item of rule.description) {
-            let permutations = [ ...rules[item[0]].permutations ];
+            let permutations = Object.keys(rules[item[0]].permutations);
 
             for (let i = 1; i < item.length; i++) {
               permutations = generatePermutations(
                 permutations,
-                rules[item[i]].permutations
+                Object.keys(rules[item[i]].permutations)
               )
             }
 
@@ -143,7 +145,7 @@ export function solverPart1(input: Input) {
             }
           }
 
-          rule.permutations = Object.keys(allPermutations);
+          rule.permutations = allPermutations;
           solvedIndices.push(ruleIndex);
         }
       }
@@ -151,12 +153,12 @@ export function solverPart1(input: Input) {
   }
 
   // With the actual input we run out of memory at this point because there are
-  const solutionLength = rules[0].permutations[0].length;
+  const solutionLength = Object.keys(rules[0].permutations)[0].length;
 
   for (const message of messages) {
     if (
       message.length === solutionLength
-      && rules[0].permutations.includes(message)
+      && rules[0].permutations[message]
     ) {
       numValidMessages++;
     }
