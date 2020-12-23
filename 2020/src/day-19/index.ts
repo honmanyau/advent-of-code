@@ -33,7 +33,7 @@ interface Rules {
 }
 
 interface Rule {
-  rule: (string | number | number[])[];
+  description: (string | number[])[];
   permutations: string[];
 }
 
@@ -66,7 +66,7 @@ export function processFile(file: string): Input {
 
       origins.push(ruleIndex);
       rules[ruleIndex] = {
-        rule: [ letter ],
+        description: [ letter ],
         permutations: [ letter ]
       };
     }
@@ -76,14 +76,16 @@ export function processFile(file: string): Input {
           .split('|')
           .map((s) => s.trim().split(' ').map(Number));
 
-        rules[ruleIndex] = { rule, permutations: [] };
+        rules[ruleIndex] = { description: rule, permutations: [] };
       }
       else {
-        const rule = matched[2]
-          .split(' ')
-          .map(Number);
+        const rule = [
+          matched[2]
+            .split(' ')
+            .map(Number)
+        ];
 
-        rules[ruleIndex] = { rule, permutations: [] };
+        rules[ruleIndex] = { description: rule, permutations: [] };
       }
     }
   }
@@ -98,7 +100,60 @@ export function processFile(file: string): Input {
  * @returns {number} Number of valid entries.
  */
 export function solverPart1(input: Input) {
-  return -1;
+  const { origins, rules, messages } = input;
+  const solvedIndices = [ ...origins ];
+  let numValidMessages = 0;
+
+  while (rules[0].permutations.length === 0) {
+    const ruleIndices = Object.keys(rules).map(Number);
+
+    for (const ruleIndex of ruleIndices) {
+      const rule = rules[ruleIndex];
+      const isUnsolved = rule.permutations.length === 0;
+      
+      if (isUnsolved) {
+        const canBeSolved = rule.description.reduce((acc, indices) => {
+          const indicesFound = (indices as number[])
+            .reduce((innerAcc, index) => {
+              return innerAcc && solvedIndices.includes(index);
+            }, true);
+
+          return acc && indicesFound
+        }, true);
+        
+        if (canBeSolved) {
+          const allPermutations = [];
+
+          for (const item of rule.description) {
+            let permutations = generatePermutations(
+              rules[item[0]].permutations,
+              rules[item[1]].permutations
+            );
+
+            for (let i = 2; i < item.length; i++) {
+              permutations = generatePermutations(
+                permutations,
+                rules[item[i]].permutations
+              )
+            }
+
+            allPermutations.push(...permutations);
+          }
+
+          rule.permutations = Array.from(new Set(allPermutations));
+          solvedIndices.push(ruleIndex);
+        }
+      }
+    }
+  }
+
+  for (const message of messages) {
+    if (rules[0].permutations.includes(message)) {
+      numValidMessages++;
+    }
+  }  
+
+  return numValidMessages;
 }
 
 /**
@@ -109,4 +164,28 @@ export function solverPart1(input: Input) {
  */
 export function solverPart2(input: Input) {
   return -1;
+}
+
+/**
+ * This function generate all string permutations between two arrays of strings
+ * such that the first part of the string always comes from the first of the two
+ * arrays.
+ * @param {string[]} arr One of the two arrays.
+ * @param {string[]} brr The other one of the two arrays.
+ * @return {string[]} The resultant permutations.
+ */
+export function generatePermutations(arr: string[], brr: string[]): string[] {
+  const permutations = [];
+
+  for (const a of arr) {
+    for (const b of brr) {
+      const combined = a + b;
+
+      if (!permutations.includes(combined)) {
+        permutations.push(combined);
+      }
+    }
+  }
+
+  return permutations;
 }
