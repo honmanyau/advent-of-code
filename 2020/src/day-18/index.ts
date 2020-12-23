@@ -48,21 +48,31 @@ export function processEntry(entry: string) {
 }
 
 /**
- * The solver function for Part 1 of the Advent of Code 2020's
- * "Day 18: Operation Order" challenge.
- * @param {string[]} input Entries of the challenge.
+ * The function evaluates an expreession according to the rules described in
+ * Part 1 of the challenges.
+ * @param {string} expression Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(input: string[]) {
+export function evaluate(expression: string) {
+  return -1;
+}
+
+/**
+ * The solver function for Part 1 of the Advent of Code 2020's
+ * "Day 18: Operation Order" challenge.
+ * @param {string[]} expressions Entries of the challenge.
+ * @returns {number} Number of valid entries.
+ */
+export function solverPart1(expressions: string[]) {
   return -1;
 }
 
 /**
  * The solver function for Part 2 of the Advent of Code 2020's
  * "Day 18: Operation Order" challenge.
- * @param {string[]} input Entries of the challenge.
+ * @param {string} expression Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2(input: string[]) {
+export function solverPart2(expression: string) {
   return -1;
 }
