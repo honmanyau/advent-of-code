@@ -96,13 +96,27 @@ describe('Day 19: Monster Messages (Part 1)', () => {
 });
 
 describe('Day 19: Monster Messages (Part 2)', () => {
+  describe('solverPart1()', () => {
+    // Given example.
+    it([
+      `return 3 for the example given in Part 2.`
+    ].join(''), () => {
+      const exampleCopy = JSON.parse(exampleStringPart2);
+      const solution = solverPart1(exampleCopy);
+
+      assert.strictEqual(solution, 3);
+    });
+  });
+
   describe('solverPart2()', () => {
     // Given example.
     it([
-      `should do something.`
+      `should return 12 for the example given in Part 2.`
     ].join(''), () => {
       const exampleCopy = JSON.parse(exampleStringPart2);
       const solution = solverPart2(exampleCopy);
+
+      assert.strictEqual(solution, 12);
     });
   });
 });
