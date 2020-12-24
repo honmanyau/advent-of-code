@@ -23,7 +23,6 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
 // == Interfaces ==
 // ================
 
-
 // ===============
 // == Functions ==
 // ===============
@@ -34,35 +33,48 @@ if (process.env.SOLVE && process.env.SOLVE.toLowerCase() === 'true') {
  * @returns {string[]} An array where each line is an entry of the challenge.
  */
 export function processFile(file: string) {
-  return file.trim().split('\n').map(processEntry);
-}
+  const lines = file.trim().split('\n').concat([ '' ]);
+  const tiles = {};
+  let id: number = null;
+  let data: string[] = [];
 
-/**
- * This function processes each entry of pre-processed input.
- * the Advent of Code 2020's "Day 20: Jurassic Jigsaw" challenge.
- * @param {string} file A challenge file read in as a string.
- * @returns {string} An array where each line is an entry of the challenge.
- */
-export function processEntry(entry: string) {
-  return entry;
+  for (const line of file.trim().split('\n')) {
+    if (line.trim().length === 0) {
+      tiles[id] = { data };
+      id = null;
+      data = [];
+      continue;
+    }
+
+    const matched = line.match(/^Tile (\d+):$/);
+
+    if (matched) {
+      id = Number(matched[1]);
+    }
+    else {
+      data.push(line);
+    }
+  }
+
+  return tiles;
 }
 
 /**
  * The solver function for Part 1 of the Advent of Code 2020's
  * "Day 20: Jurassic Jigsaw" challenge.
- * @param {string[]} input Entries of the challenge.
+ * @param {any} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart1(input: string[]) {
+export function solverPart1(input: any) {
   return -1;
 }
 
 /**
  * The solver function for Part 2 of the Advent of Code 2020's
  * "Day 20: Jurassic Jigsaw" challenge.
- * @param {string[]} input Entries of the challenge.
+ * @param {any} input Entries of the challenge.
  * @returns {number} Number of valid entries.
  */
-export function solverPart2(input: string[]) {
+export function solverPart2(input: any) {
   return -1;
 }
