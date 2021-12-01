@@ -39,15 +39,15 @@ export function processFile(file: string) {
  * @returns {number} The solution to Part 1 of the puzzle!
  */
 export function part1Solver(input: number[]): number {
-  let count = 0;
+  let increasedCount = 0;
 
   for (let i = 1; i < input.length; i++) {
     if (input[i] > input[i - 1]) {
-      count++;
+      increasedCount++;
     }
   }
 
-  return count;
+  return increasedCount;
 }
 
 /**
@@ -57,5 +57,13 @@ export function part1Solver(input: number[]): number {
  * @returns {number} The solution to Part 2 of the puzzle!
  */
 export function part2Solver(input: number[]) {
-  return -1;
+  let increasedCount = 0;
+
+  for (let i = 3; i < input.length; i++) {
+    if (input[i] > input[i - 3]) {
+      increasedCount++;
+    }
+  }
+
+  return increasedCount
 }
