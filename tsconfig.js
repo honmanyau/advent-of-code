@@ -6,10 +6,10 @@
     "allowJs": true,
     "noEmitOnError": true,
     "noImplicitAny": true,
-    "outDir": "./build/server",
+    "outDir": "./build",
   },
   "include": [
-    "./server/**/*.ts"
+    "./*/src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
