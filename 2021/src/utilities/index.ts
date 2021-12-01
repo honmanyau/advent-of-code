@@ -16,7 +16,7 @@ export function green(input: any) {
  * operations in the callback function are assumed to be synchronous.
  * @param {function} callback The callback function to be timed.
  */
-export function logDuration(name, callback) {
+export function logDuration(name: string, callback: () => void) {
   const start = process.hrtime.bigint();
   const result = callback();
   const end = process.hrtime.bigint();

@@ -39,7 +39,10 @@ export function processFile(file: string) {
  * @returns {number} The solution to Part 1 of the puzzle!
  */
 export function part1Solver(input: number[]) {
+  
+  for (let i = 1; i < input.length; i++) {
 
+  }
 }
 
 /**
