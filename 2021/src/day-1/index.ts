@@ -38,11 +38,16 @@ export function processFile(file: string) {
  * @param {number[]} input An array that represents the puzzle's input.
  * @returns {number} The solution to Part 1 of the puzzle!
  */
-export function part1Solver(input: number[]) {
-  
-  for (let i = 1; i < input.length; i++) {
+export function part1Solver(input: number[]): number {
+  let count = 0;
 
+  for (let i = 1; i < input.length; i++) {
+    if (input[i] > input[i - 1]) {
+      count++;
+    }
   }
+
+  return count;
 }
 
 /**
